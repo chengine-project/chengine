@@ -1,0 +1,3 @@
+# Auto configurations
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.chengine.autoconfigure.ChengineTelegramAutoConfiguration

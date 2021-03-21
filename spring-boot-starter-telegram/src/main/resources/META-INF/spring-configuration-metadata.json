@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "name": "chengine",
+      "type": "io.chengine.springframework.boot.autoconfigure.ChengineAutoConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "chengine.telegram.token",
+      "type": "java.lang.String",
+      "description": "Put telegram bot token here"
+    },
+    {
+      "name": "chengine.telegram.username",
+      "type": "java.lang.String",
+      "description": "Put telegram bot username here"
+    }
+  ],
+  "hints": [
+
+  ]
+}
