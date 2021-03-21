@@ -24,15 +24,16 @@ class HandlerAnnotationProcessor(
     override fun process(handler: Any) {
         logger.info { "Start processing handler: ${handler::class.simpleName}" }
         handler::class.findAnnotation<Handler>()?.let {
-            var commandPath = ""
+            var commandPrefix = ""
             handler::class.findAnnotation<CommandMapping>()?.let { commandMapping ->
                 commandMapping.prefix.matches(commandPrefixRegex).then {
-                    commandPath += commandMapping.prefix
+                    commandPrefix += commandMapping.prefix
                 } `else` {
                     throw RuntimeException("Command prefix doesn't matches regex `${commandPrefixRegex.pattern}`")
                 }
             }
             handler::class.declaredMemberFunctions.forEach { function ->
+                var commandPath = "" + commandPrefix
                 function.findAnnotation<HandleCommand>()?.let { handleCommand ->
                     try {
                         (handleCommand.command == "").then {

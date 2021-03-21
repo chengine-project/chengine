@@ -4,6 +4,6 @@ import io.chengine.connector.BotRequestContext
 
 interface HandlerMethodArgumentExtractor {
 
-    fun extractArgumentsFrom(request: BotRequestContext, method: HandlerMethod): Array<Any>
+    fun extractArgumentsFrom(request: BotRequestContext, method: HandlerMethod): Array<Any?>
 
 }

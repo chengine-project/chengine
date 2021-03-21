@@ -10,20 +10,27 @@ import kotlin.reflect.jvm.jvmErasure
 @Component
 class DefaultHandlerMethodArgumentExtractor : HandlerMethodArgumentExtractor {
 
-    override fun extractArgumentsFrom(request: BotRequestContext, method: HandlerMethod): Array<Any> {
+    override fun extractArgumentsFrom(request: BotRequestContext, method: HandlerMethod): Array<Any?> {
         val parameters = method.method.parameters
-        val args = ArrayList<Any>(parameters.size)
-        for (parameter in parameters) {
-            parameter.findAnnotation<CommandParameter>()?.let {
-                val paramName = it.value
-                val command = request.command()
-                val value = command?.getParam(paramName)
-                val typedValue = stringToType(value!!, parameter.type.jvmErasure)
-                args.add(typedValue)
-            } ?: args.add(extractParameterWithType(request, parameter.type.jvmErasure))
-        }
+        val args = if (parameters.size > 1) arrayOfNulls<Any?>(parameters.size - 1) else emptyArray()
+        var i = 0
+        parameters
+            .drop(1)
+            .forEach { parameter ->
+                parameter.findAnnotation<CommandParameter>()?.let {
+                    val paramName = it.value
+                    val command = request.command()
+                    val value = command?.getParam(paramName)
+                    val typedValue = stringToType(value!!, parameter.type.jvmErasure)
+                    args[i] = (typedValue)
+                } ?: run {
+                    args[i] = extractParameterWithType(request, parameter.type.jvmErasure)
+                }
 
-        return args.toArray()
+                i++
+            }
+
+        return args
     }
 
     private fun extractParameterWithType(request: BotRequestContext, clazz: KClass<*>): Any {

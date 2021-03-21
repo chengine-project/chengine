@@ -14,15 +14,11 @@ import io.chengine.method.MethodReturnValueHandler
 import io.chengine.method.PartialApiMethodReturnValueHandler
 import io.chengine.session.SessionKeyRequestExtractor
 import io.chengine.session.TelegramSessionKeyRequestExtractor
-import org.apache.logging.log4j.kotlin.logger
-import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll
 import org.telegram.telegrambots.meta.api.methods.send.SendAudio
 import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto
-import org.telegram.telegrambots.meta.api.objects.Update
-import java.io.Serializable
 
 open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
@@ -64,6 +60,4 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
     override fun singleHandlerAnnotationProcessor(): List<AbstractSingleHandlerAnnotationProcessor> = listOf(
         TelegramSingleHandlerAnnotationProcessor()
     )
-
-
 }

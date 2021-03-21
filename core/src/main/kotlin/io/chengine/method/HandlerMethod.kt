@@ -2,12 +2,10 @@ package io.chengine.method
 
 import org.apache.logging.log4j.kotlin.logger
 import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 import kotlin.reflect.cast
 import kotlin.reflect.full.functions
-import kotlin.reflect.jvm.javaMethod
 
 /**
  * Wrap around [java.lang.reflect.Method]
@@ -26,9 +24,9 @@ data class HandlerMethod(val handler: Any, val method: KFunction<*>) {
     /**
      * Invokes handler method and try to cast returned object to a specific type
      */
-    fun <T : Any> invoke(clazz: KClass<T>, params: Array<Any>): T? {
+    fun <T : Any> invoke(clazz: KClass<T>, params: Array<Any?>): T? {
         try {
-            return method.call(handler)?.let {
+            return method.call(handler, *params)?.let {
                 clazz.cast(it)
             }
         } catch (ex: Exception) {

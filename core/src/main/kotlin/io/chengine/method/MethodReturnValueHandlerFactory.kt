@@ -21,7 +21,9 @@ class DefaultMethodReturnValueHandlerFactory : MethodReturnValueHandlerFactory {
     override fun put(bot: Bot) = bot
             .methodReturnValueHandlers()
             .forEach {
-                logger.info { "Method return value registered `${it::class.simpleName}`" }
+                logger.info {
+                    "Method return value registered `${it::class.simpleName}` for type `${it.support().simpleName}`"
+                }
                 map[it.support()] = it
             }
 
@@ -30,9 +32,15 @@ class DefaultMethodReturnValueHandlerFactory : MethodReturnValueHandlerFactory {
             synchronized(this) {
                 if (map[clazz] == null) {
                     map.keys.forEach { c ->
-                        clazz.isSubclassOf(c)
-                        map[clazz] = map[c] as MethodReturnValueHandler<*>
-                        logger.info { "Method return value registered lazily `${clazz.simpleName}`" }
+                        // TODO переделать алгоритм для поиска самого ближайшего родственника
+                        if (clazz.isSubclassOf(c)) {
+                            map[c]?.let {
+                                map[clazz] = it
+                                logger.info {
+                                    "Method return value registered lazily `${it::class.simpleName}` for type `${clazz.simpleName}`"
+                                }
+                            }
+                        }
                     }
                 }
             }
