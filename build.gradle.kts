@@ -1,21 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-//    `java-library`
-//    `maven-publish`
     kotlin("jvm") version "1.4.30"
 }
 
 group = "io.chengine"
 version = "1.0-ALPHA"
-
-//publishing {
-//    publications {
-//        create<MavenPublication>("myLibrary") {
-//            from(components["java"])
-//        }
-//    }
-//}
 
 repositories {
     mavenCentral()

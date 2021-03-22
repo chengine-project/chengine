@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 
+inline fun <reified T : Any> MethodReturnValueHandlerFactory.get(): MethodReturnValueHandler<*>? = get(T::class)
+
 interface MethodReturnValueHandlerFactory : Factory {
     fun get(clazz: KClass<*>): MethodReturnValueHandler<*>?
 }

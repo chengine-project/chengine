@@ -3,6 +3,7 @@ package io.chengine.handler
 import io.chengine.connector.BotApiIdentifier
 import io.chengine.connector.BotRequestContext
 import io.chengine.connector.TelegramBotApiIdentifier
+import io.chengine.connector.get
 import org.telegram.telegrambots.meta.api.objects.Update
 import kotlin.reflect.KClass
 
@@ -13,7 +14,7 @@ class TelegramSingleHandlerAnnotationExtractor : SingleHandlerAnnotationExtracto
     }
 
     override fun extractFrom(request: BotRequestContext): KClass<out Annotation>? {
-        return request.get(Update::class)?.let {
+        return request.get<Update>()?.let {
             it.inlineQuery?.let {
                 TelegramHandleInlineQuery::class
             } ?: it.poll?.let {

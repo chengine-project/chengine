@@ -4,6 +4,8 @@ import io.chengine.connector.Factory
 import io.chengine.handler.HandlerRegistrar
 import io.chengine.message.DefaultMessageProcessor
 import org.apache.logging.log4j.kotlin.logger
+import org.springframework.beans.factory.getBean
+import org.springframework.beans.factory.getBeansOfType
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.FilterType
@@ -39,10 +41,10 @@ open class Chengine(config: ChengineConfig) {
         context = AnnotationConfigApplicationContext(ComponentScanClass::class.java)
         config.bots.forEach { bot ->
             context
-                .getBean(DefaultMessageProcessor::class.java)
+                .getBean<DefaultMessageProcessor>()
                 .let { bot.setMessageProcessor(it) }
             context
-                .getBeansOfType(Factory::class.java)
+                .getBeansOfType<Factory>()
                 .values
                 .forEach { it.put(bot) }
         }
@@ -51,7 +53,7 @@ open class Chengine(config: ChengineConfig) {
     }
 
     fun register(handler: Any) {
-        context.getBean(HandlerRegistrar::class.java).register(handler)
+        context.getBean<HandlerRegistrar>().register(handler)
     }
 
     fun register(handlers: List<Any>) {

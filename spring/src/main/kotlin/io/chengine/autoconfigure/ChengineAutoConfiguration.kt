@@ -16,8 +16,8 @@ open class ChengineAutoConfiguration : ApplicationContextAware {
 
     @Bean
     open fun config(): ChengineConfig {
-        val handlers = applicationContext.getAllBeansAnnotatedBy(Handler::class)
-        val bots = applicationContext.getAllBeansOfType(AbstractBot::class)
+        val handlers = applicationContext.getAllBeansAnnotatedBy<Handler>()
+        val bots = applicationContext.getAllBeansOfType<AbstractBot>()
         return ChengineConfig(handlers, bots)
     }
 

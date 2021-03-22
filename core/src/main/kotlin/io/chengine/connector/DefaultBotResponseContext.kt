@@ -2,6 +2,8 @@ package io.chengine.connector
 
 import kotlin.reflect.KClass
 
+
+
 class DefaultBotResponseContext : BotResponseContext {
 
     lateinit var currentResponseObject: Any

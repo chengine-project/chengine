@@ -4,6 +4,8 @@ import io.chengine.command.Command
 import io.chengine.session.SessionKey
 import kotlin.reflect.KClass
 
+inline fun <reified T : Any> BotRequestContext.get(): T? = get(T::class)
+
 interface BotRequestContext {
 
     /**
