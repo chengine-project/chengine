@@ -7,6 +7,12 @@ fun sendTelegramDice(block: SendTelegramDiceBuilder.() -> Unit): SendDice {
     return SendTelegramDiceBuilder().apply(block)._build()
 }
 
+enum class DiceEmoji(val code: String) {
+    DICE("🎲"),
+    TARGET("🎯"),
+    BALL("🏀")
+}
+
 class SendTelegramDiceBuilder(
     override var inlineKeyboard: TelegramInlineKeyboard? = null
 ): InlineKeyboardSupporter {

@@ -43,7 +43,7 @@ class SendTelegramLocationBuilder(
         sendLocation.livePeriod = livePeriod
         sendLocation.proximityAlertRadius = proximityAlertRadius
         sendLocation.replyToMessageId = replyToMessageId
-        sendLocation.replyMarkup = inlineKeyboard.toReplyMarkup()
+        //sendLocation.replyMarkup = inlineKeyboard.toReplyMarkup()
 
         return sendLocation
     }

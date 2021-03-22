@@ -3,6 +3,7 @@ package io.chengine.command
 import io.chengine.connector.BotApiIdentifier
 import io.chengine.connector.BotRequestContext
 import io.chengine.connector.TelegramBotApiIdentifier
+import io.chengine.connector.get
 import org.telegram.telegrambots.meta.api.objects.Update
 
 class TelegramCommandRequestExtractor : CommandRequestExtractor {
@@ -12,7 +13,7 @@ class TelegramCommandRequestExtractor : CommandRequestExtractor {
     }
 
     override fun extractFrom(request: BotRequestContext): Command? {
-        return request.get(Update::class)?.let {
+        return request.get<Update>()?.let {
             var command: String? = null
             if (it.hasCallbackQuery()) {
                 command = it.callbackQuery.data
