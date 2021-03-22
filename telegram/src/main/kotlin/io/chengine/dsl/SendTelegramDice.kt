@@ -33,7 +33,6 @@ class SendTelegramDiceBuilder(
         sendDice.allowSendingWithoutReply = allowSendingWithoutReply
         sendDice.disableNotification = disableNotification
         sendDice.replyToMessageId = replyToMessageId
-        sendDice.replyMarkup = inlineKeyboard.toReplyMarkup()
 
         return sendDice
     }
