@@ -39,7 +39,7 @@ class SendTelegramMessageBuilder(
         sendMessage.parseMode = parseMode?.toString()
         sendMessage.disableNotification = disableNotification
         sendMessage.replyToMessageId = replyToMessageId
-        //sendMessage.replyMarkup = inlineKeyboard.toReplyMarkup()
+        sendMessage.replyMarkup = inlineKeyboard.toReplyMarkup()
 
         return sendMessage
     }

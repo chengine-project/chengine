@@ -2,7 +2,8 @@ package io.chengine.dsl
 
 import io.chengine.common.isNull
 import io.chengine.common.then
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 
 // Telegram Inline Keyboard
 
@@ -35,7 +36,9 @@ data class TelegramInlineKeyboardButton(
 class TelegramInlineKeyboardBuilder {
     private val rows: ArrayList<TelegramInlineKeyboardRow> = ArrayList()
     fun _build(): TelegramInlineKeyboard {
-        TODO()
+        val telegramInlineKeyboard = TelegramInlineKeyboard()
+        rows.forEach { telegramInlineKeyboard.add(it) }
+        return telegramInlineKeyboard
     }
     fun TelegramInlineKeyboardBuilder.row(block: TelegramInlineKeyboardRowBuilder.() -> Unit) {
         rows.add(TelegramInlineKeyboardRowBuilder().apply(block)._build())
@@ -47,8 +50,11 @@ class TelegramInlineKeyboardBuilder {
 class TelegramInlineKeyboardRowBuilder {
     private val buttons: ArrayList<TelegramInlineKeyboardButton> = ArrayList()
     fun _build(): TelegramInlineKeyboardRow {
-        TODO()
+        val telegramInlineKeyboardRow = TelegramInlineKeyboardRow()
+        buttons.forEach { telegramInlineKeyboardRow.add(it) }
+        return telegramInlineKeyboardRow
     }
+
     fun TelegramInlineKeyboardRowBuilder.button(block: TelegramInlineKeyboardButtonBuilder.() -> Unit) {
         buttons.add(TelegramInlineKeyboardButtonBuilder().apply(block)._build())
     }
@@ -93,8 +99,23 @@ interface InlineKeyboardSupporter {
     }
 }
 
-// Converter
-
-fun TelegramInlineKeyboard?.toReplyMarkup(): ReplyKeyboardMarkup? {
-    TODO()
+fun TelegramInlineKeyboard?.toReplyMarkup() = this?.let { keyboard ->
+    val telegramInlineKeyboardMarkup = InlineKeyboardMarkup()
+    val telegramInlineKeyboardRows = ArrayList<List<InlineKeyboardButton>>()
+    keyboard.forEach { row ->
+        val telegramInlineKeyboardRow = ArrayList<InlineKeyboardButton>()
+        row.forEach { button ->
+            val telegramInlineKeyboardButton = InlineKeyboardButton()
+            telegramInlineKeyboardButton.text = button.text
+            telegramInlineKeyboardButton.callbackData = button.callbackData
+            button.switchInlineQueryCurrentChat?.let { telegramInlineKeyboardButton.switchInlineQueryCurrentChat = it }
+            button.switchInlineQuery?.let { telegramInlineKeyboardButton.switchInlineQuery = it }
+            button.pay?.let { telegramInlineKeyboardButton.pay = it }
+            button.url?.let { telegramInlineKeyboardButton.url = it }
+            telegramInlineKeyboardRow.add(telegramInlineKeyboardButton)
+        }
+        telegramInlineKeyboardRows.add(telegramInlineKeyboardRow)
+    }
+    telegramInlineKeyboardMarkup.keyboard = telegramInlineKeyboardRows
+    telegramInlineKeyboardMarkup
 }

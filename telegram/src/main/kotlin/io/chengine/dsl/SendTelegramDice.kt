@@ -10,7 +10,10 @@ fun sendTelegramDice(block: SendTelegramDiceBuilder.() -> Unit): SendDice {
 enum class DiceEmoji(val code: String) {
     DICE("🎲"),
     TARGET("🎯"),
-    BALL("🏀")
+    BASKETBALL("🏀"),
+    FOOTBALL("⚽"),
+    BOWLING("\uD83C\uDFB3"),
+    CASINO("\uD83C\uDFB0")
 }
 
 class SendTelegramDiceBuilder(
