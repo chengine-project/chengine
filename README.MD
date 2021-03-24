@@ -4,6 +4,26 @@ Create chat bots easily!
 
 ## Quick Start With Spring Boot
 
+### Add Dependency
+
+Gradle
+```kotlin
+dependencies {
+    implementation("io.chengine:spring-boot-starter-telegram:0.1-ALPHA")
+}
+```
+
+Maven
+```xml
+<dependencies>
+    <!--...-->
+    <depencency>
+        <groupId>io.chengine</groupId>
+        <artifactId>spring-boot-starter-telegram</artifactId>
+        <version>0.1-ALPHA</version>
+    </depencency>
+</dependencies>
+```
 ### Telegram Yaml Configuration
 
 You can configure telegram long pooling bot by adding following lines below into your `application.yml` config file:
@@ -47,5 +67,8 @@ class HelloHandler {
 
 ```
 
+## Samples
+
+You can find chengine samples [here](https://github.com/mikheevshow/chengine-samples)
 
 
