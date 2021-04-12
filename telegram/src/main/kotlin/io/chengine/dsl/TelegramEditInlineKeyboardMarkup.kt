@@ -15,16 +15,15 @@ class EditInlineKeyboardMarkupBuilder {
     fun _build(): InlineKeyboardMarkup {
         TODO()
     }
-}
 
-fun changeButton(block: ChangeButtonBuilder.() -> Unit): Unit = ChangeButtonBuilder().apply(block)._build()
+    fun editButton(atRow: Int, withIndex: Int, block: ChangeButtonBuilder.() -> Unit): Unit = ChangeButtonBuilder().apply(block)._build()
+}
 
 class ChangeButtonBuilder {
 
-    var row: Int? = null
-    var index: Int? = null
     var text: String? = null
     var url: String? = null
+    var callbackData: String? = null
 
     fun _build() {
         TODO()

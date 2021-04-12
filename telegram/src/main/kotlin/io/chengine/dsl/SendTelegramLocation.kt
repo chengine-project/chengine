@@ -3,9 +3,8 @@ package io.chengine.dsl
 import io.chengine.common.isNull
 import org.telegram.telegrambots.meta.api.methods.send.SendLocation
 
-fun sendTelegramLocation(block: SendTelegramLocationBuilder.() -> Unit): SendLocation {
-    return SendTelegramLocationBuilder().apply(block)._build()
-}
+fun sendTelegramLocation(block: SendTelegramLocationBuilder.() -> Unit) =
+    SendTelegramLocationBuilder().apply(block)._build()
 
 class SendTelegramLocationBuilder(
     override var inlineKeyboard: TelegramInlineKeyboard? = null
@@ -43,7 +42,7 @@ class SendTelegramLocationBuilder(
         sendLocation.livePeriod = livePeriod
         sendLocation.proximityAlertRadius = proximityAlertRadius
         sendLocation.replyToMessageId = replyToMessageId
-        //sendLocation.replyMarkup = inlineKeyboard.toReplyMarkup()
+        sendLocation.replyMarkup = inlineKeyboard.toReplyMarkup()
 
         return sendLocation
     }

@@ -4,9 +4,13 @@ import io.chengine.connector.BotApiIdentifier
 import io.chengine.connector.BotRequestContext
 import io.chengine.connector.TelegramBotApiIdentifier
 import io.chengine.connector.get
+import io.chengine.getUserId
+import org.apache.logging.log4j.kotlin.logger
 import org.telegram.telegrambots.meta.api.objects.Update
 
 class TelegramCommandRequestExtractor : CommandRequestExtractor {
+
+    private val logger = logger()
 
     override fun support(): BotApiIdentifier {
         return TelegramBotApiIdentifier.instance
@@ -22,7 +26,12 @@ class TelegramCommandRequestExtractor : CommandRequestExtractor {
                 command = it.message.text
             }
             command?.let { c ->
-                DefaultCommandParser.instance.parse(c)
+                try {
+                    DefaultCommandParser.instance.parse(c)
+                } catch (ex: CommandValidationException) {
+                    logger.info { "Received text not a command, userId: ${it.getUserId()}" }
+                    return null
+                }
             }
         }
     }

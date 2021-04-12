@@ -1,9 +1,8 @@
 package io.chengine.command
 
 /**
- * Handles a command.
- *
+ * Handles a text as a command.
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class HandleCommand(val command: String)
+annotation class HandleText(val text: Array<String>)

@@ -24,19 +24,8 @@ data class HandlerMethod(val handler: Any, val method: KFunction<*>) {
     /**
      * Invokes handler method and try to cast returned object to a specific type
      */
-    fun <T : Any> invoke(clazz: KClass<T>, params: Array<Any?>): T? {
-        try {
-            return method.call(handler, *params)?.let {
-                clazz.cast(it)
-            }
-        } catch (ex: Exception) {
-            when (ex) {
-                is InvocationTargetException,
-                is IllegalAccessException -> {
-                    throw MethodInvocationException(ex)
-                }
-                else -> throw ex
-            }
+    fun <T : Any> invoke(clazz: KClass<T>, params: Array<Any?>): T? =
+        method.call(handler, *params)?.let {
+            clazz.cast(it)
         }
-    }
 }

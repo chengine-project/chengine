@@ -2,10 +2,8 @@ package io.chengine.handler
 
 import io.chengine.command.Command
 import io.chengine.method.HandlerMethod
-import io.chengine.method.NoSuchMethodException
 import io.chengine.pipeline.PipelineDefinition
 import org.springframework.stereotype.Component
-import java.lang.RuntimeException
 import kotlin.reflect.KClass
 
 @Component
@@ -14,6 +12,7 @@ class DefaultHandlerRegistry: HandlerRegistry {
     private val commandHandlerMap = HashMap<String, HandlerMethod>()
     private val singleHandlerMap = HashMap<KClass<out Annotation>, HandlerMethod>()
     private val pipelineDefinitionMap = HashMap<KClass<*>, PipelineDefinition>()
+    private val textHandlerMap = HashMap<String, HandlerMethod?>()
 
     override fun getAllPath(): Set<String> {
         return commandHandlerMap.keys.toSet()
@@ -27,7 +26,8 @@ class DefaultHandlerRegistry: HandlerRegistry {
     }
 
     override fun getHandlerMethodBy(commandPath: String): HandlerMethod {
-        return commandHandlerMap[commandPath] ?: throw NoSuchMethodException("Method `$commandPath` not found")
+        return commandHandlerMap[commandPath] ?: textHandlerMap[commandPath]
+        ?: throw NoSuchMethodException("Method `$commandPath` not found")
     }
 
     override fun getHandlerMethodBy(command: Command): HandlerMethod {
@@ -39,7 +39,7 @@ class DefaultHandlerRegistry: HandlerRegistry {
     }
 
     override fun getSingleHandlerBy(annotation: KClass<out Annotation>): HandlerMethod {
-        TODO("Not yet implemented")
+        return singleHandlerMap[annotation] ?: throw RuntimeException("Handler method for annotation `${annotation.simpleName}` not found")
     }
 
     fun putCommand(commandPath: String, handlerMethod: HandlerMethod) {
@@ -47,6 +47,6 @@ class DefaultHandlerRegistry: HandlerRegistry {
     }
 
     fun putSingleHandler(annotation: KClass<out Annotation>, handlerMethod: HandlerMethod) {
-        TODO("Not yet implemented")
+        singleHandlerMap[annotation] = handlerMethod
     }
 }

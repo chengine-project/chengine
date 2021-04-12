@@ -17,8 +17,4 @@ class DefaultAnnotationProcessorRegistrar(annotationProcessors: List<AnnotationP
             mutableAnnotationProcessorsList.add(it)
         }
     }
-
-    override fun getAllProcessors(): List<AnnotationProcessor>  {
-        return mutableAnnotationProcessorsList
-    }
 }

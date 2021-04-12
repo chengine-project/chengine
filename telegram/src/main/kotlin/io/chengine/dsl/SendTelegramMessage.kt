@@ -4,9 +4,7 @@ import io.chengine.common.isNull
 import io.chengine.common.then
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
-inline fun sendTelegramMessage(block: SendTelegramMessageBuilder.() -> Unit): SendMessage {
-    return SendTelegramMessageBuilder().apply(block)._build()
-}
+inline fun sendTelegramMessage(block: SendTelegramMessageBuilder.() -> Unit) = SendTelegramMessageBuilder().apply(block)._build()
 
 @DslMarker
 annotation class SendTelegramMessageDsl

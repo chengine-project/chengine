@@ -7,7 +7,18 @@ fun editTelegramMedia(block: EditTelegramMessageMediaBuilder.() -> Unit): EditMe
 }
 
 class EditTelegramMessageMediaBuilder {
+
+
+
     fun _build(): EditMessageMedia {
         TODO()
     }
+
+    fun media(block: MediaBuilder.() -> Unit) {
+
+    }
+}
+
+class MediaBuilder {
+
 }
