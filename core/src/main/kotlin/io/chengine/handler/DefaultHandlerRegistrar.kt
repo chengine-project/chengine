@@ -2,7 +2,6 @@ package io.chengine.handler
 
 import io.chengine.annotation.AnnotationProcessorRegistry
 import org.apache.logging.log4j.kotlin.logger
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import kotlin.reflect.full.findAnnotation
 

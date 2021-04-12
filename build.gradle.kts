@@ -12,6 +12,9 @@ repositories {
 }
 
 dependencies {
+    api("org.apache.logging.log4j:log4j-api-kotlin:1.0.0")
+    api("org.apache.logging.log4j:log4j-api:2.11.1")
+    api("org.apache.logging.log4j:log4j-core:2.11.1")
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
@@ -26,9 +29,6 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-//java {
-//    withSourcesJar()
-//}
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "1.8"

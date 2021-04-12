@@ -15,7 +15,7 @@ class DefaultHandlerMethodArgumentExtractor : HandlerMethodArgumentExtractor {
         val args = if (parameters.size > 1) arrayOfNulls<Any?>(parameters.size - 1) else emptyArray()
         var i = 0
         parameters
-            .drop(1)
+            .drop(1) // First element is the handler itself. Just drop it
             .forEach { parameter ->
                 parameter.findAnnotation<CommandParameter>()?.let {
                     val paramName = it.value

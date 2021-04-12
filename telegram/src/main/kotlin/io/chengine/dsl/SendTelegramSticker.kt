@@ -1,13 +1,11 @@
 package io.chengine.dsl
 
-import org.telegram.telegrambots.meta.api.methods.polls.SendPoll
+import org.telegram.telegrambots.meta.api.methods.send.SendSticker
 
-fun sendTelegramPoll(block: SendTelegramPollBuilder.() -> Unit): SendPoll {
-    return SendTelegramPollBuilder().apply(block)._build()
-}
+fun sendTelegramSticker(block: SendTelegramStickerBuilder.() -> Unit) = SendTelegramStickerBuilder().apply(block)._build()
 
-class  SendTelegramPollBuilder {
-    fun _build(): SendPoll {
+class  SendTelegramStickerBuilder {
+    fun _build() = SendSticker().apply {
         TODO()
     }
 }

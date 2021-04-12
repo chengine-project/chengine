@@ -48,8 +48,6 @@ class HandleCommandAnnotationProcessor(
                     }
                 }
             }
-        } ?: run {
-            logger.warn { "`@Handler` annotation not found on class ${handler::class.simpleName}, skip" }
         }
     }
 }
