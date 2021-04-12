@@ -64,8 +64,7 @@ class HelloHandler {
             parseMode = ParseMode.MARKDOWN
         }
     
-    // Or you may use @HandleText annotation to bind methods
-    // with human readable text
+    // Or you may use @HandleText annotation to bind methods with human readable text
     
     @HandleText("❤️ hello")
     fun helloHuman() = sendTelegramMessage {
