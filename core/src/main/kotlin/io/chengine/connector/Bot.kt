@@ -1,6 +1,7 @@
 package io.chengine.connector
 
 import io.chengine.command.CommandRequestExtractor
+import io.chengine.text.TextContentRequestExtractor
 import io.chengine.handler.AbstractSingleHandlerAnnotationProcessor
 import io.chengine.handler.SingleHandlerAnnotationExtractor
 import io.chengine.method.MethodReturnValueHandler
@@ -19,6 +20,8 @@ interface Bot : BotRequestBotResponseMessageProcessorAware {
     fun methodReturnValueHandlers(): List<MethodReturnValueHandler<*>>
 
     fun commandExtractor(): CommandRequestExtractor
+
+    fun textContentExtractor(): TextContentRequestExtractor
 
     fun singleHandlerAnnotationProcessor(): List<AbstractSingleHandlerAnnotationProcessor>
 

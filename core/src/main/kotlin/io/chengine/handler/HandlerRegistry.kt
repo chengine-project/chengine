@@ -11,7 +11,7 @@ interface HandlerRegistry {
 
     fun getAllHandlerMethods(): Set<HandlerMethod>
 
-    fun getHandlerMethodBy(commandPath: String): HandlerMethod
+    fun getHandlerMethodBy(commandPath: String): HandlerMethod?
 
     fun getHandlerMethodBy(command: Command): HandlerMethod
 

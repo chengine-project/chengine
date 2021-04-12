@@ -34,4 +34,9 @@ interface BotRequestContext {
      */
     fun command(): Command?
 
+    /**
+     * Returns a message text content if presented
+     */
+    fun textContent(): String?
+
 }

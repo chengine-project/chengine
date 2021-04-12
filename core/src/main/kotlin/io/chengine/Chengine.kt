@@ -1,6 +1,5 @@
 package io.chengine
 
-import io.chengine.annotation.AnnotationProcessor
 import io.chengine.connector.Factory
 import io.chengine.handler.HandlerRegistrar
 import io.chengine.message.DefaultMessageProcessor
@@ -26,6 +25,7 @@ open class Chengine(config: ChengineConfig) {
             "io.chengine.method",
             "io.chengine.pipeline",
             "io.chengine.session",
+            "io.chengine.text",
         ],
         excludeFilters = [ComponentScan.Filter(Chengine::class, type = FilterType.ASSIGNABLE_TYPE)]
     )

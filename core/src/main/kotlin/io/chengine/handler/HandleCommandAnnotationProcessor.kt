@@ -13,7 +13,7 @@ import kotlin.reflect.full.declaredMemberFunctions
 import kotlin.reflect.full.findAnnotation
 
 @Component
-class HandlerAnnotationProcessor(
+class HandleCommandAnnotationProcessor(
     private val handlerRegistry: DefaultHandlerRegistry,
     private val commandValidator: CommandValidator
 ) : AnnotationProcessor {
@@ -22,7 +22,6 @@ class HandlerAnnotationProcessor(
     private val commandPrefixRegex = "/[a-zA-z]+".toRegex()
 
     override fun process(handler: Any) {
-        logger.info { "Start processing handler: ${handler::class.simpleName}" }
         handler::class.findAnnotation<Handler>()?.let {
             var commandPrefix = ""
             handler::class.findAnnotation<CommandMapping>()?.let { commandMapping ->

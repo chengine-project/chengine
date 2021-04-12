@@ -11,6 +11,7 @@ open class DefaultBotRequestContext : BotRequestContext {
     var sessionKey: SessionKey? = null
     var singleHandlerAnnotation: KClass<out Annotation>? = null
     var command: Command? = null
+    var textContent: String? = null
 
     override fun apiIdentifier(): BotApiIdentifier {
         return botApiIdentifier ?: throw RuntimeException("Bot api identifier wasn't set")
@@ -33,5 +34,9 @@ open class DefaultBotRequestContext : BotRequestContext {
 
     override fun command(): Command? {
         return command
+    }
+
+    override fun textContent(): String? {
+        return textContent
     }
 }

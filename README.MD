@@ -35,7 +35,7 @@ chengine:
     username: just_some_bot_username
 ```
 
-### Command Handler
+### Handler
 
 ```kotlin
 
@@ -63,9 +63,19 @@ class HelloHandler {
             text = "*Hello user ${update.message.from.userName}!*"
             parseMode = ParseMode.MARKDOWN
         }
+    
+    // Or you may use @HandleText annotation to bind methods
+    // with human readable text
+    
+    @HandleText("❤️ hello")
+    fun helloHuman() = sendTelegramMessage {
+        text = "Hi Human!"
+    }
 }
 
 ```
+
+
 
 ## Samples
 

@@ -2,6 +2,8 @@ package io.chengine
 
 import io.chengine.command.CommandRequestExtractor
 import io.chengine.command.TelegramCommandRequestExtractor
+import io.chengine.text.TelegramTextContentRequestExtractor
+import io.chengine.text.TextContentRequestExtractor
 import io.chengine.connector.AbstractBot
 import io.chengine.connector.BotApiIdentifier
 import io.chengine.connector.BotResponseContext
@@ -56,6 +58,8 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
     )
 
     override fun commandExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor()
+
+    override fun textContentExtractor(): TextContentRequestExtractor = TelegramTextContentRequestExtractor()
 
     override fun singleHandlerAnnotationProcessor(): List<AbstractSingleHandlerAnnotationProcessor> = listOf(
         TelegramSingleHandlerAnnotationProcessor()
