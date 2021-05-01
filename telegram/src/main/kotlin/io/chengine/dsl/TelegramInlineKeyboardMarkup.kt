@@ -71,23 +71,14 @@ class TelegramInlineKeyboardButtonBuilder {
     var switchInlineQueryCurrentChat: String? = null
     var pay: Boolean? = null
 
-    fun _build(): TelegramInlineKeyboardButton {
-        text.isNull().then {
-            throw RuntimeException("Button text can't be null")
-        }
-        callbackData.isNull().then {
-            throw RuntimeException("Button callback data can't be null")
-        }
-
-        return TelegramInlineKeyboardButton(
-            text!!,
-            callbackData!!,
-            url,
-            switchInlineQuery,
-            switchInlineQueryCurrentChat,
-            pay
-        )
-    }
+    fun _build() = TelegramInlineKeyboardButton(
+        text ?: throw RuntimeException("Button text can't be null"),
+        callbackData ?: throw RuntimeException("Button callback data can't be null"),
+        url,
+        switchInlineQuery,
+        switchInlineQueryCurrentChat,
+        pay
+    )
 }
 
 // ************************************************************************************************************

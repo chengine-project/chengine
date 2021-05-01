@@ -18,9 +18,7 @@ class DeleteTelegramMessageBuilder {
         chatId.isNonNullButBlankOrEmpty().then {
             throw RuntimeException("Chat identifier can't be blank or empty")
         }
-        messageId.isNull {
-            throw RuntimeException("Message id can't be null")
-        }
+        messageId ?: throw RuntimeException("Message id can't be null")
 
         val deleteMessage = DeleteMessage()
         chatId?.let {

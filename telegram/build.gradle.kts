@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     api(project(":core"))
-    api("org.telegram:telegrambots:5.1.1")
+    api("org.telegram:telegrambots:5.2.0")
     implementation(kotlin("stdlib-jdk8"))
 }
 

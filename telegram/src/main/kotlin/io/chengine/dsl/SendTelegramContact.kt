@@ -21,12 +21,6 @@ class SendTelegramContactBuilder(
     var vCard: String? = null
 
     fun _build(): SendContact {
-        firstName.isNull {
-            throw RuntimeException("Contact first name can't be null")
-        }
-        phoneNumber.isNull {
-            throw RuntimeException("Phone number can't be null")
-        }
 
         val sendContact = SendContact()
         chatId?.let {
@@ -34,9 +28,9 @@ class SendTelegramContactBuilder(
         }
         sendContact.allowSendingWithoutReply = allowSendingWithoutReply
         sendContact.disableNotification = disableNotification
-        sendContact.firstName = firstName!!
+        sendContact.firstName = firstName ?: throw RuntimeException("Contact first name can't be null")
         sendContact.lastName = lastName
-        sendContact.phoneNumber = phoneNumber!!
+        sendContact.phoneNumber = phoneNumber ?: throw RuntimeException("Phone number can't be null")
         sendContact.replyToMessageId = replyToMessageId
         sendContact.vCard = vCard
         sendContact.replyMarkup = inlineKeyboard.toReplyMarkup()
