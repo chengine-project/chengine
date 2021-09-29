@@ -16,13 +16,13 @@ class DefaultHandlerMethodResolver(@Autowired private val handlerRegistry: Handl
             }
         } ?: run {
             request.command()?.let { command ->
-                handlerRegistry.getHandlerMethodBy(command)
+                return handlerRegistry.getHandlerMethodBy(command)
             }
             request.textContent()?.let { text ->
-                handlerRegistry.getHandlerMethodBy(text)
+                return handlerRegistry.getHandlerMethodBy(text)
             } ?: run {
                 request.singleHandler()?.let { annotation ->
-                    handlerRegistry.getSingleHandlerBy(annotation)
+                    return handlerRegistry.getSingleHandlerBy(annotation)
                 }
             }
         }
