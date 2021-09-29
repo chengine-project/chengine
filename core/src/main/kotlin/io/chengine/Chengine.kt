@@ -48,8 +48,6 @@ open class Chengine(config: ChengineConfig) {
                 .getBeansOfType<Factory>()
                 .values
                 .forEach { it.put(bot) }
-            context
-                .register(bot.singleHandlerAnnotationProcessor()::class.java)
         }
         config.handlers?.forEach { register(it) }
         logger.info { "Chengine initialized!" }

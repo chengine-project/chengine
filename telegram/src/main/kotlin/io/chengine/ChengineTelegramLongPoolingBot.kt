@@ -55,10 +55,7 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
     override fun commandExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor()
 
     override fun textContentExtractor(): TextContentRequestExtractor = TelegramTextContentRequestExtractor()
-
-    override fun singleHandlerAnnotationProcessor(): List<AbstractSingleHandlerAnnotationProcessor> = listOf(
-        TelegramSingleHandlerAnnotationProcessor()
-    )
+    override fun singleHandlerAnnotationProcessor(): List<AbstractSingleHandlerAnnotationProcessor> = emptyList()
 
     private fun executeMethod(method: Any) {
         when (method) {
