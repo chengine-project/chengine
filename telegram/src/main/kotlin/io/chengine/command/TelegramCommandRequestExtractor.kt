@@ -26,10 +26,16 @@ class TelegramCommandRequestExtractor : CommandRequestExtractor {
                 command = it.message.text
             }
             command?.let { c ->
-                try {
-                    DefaultCommandParser.instance.parse(c)
-                } catch (ex: CommandValidationException) {
-                    logger.info { "Received text not a command, userId: ${it.getUserId()}" }
+                val validator = DefaultCommandValidator.instance
+                if (validator.isCommand(c)) {
+                    try {
+                        DefaultCommandParser.instance.parse(c)
+                    } catch (ex: CommandValidationException) {
+                        logger.error(ex) { "Can not parse a command $c, userId: ${it.getUserId()}" }
+                        return null
+                    }
+                } else {
+                    logger.debug { "Received text $c not a command, userId: ${it.getUserId()}" }
                     return null
                 }
             }

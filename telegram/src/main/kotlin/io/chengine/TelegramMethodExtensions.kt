@@ -4,6 +4,7 @@ package io.chengine
 
 import io.chengine.common.isNull
 import io.chengine.connector.BotRequestContext
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands
 import org.telegram.telegrambots.meta.api.methods.games.SetGameScore
 import org.telegram.telegrambots.meta.api.methods.groupadministration.*
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll
@@ -16,7 +17,7 @@ inline fun SendMessage.setChatIdFromRequest(requestContext: BotRequestContext) =
 }
 
 inline fun SendInvoice.setChatIdFromRequest(requestContext: BotRequestContext) = chatId.isNull {
-    chatId = requestContext.getTelegramChatId().toInt()
+    chatId = requestContext.getTelegramChatId()
 }
 
 inline fun SendDocument.setChatIdFromRequest(requestContext: BotRequestContext) = chatId.isNull {

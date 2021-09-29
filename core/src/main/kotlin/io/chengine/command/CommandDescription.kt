@@ -8,6 +8,7 @@ package io.chengine.command
  *
  * @author Andrey Borisov
  */
+@Repeatable
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class CommandDescription(val value: String, val localization: String = "")

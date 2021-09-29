@@ -12,6 +12,6 @@ class DefaultBotResponseContext : BotResponseContext {
     override fun currentResponseObject(): Any? = currentResponseObject
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : Any> get(clazz: KClass<T>): T? = contextMap[clazz] as T
+    override fun <T : Any> get(clazz: KClass<T>): T? = contextMap[clazz as KClass<Any>] as? T
 
 }

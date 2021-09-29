@@ -18,5 +18,5 @@ class ListApiMethodReturnValueHandler :
         TODO("Not yet implemented")
     }
 
-    override fun support(): KClass<out Collection<PartialBotApiMethod<out Serializable>>> =
+    override fun support(): KClass<out Collection<PartialBotApiMethod<out Serializable>>> = TODO()
 }

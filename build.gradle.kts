@@ -1,40 +1,44 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.30"
+    kotlin("jvm") version "1.5.31"
+    id("org.springframework.boot") version "2.5.5" apply false
+    id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
 }
-
-group = "io.chengine"
-version = "1.0-ALPHA"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    api("org.apache.logging.log4j:log4j-api-kotlin:1.0.0")
-    api("org.apache.logging.log4j:log4j-api:2.11.1")
-    api("org.apache.logging.log4j:log4j-core:2.11.1")
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
-    testImplementation("io.mockk:mockk:1.11.0")
-    implementation(kotlin("stdlib-jdk8"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.0")
+    testImplementation("io.mockk:mockk:1.12.0")
+    implementation(kotlin("stdlib"))
 }
 
-tasks.test {
-    useJUnitPlatform()
+allprojects {
+
+    group = "io.chengine"
+    version = "1.0-BETA"
+
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "1.8"
+            incremental = false
+        }
+    }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+subprojects {
+    repositories {
+        mavenCentral()
+    }
 }

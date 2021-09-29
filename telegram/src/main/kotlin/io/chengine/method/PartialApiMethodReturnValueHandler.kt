@@ -5,6 +5,7 @@ import io.chengine.connector.BotResponseContext
 import io.chengine.connector.DefaultBotResponseContext
 import io.chengine.setChatIdFromRequest
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands
 import org.telegram.telegrambots.meta.api.methods.games.SetGameScore
 import org.telegram.telegrambots.meta.api.methods.groupadministration.*
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll
@@ -61,6 +62,7 @@ class PartialApiMethodReturnValueHandler : AbstractMethodReturnValueHandler<Part
             is SetChatStickerSet -> returnedObject.setChatIdFromRequest(requestContext)
             is SetChatTitle -> returnedObject.setChatIdFromRequest(requestContext)
             is SetGameScore -> returnedObject.setChatIdFromRequest(requestContext)
+            is SetMyCommands -> {}
             else -> throw RuntimeException("Unsupported returned object type: ${returnedObject::class}")
         }
 
