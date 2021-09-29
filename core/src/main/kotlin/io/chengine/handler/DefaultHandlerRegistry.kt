@@ -18,14 +18,6 @@ class DefaultHandlerRegistry: HandlerRegistry {
         return commandHandlerMap.keys.toSet()
     }
 
-    override fun getAllHandlerMethods(): Set<HandlerMethod> {
-        TODO()
-//        return commandHandlerMap
-//            .values
-//            .toSet()
-//            .union(singleHandlerMap.values.toSet())
-    }
-
     override fun getHandlerMethodBy(commandPath: String) = commandHandlerMap[commandPath] ?: textHandlerMap[commandPath]
 
     override fun getHandlerMethodBy(command: Command): HandlerMethod {
