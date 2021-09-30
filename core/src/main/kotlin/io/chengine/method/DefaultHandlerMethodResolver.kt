@@ -15,16 +15,32 @@ class DefaultHandlerMethodResolver(@Autowired private val handlerRegistry: Handl
                 TODO("Add session handling")
             }
         } ?: run {
-            request.command()?.let { command ->
-                return handlerRegistry.getHandlerMethodBy(command)
-            }
-            request.textContent()?.let { text ->
-                return handlerRegistry.getHandlerMethodBy(text)
-            } ?: run {
-                request.singleHandler()?.let { annotation ->
-                    return handlerRegistry.getSingleHandlerBy(annotation)
+
+            val command = request.command()
+            if (command != null) {
+                val handlerMethod = handlerRegistry.getHandlerMethodBy(command)
+                if (handlerMethod != null) {
+                    return handlerMethod
                 }
             }
+
+            val textContent = request.textContent()
+            if (textContent != null) {
+                val handlerMethod = handlerRegistry.getHandlerMethodBy(textContent)
+                if (handlerMethod != null) {
+                    return handlerMethod
+                }
+            }
+
+            val singleHandler = request.singleHandler()
+            if (singleHandler != null) {
+                val handlerMethod = handlerRegistry.getSingleHandlerBy(singleHandler)
+                if (handlerMethod != null) {
+                    return handlerMethod
+                }
+            }
+
+            return null
         }
     }
 }
