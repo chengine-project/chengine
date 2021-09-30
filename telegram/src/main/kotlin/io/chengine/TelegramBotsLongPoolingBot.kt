@@ -24,7 +24,7 @@ open class TelegramBotsLongPoolingBot(
     override fun getBotUsername(): String = userName
 
     override fun onUpdateReceived(update: Update) {
-        logger.info { "Update received, userId: ${update.getUserId()}, chatId: ${update.getChatId()}" }
+        logger.debug { "Update received, userId: ${update.getUserId()}, chatId: ${update.getChatId()}" }
         abstractBot.process(update)
     }
 
