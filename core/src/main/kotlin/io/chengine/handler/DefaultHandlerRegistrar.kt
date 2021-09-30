@@ -14,7 +14,6 @@ class DefaultHandlerRegistrar(
 
     override fun register(handler: Any) {
         handler::class.findAnnotation<Handler>()?.let {
-            logger.info { "Start processing handler `${it::class.qualifiedName}`" }
             annotationProcessorRegistry.processors.forEach {
                 it.process(handler)
             }

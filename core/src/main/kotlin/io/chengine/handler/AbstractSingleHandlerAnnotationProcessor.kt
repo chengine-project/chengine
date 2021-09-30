@@ -11,8 +11,8 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
 
-abstract class AbstractSingleHandlerAnnotationProcessor(val handlerRegistry: DefaultHandlerRegistry) :
-    AnnotationProcessor, HandlerRegistryAware {
+abstract class AbstractSingleHandlerAnnotationProcessor(private val handlerRegistry: DefaultHandlerRegistry) :
+    AnnotationProcessor {
 
     private val logger = logger()
 
@@ -34,9 +34,5 @@ abstract class AbstractSingleHandlerAnnotationProcessor(val handlerRegistry: Def
                         }
                 }
         }
-    }
-
-    override fun set(handlerRegistry: HandlerRegistry) {
-//        this.handlerRegistry = handlerRegistry as DefaultHandlerRegistry
     }
 }
