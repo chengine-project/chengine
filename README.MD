@@ -80,4 +80,34 @@ class HelloHandler {
 
 You can find chengine samples [here](https://github.com/mikheevshow/chengine-samples)
 
+## How To Help
+
+### Paste link into start message
+
+
+You can help us become a little better known by pasting the link to our framework at the end of the start message, as in the example below.
+
+```kotlin
+
+
+
+@Handler
+@Component
+class StartHandler {
+    
+    @HandleCommand("/start")
+    fun start() = sendTelegramMessage {
+        text = """
+            Some beautiful message about your bot! You may past our link at the end of */start* message
+            
+            Powered by [Chengine](https://github.com/IsaacOldton/chengine)
+        """.trimIndent()
+        
+        parseMode = ParseMode.MARKDOWN
+        disableWebPagePreview = true
+    }
+}
+
+```
+
 
