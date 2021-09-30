@@ -82,7 +82,7 @@ You can find chengine samples [here](https://github.com/mikheevshow/chengine-sam
 
 ## How To Help
 
-### Paste link into start message
+### Paste link into start message ❤️
 
 
 You can help us become a little better known by pasting the link to our framework at the end of the start message, as in the example below.
@@ -109,5 +109,9 @@ class StartHandler {
 }
 
 ```
+
+As a result, you will get something like this
+
+<img width="849" alt="Снимок экрана 2021-09-30 в 04 28 29" src="https://user-images.githubusercontent.com/10999015/135370774-363b823b-fd22-401c-9742-b9bc5f6460b1.png">
 
 
