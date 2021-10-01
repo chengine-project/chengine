@@ -21,6 +21,8 @@ class TelegramSingleHandlerAnnotationExtractor : SingleHandlerAnnotationExtracto
                 TelegramHandlePoll::class
             } ?: it.pollAnswer?.let {
                 TelegramHandlePollAnswer::class
+            } ?: it.preCheckoutQuery?.let {
+                TelegramHandlePayment::class
             } ?: it.message?.let { m ->
                 m.location?.let {
                     TelegramHandleLocation::class
