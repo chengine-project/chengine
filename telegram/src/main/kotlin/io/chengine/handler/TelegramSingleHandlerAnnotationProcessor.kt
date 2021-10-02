@@ -12,7 +12,7 @@ class TelegramSingleHandlerAnnotationProcessor(handlerRegistry: DefaultHandlerRe
             TelegramHandleInlineQuery::class,
             TelegramHandlePollAnswer::class,
             TelegramHandleLocation::class,
-            TelegramHandlePayment::class,
+            TelegramHandlePreCheckout::class,
             TelegramHandleContact::class,
             TelegramHandleMedia::class,
             TelegramHandleText::class,

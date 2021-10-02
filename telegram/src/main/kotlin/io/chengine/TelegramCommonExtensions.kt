@@ -12,15 +12,15 @@ fun BotRequestContext.getTelegramChat(): Chat? = get<Update>()?.message?.chat
 
 fun BotRequestContext.getTelegramChatId(): String = get<Update>()?.getChatId().toString()
 
-fun Update.getUserId(): Long {
+fun Update.getUserId(): Long? {
     val fromMessage: Long? = this.message?.from?.id
     val fromCallback: Long? = this.callbackQuery?.from?.id
     val fromPreCheckoutQuery: Long? = this.preCheckoutQuery?.from?.id
-    return fromMessage ?: fromCallback ?: fromPreCheckoutQuery ?: throw RuntimeException("Can't extract telegram userId")
+    return fromMessage ?: fromCallback ?: fromPreCheckoutQuery
 }
 
-fun Update.getChatId(): Long {
+fun Update.getChatId(): Long? {
     val fromMessage: Long? = this.message?.chatId
     val fromCallback: Long? = this.callbackQuery?.message?.chatId
-    return fromMessage ?: fromCallback ?: throw RuntimeException("Can't extract telegram chatId")
+    return fromMessage ?: fromCallback
 }

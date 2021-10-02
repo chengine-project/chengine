@@ -4,6 +4,7 @@ import io.chengine.connector.Bot
 import io.chengine.connector.Factory
 import org.apache.logging.log4j.kotlin.logger
 import org.springframework.stereotype.Component
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 
@@ -18,7 +19,7 @@ class DefaultMethodReturnValueHandlerFactory : MethodReturnValueHandlerFactory {
 
     private val logger = logger()
 
-    private val map = HashMap<KClass<*>, MethodReturnValueHandler<*>>()
+    private val map = ConcurrentHashMap<KClass<*>, MethodReturnValueHandler<*>>()
 
     override fun put(bot: Bot) = bot
             .methodReturnValueHandlers()

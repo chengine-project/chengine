@@ -39,4 +39,8 @@ open class DefaultBotRequestContext : BotRequestContext {
     override fun textContent(): String? {
         return textContent
     }
+
+    override fun toString(): String {
+        return "DefaultBotRequestContext(contextMap=$contextMap, botApiIdentifier=$botApiIdentifier, sessionKey=$sessionKey, singleHandlerAnnotation=$singleHandlerAnnotation, command=$command, textContent=$textContent)"
+    }
 }

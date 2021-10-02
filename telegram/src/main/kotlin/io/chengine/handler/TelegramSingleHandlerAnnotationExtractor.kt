@@ -22,7 +22,7 @@ class TelegramSingleHandlerAnnotationExtractor : SingleHandlerAnnotationExtracto
             } ?: it.pollAnswer?.let {
                 TelegramHandlePollAnswer::class
             } ?: it.preCheckoutQuery?.let {
-                TelegramHandlePayment::class
+                TelegramHandlePreCheckout::class
             } ?: it.message?.let { m ->
                 m.location?.let {
                     TelegramHandleLocation::class

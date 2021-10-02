@@ -29,6 +29,6 @@ class DefaultMessageProcessor(
             method.invoke(Any::class, args)?.let { result ->
                 methodReturnValueHandlerResolver.resolve(result, method, request, response)
             } ?: throw RuntimeException("Returned value is null, break message processing")
-        } ?: throw RuntimeException("Can't resolve method to process the request")
+        } ?: throw RuntimeException("Can't resolve method to process the request: $request")
     }
 }
