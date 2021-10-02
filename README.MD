@@ -114,4 +114,7 @@ As a result, you will get something like this
 
 <img width="849" alt="Снимок экрана 2021-09-30 в 04 28 29" src="https://user-images.githubusercontent.com/10999015/135370774-363b823b-fd22-401c-9742-b9bc5f6460b1.png">
 
+## License
 
+```
+```
