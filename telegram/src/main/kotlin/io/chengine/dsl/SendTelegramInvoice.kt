@@ -11,7 +11,7 @@ fun sendTelegramInvoice(block: SendTelegramInvoiceBuilder.() -> Unit): SendInvoi
 }
 
 @Serializable
-data class InvoicePayloadMetadata(val preCheckoutIdentifier: String?, val payload: String?)
+data class InvoicePayloadMetadata(val paymentIdentifier: String?, val payload: String?)
 
 @DslMarker
 annotation class SendTelegramInvoiceMarker
@@ -34,11 +34,12 @@ class SendTelegramInvoiceBuilder {
     var description: String? = null
 
     /**
-     * Pre checkout identifier. Uses when handle preCheckout query
+     * Payment identifier
      *
-     * @see io.chengine.handler.TelegramHandlePreCheckout
+     * @see io.chengine.handler.payment.TelegramHandlePreCheckout
+     * @see io.chengine.handler.payment.TelegramHandleSuccessPayment
      */
-    var preCheckoutIdentifier: String? = null
+    var paymentIdentifier: String? = null
 
     /**
      *
@@ -85,7 +86,7 @@ class SendTelegramInvoiceBuilder {
             }
         }
 
-        InvoicePayloadMetadata(preCheckoutIdentifier, payload).let {
+        InvoicePayloadMetadata(paymentIdentifier, payload).let {
             sendInvoice.payload = Json.encodeToString(serializer(), it)
         }
 

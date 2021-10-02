@@ -1,4 +1,4 @@
-package io.chengine.handler
+package io.chengine.handler.payment
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)

@@ -4,6 +4,8 @@ import io.chengine.connector.BotApiIdentifier
 import io.chengine.connector.BotRequestContext
 import io.chengine.connector.TelegramBotApiIdentifier
 import io.chengine.connector.get
+import io.chengine.handler.payment.TelegramHandlePreCheckout
+import io.chengine.handler.payment.TelegramHandleSuccessPayment
 import org.telegram.telegrambots.meta.api.objects.Update
 import kotlin.reflect.KClass
 
@@ -30,6 +32,8 @@ class TelegramSingleHandlerAnnotationExtractor : SingleHandlerAnnotationExtracto
                     TelegramHandlePoll::class
                 } ?: m.contact?.let {
                     TelegramHandleContact::class
+                } ?: m.successfulPayment?.let {
+                    TelegramHandleSuccessPayment::class
                 } ?: m.text?.let { text ->
                     return if (!text.startsWith("/")) {
                         TelegramHandleText::class

@@ -1,5 +1,6 @@
 package io.chengine.handler
 
+import io.chengine.handler.payment.TelegramHandlePreCheckout
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 
