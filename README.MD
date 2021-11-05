@@ -100,7 +100,7 @@ class StartHandler {
         text = """
             Some beautiful message about your bot! You may past our link at the end of */start* message
             
-            Powered by [Chengine](https://github.com/IsaacOldton/chengine)
+            Powered by [Chengine](https://github.com/chengine-project/chengine)
         """.trimIndent()
         
         parseMode = ParseMode.MARKDOWN
