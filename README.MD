@@ -82,7 +82,7 @@ You can find chengine samples [here](https://github.com/mikheevshow/chengine-sam
 
 ## How To Help
 
-### Paste link into start message ❤️
+### Paste Chengine Link Into Start Message ❤️
 
 
 You can help us become a little better known by pasting the link to our framework at the end of the start message, as in the example below.
