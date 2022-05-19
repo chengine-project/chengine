@@ -22,7 +22,8 @@ dependencies {
     api(project(":spring"))
     api(project(":telegram"))
     api(project(":core"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+
+    implementation(kotlin("stdlib"))
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar>().configureEach {

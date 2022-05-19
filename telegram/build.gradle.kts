@@ -17,8 +17,8 @@ dependencies {
     api(project(":core"))
     api("org.telegram:telegrambots:5.3.0")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation(kotlin("stdlib"))
 }
 
 java {

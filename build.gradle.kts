@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
-    kotlin("plugin.serialization") version "1.5.31"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
 
-    id("org.springframework.boot") version "2.5.5" apply false
+    id("org.springframework.boot") version "2.6.7" apply false
     id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
 }
 
@@ -23,7 +23,7 @@ dependencies {
 allprojects {
 
     group = "io.chengine"
-    version = "1.0-BETA"
+    version = "1.0.1-BETA"
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = "1.8"

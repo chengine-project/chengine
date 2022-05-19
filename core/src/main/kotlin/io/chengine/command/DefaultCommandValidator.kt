@@ -10,7 +10,7 @@ class DefaultCommandValidator: CommandValidator {
         const val MAX_COMMAND_LENGTH = 64
     }
 
-    private val commandPattern = "(/[a-zA-Z0-9\\-_]+(#([a-zA-Z0-9\\-_]+)?)?)+".toRegex()
+    private val commandPattern = "(/[a-zA-Z0-9\\-_]+(#([a-zA-Z0-9\\-_.,\$@&]+)?)?)+".toRegex()
 
     override fun isCommand(s: String): Boolean = s.trim().startsWith("/")
 
