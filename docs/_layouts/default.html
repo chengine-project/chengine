@@ -19,13 +19,20 @@
       {% assign home_url = lang_prefix | append: '/' %}
       <a class="brand" href="{{ home_url | relative_url }}" aria-label="Chengine — {{ ui.home }}"><span class="brand-mark">ch</span><span>chengine<span class="brand-dot">.</span></span></a>
       <span class="top-label">{{ ui.docs }}</span>
-      <nav class="languages" aria-label="{{ ui.language }}">
-        {% assign languages = 'ru,en,zh,es,de' | split: ',' %}
-        {% for choice in languages %}
-          {% if choice == 'ru' %}{% assign choice_url = page_path %}{% else %}{% assign choice_url = '/' | append: choice | append: page_path %}{% endif %}
-          <a href="{{ choice_url | relative_url }}" lang="{{ site.data.ui[choice].html_lang }}" hreflang="{{ site.data.ui[choice].html_lang }}" {% if choice == lang %}aria-current="true"{% endif %}>{% case choice %}{% when 'ru' %}RU{% when 'en' %}EN{% when 'zh' %}中文{% when 'es' %}ES{% when 'de' %}DE{% endcase %}</a>
-        {% endfor %}
-      </nav>
+      <details class="language-selector">
+        <summary aria-label="{{ ui.language }}: {{ ui.language_name }}">
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.2"/><path d="M3 10h14M10 2.8c2 1.9 3 4.3 3 7.2s-1 5.3-3 7.2M10 2.8C8 4.7 7 7.1 7 10s1 5.3 3 7.2"/></svg>
+          <span>{{ ui.language_name }}</span>
+          <svg class="language-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+        </summary>
+        <nav class="language-menu" aria-label="{{ ui.language }}">
+          {% assign languages = 'ru,en,zh,es,de' | split: ',' %}
+          {% for choice in languages %}
+            {% if choice == 'ru' %}{% assign choice_url = page_path %}{% else %}{% assign choice_url = '/' | append: choice | append: page_path %}{% endif %}
+            <a href="{{ choice_url | relative_url }}" lang="{{ site.data.ui[choice].html_lang }}" hreflang="{{ site.data.ui[choice].html_lang }}" {% if choice == lang %}aria-current="page"{% endif %}><span>{{ site.data.ui[choice].language_name }}</span>{% if choice == lang %}<span class="language-check" aria-hidden="true">✓</span>{% endif %}</a>
+          {% endfor %}
+        </nav>
+      </details>
       <a class="github-link" href="https://github.com/chengine-project/chengine">GitHub <span aria-hidden="true">↗</span></a>
     </div>
   </header>
