@@ -13,6 +13,24 @@ jobs:
     name: Build and test (JDK 21)
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: chengine
+          POSTGRES_PASSWORD: chengine
+          POSTGRES_DB: chengine_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U chengine -d chengine_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      CHENGINE_TEST_POSTGRES_URL: jdbc:postgresql://localhost:5432/chengine_test
+      CHENGINE_TEST_POSTGRES_USER: chengine
+      CHENGINE_TEST_POSTGRES_PASSWORD: chengine
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
