@@ -4,7 +4,7 @@ lang: en
 title: Quick start
 section: GETTING STARTED
 permalink: /en/start/
-lead: Build the library locally, add the starter, and create your first handler.
+lead: Add Chengine, configure your bot, and create your first handler.
 ---
 
 ## Requirements
@@ -13,9 +13,11 @@ lead: Build the library locally, add the starter, and create your first handler.
 - Kotlin and Spring Boot; this branch uses Kotlin 2.2.21 and Spring Boot 3.5.16.
 - A Telegram bot created with BotFather, its token, and username.
 
-## 1. Build the library
+## 1. Get the dependency
 
-The instructions below use the current source from a local Maven repository and do not depend on a published release.
+Chengine artifacts are distributed through Maven Central. Check the [available starter versions](https://central.sonatype.com/artifact/io.github.chengine-project/spring-boot-starter-telegram) and use a fixed version in the example below. Newly published versions may take some time to become available.
+
+If the release is not yet available or you want the current source, build the library locally:
 
 ```bash
 git clone https://github.com/chengine-project/chengine.git
@@ -23,7 +25,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-The artifact version in this branch is `1.0.0`. Check `version` in the root `build.gradle.kts` when using a different commit.
+For a local build, add `mavenLocal()` before `mavenCentral()` in `repositories` below. Check the version in the selected commit’s root `build.gradle.kts`.
 
 ## 2. Add the starter
 
@@ -38,7 +40,6 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 

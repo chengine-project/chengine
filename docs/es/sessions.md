@@ -58,6 +58,8 @@ La clave incluye la plataforma, la cuenta del bot, el usuario y el chat. Para Te
 
 El módulo `session-postgres` conserva `ConversationSession` entre reinicios. Añade la dependencia `io.github.chengine-project:session-postgres:1.0.0`, configura un `DataSource` de PostgreSQL y registra un bean:
 
+Consulta las versiones disponibles de este módulo en [Maven Central](https://central.sonatype.com/artifact/io.github.chengine-project/session-postgres).
+
 ```kotlin
 @Bean
 fun sessionStore(dataSource: DataSource): SessionStore =
