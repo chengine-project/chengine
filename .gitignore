@@ -2,3 +2,5 @@
 .gradle
 build/
 .kotlin/
+
+docs/.jekyll-cache/

@@ -1,43 +1,56 @@
+{% assign lang = page.lang | default: 'ru' %}
+{% assign ui = site.data.ui[lang] | default: site.data.ui.ru %}
+{% assign lang_prefix = '' %}
+{% if lang != 'ru' %}{% assign lang_prefix = '/' | append: lang %}{% endif %}
+{% assign page_path = page.url | remove_first: lang_prefix %}
 <!doctype html>
-<html lang="ru">
+<html lang="{{ ui.html_lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <meta name="description" content="{{ page.description | default: page.lead | default: site.description | escape }}">
   <title>{{ page.title | escape }} · Chengine</title>
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 <body>
-  <a class="skip" href="#content">Перейти к содержимому</a>
+  <a class="skip" href="#content">{{ ui.skip }}</a>
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="{{ '/' | relative_url }}" aria-label="Chengine — главная"><span class="brand-mark">ch</span><span>chengine<span class="brand-dot">.</span></span></a>
-      <span class="top-label">ДОКУМЕНТАЦИЯ</span>
+      {% assign home_url = lang_prefix | append: '/' %}
+      <a class="brand" href="{{ home_url | relative_url }}" aria-label="Chengine — {{ ui.home }}"><span class="brand-mark">ch</span><span>chengine<span class="brand-dot">.</span></span></a>
+      <span class="top-label">{{ ui.docs }}</span>
+      <nav class="languages" aria-label="{{ ui.language }}">
+        {% assign languages = 'ru,en,zh,es,de' | split: ',' %}
+        {% for choice in languages %}
+          {% if choice == 'ru' %}{% assign choice_url = page_path %}{% else %}{% assign choice_url = '/' | append: choice | append: page_path %}{% endif %}
+          <a href="{{ choice_url | relative_url }}" lang="{{ site.data.ui[choice].html_lang }}" hreflang="{{ site.data.ui[choice].html_lang }}" {% if choice == lang %}aria-current="true"{% endif %}>{% case choice %}{% when 'ru' %}RU{% when 'en' %}EN{% when 'zh' %}中文{% when 'es' %}ES{% when 'de' %}DE{% endcase %}</a>
+        {% endfor %}
+      </nav>
       <a class="github-link" href="https://github.com/chengine-project/chengine">GitHub <span aria-hidden="true">↗</span></a>
     </div>
   </header>
   <div class="shell">
-    <nav class="sidebar" aria-label="Разделы документации">
-      <div class="nav-label">ОСНОВНОЕ</div>
-      <a {% if page.url == '/' %}aria-current="page"{% endif %} href="{{ '/' | relative_url }}">Обзор</a>
-      <a {% if page.url == '/start/' %}aria-current="page"{% endif %} href="{{ '/start/' | relative_url }}">Быстрый старт</a>
-      <a {% if page.url == '/handlers/' %}aria-current="page"{% endif %} href="{{ '/handlers/' | relative_url }}">Команды и обработчики</a>
-      <div class="nav-label">ВОЗМОЖНОСТИ</div>
-      <a {% if page.url == '/buttons/' %}aria-current="page"{% endif %} href="{{ '/buttons/' | relative_url }}">Кнопки и callback</a>
-      <a {% if page.url == '/media/' %}aria-current="page"{% endif %} href="{{ '/media/' | relative_url }}">Фото, файлы и медиа</a>
-      <a {% if page.url == '/polls/' %}aria-current="page"{% endif %} href="{{ '/polls/' | relative_url }}">Опросы и викторины</a>
-      <a {% if page.url == '/sessions/' %}aria-current="page"{% endif %} href="{{ '/sessions/' | relative_url }}">Сессии и диалоги</a>
-      <a {% if page.url == '/graphs/' %}aria-current="page"{% endif %} href="{{ '/graphs/' | relative_url }}">Графы и агенты</a>
-      <div class="nav-label">ПРОЕКТ</div>
-      <a {% if page.url == '/releasing/' %}aria-current="page"{% endif %} href="{{ '/releasing/' | relative_url }}">Подготовка релиза</a>
-      <div class="sidebar-note"><span class="status-dot"></span> Документация develop<br><small>API может меняться</small></div>
+    <nav class="sidebar" aria-label="{{ ui.nav }}">
+      <div class="nav-label">{{ ui.main }}</div>
+      <a {% if page_path == '/' %}aria-current="page"{% endif %} href="{{ home_url | relative_url }}">{{ ui.overview }}</a>
+      {% assign target = lang_prefix | append: '/start/' %}<a {% if page_path == '/start/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.start }}</a>
+      {% assign target = lang_prefix | append: '/handlers/' %}<a {% if page_path == '/handlers/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.handlers }}</a>
+      <div class="nav-label">{{ ui.features }}</div>
+      {% assign target = lang_prefix | append: '/buttons/' %}<a {% if page_path == '/buttons/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.buttons }}</a>
+      {% assign target = lang_prefix | append: '/media/' %}<a {% if page_path == '/media/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.media }}</a>
+      {% assign target = lang_prefix | append: '/polls/' %}<a {% if page_path == '/polls/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.polls }}</a>
+      {% assign target = lang_prefix | append: '/sessions/' %}<a {% if page_path == '/sessions/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.sessions }}</a>
+      {% assign target = lang_prefix | append: '/graphs/' %}<a {% if page_path == '/graphs/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.graphs }}</a>
+      <div class="nav-label">{{ ui.project }}</div>
+      {% assign target = lang_prefix | append: '/releasing/' %}<a {% if page_path == '/releasing/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.releasing }}</a>
+      <div class="sidebar-note"><span class="status-dot"></span> {{ ui.status }}<br><small>{{ ui.status_detail }}</small></div>
     </nav>
     <main id="content" class="content">
-      <div class="eyebrow">CHENGINE <span>/</span> {{ page.section | default: 'ДОКУМЕНТАЦИЯ' }}</div>
+      <div class="eyebrow">CHENGINE <span>/</span> {{ page.section | default: ui.docs }}</div>
       <h1>{{ page.title | escape }}</h1>
       {% if page.lead %}<p class="lead">{{ page.lead | escape }}</p>{% endif %}
       {{ content }}
-      <footer class="footer"><span>Chengine · Kotlin + Telegram</span><a href="https://github.com/chengine-project/chengine">Исходный код ↗</a></footer>
+      <footer class="footer"><span>Chengine · Kotlin + Telegram</span><a href="https://github.com/chengine-project/chengine">{{ ui.source }} ↗</a></footer>
     </main>
   </div>
 </body>
