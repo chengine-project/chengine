@@ -86,6 +86,10 @@ Invalid or duplicate command bindings fail during initialization with an error. 
 ./gradlew build
 ```
 
+## Documentation
+
+See the [documentation](docs/index.md) and [GitHub Pages setup](docs/README.md).
+
 ## Samples
 
 See the [media example](examples/media/README.md), the [conversation example](examples/conversation/README.md), and the [inline keyboard example](examples/inline-keyboard/README.md). More samples are available [here](https://github.com/mikheevshow/chengine-samples).
