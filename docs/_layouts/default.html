@@ -41,6 +41,7 @@
       {% assign target = lang_prefix | append: '/polls/' %}<a {% if page_path == '/polls/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.polls }}</a>
       {% assign target = lang_prefix | append: '/sessions/' %}<a {% if page_path == '/sessions/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.sessions }}</a>
       {% assign target = lang_prefix | append: '/graphs/' %}<a {% if page_path == '/graphs/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.graphs }}</a>
+      {% assign target = lang_prefix | append: '/examples/' %}<a {% if page_path == '/examples/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.examples }}</a>
       <div class="nav-label">{{ ui.project }}</div>
       {% assign target = lang_prefix | append: '/releasing/' %}<a {% if page_path == '/releasing/' %}aria-current="page"{% endif %} href="{{ target | relative_url }}">{{ ui.releasing }}</a>
       <div class="sidebar-note"><span class="status-dot"></span> {{ ui.status }}<br><small>{{ ui.status_detail }}</small></div>

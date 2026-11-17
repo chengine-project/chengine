@@ -26,7 +26,7 @@ val graph = ConversationGraph("start", mapOf(
 
 在处理器中使用 `Conversations.start` 创建会话，调用 `graph.start(session)` 并返回结果文本。收到下一条消息时调用 `graph.resume(session, text)`。如果 `result.completed` 为 `true`，请调用 `Conversations.end()` 结束会话。自动节点之间通过会话传递数据：`Next` 不会转发输入文本。转换次数受到限制，以防止无限循环。
 
-[包含姓名、城市和条件分支的完整示例](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)。
+[包含姓名、城市和条件分支的完整示例]({{ '/zh/examples/#conversation' | relative_url }})。
 
 ## 代理工具
 

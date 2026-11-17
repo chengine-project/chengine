@@ -79,4 +79,4 @@ editTelegramMedia {
 
 可以设置 `chatId`，也可以由 Chengine 从传入事件中获取。对于内联消息，请设置 `inlineMessageId`：此时 Telegram 只接受 `file_id` 或 URL，不接受新上传的文件。Telegram 对某些消息和媒体组的编辑还有其他限制。
 
-[仓库中的完整示例](https://github.com/chengine-project/chengine/tree/develop/examples/media)
+[完整示例]({{ '/zh/examples/#media' | relative_url }})

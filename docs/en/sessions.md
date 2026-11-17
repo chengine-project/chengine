@@ -46,7 +46,7 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 }
 ```
 
-Call `Conversations.end()` in a `/cancel` handler to cancel. This example uses sessions directly; the [complete example](https://github.com/chengine-project/chengine/tree/develop/examples/conversation) uses a graph and checks for empty answers and missing session keys.
+Call `Conversations.end()` in a `/cancel` handler to cancel. This example uses sessions directly; the [complete example]({{ '/en/examples/#conversation' | relative_url }}) uses a graph and checks for empty answers and missing session keys.
 
 ## Storage and limits
 
@@ -72,4 +72,4 @@ PostgreSQL persists state but does not coordinate multiple processes; separate c
 
 The experimental `ConversationGraph` adds named nodes, conditional transitions, and waiting for the next answer on top of the same session. [Learn about graphs →]({{ '/en/graphs/' | relative_url }})
 
-[Complete example in the repository](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)
+[Complete example]({{ '/en/examples/#conversation' | relative_url }})

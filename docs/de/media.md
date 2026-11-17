@@ -79,4 +79,4 @@ editTelegramMedia {
 
 `chatId` kann angegeben oder aus dem eingehenden Ereignis übernommen werden. Für Inline-Nachrichten verwende `inlineMessageId`: Telegram akzeptiert bei solchen Änderungen nur eine `file_id` oder URL, keinen neuen Upload. Außerdem beschränkt Telegram die Bearbeitung bestimmter Nachrichten und Mediengruppen.
 
-[Vollständiges Beispiel im Repository](https://github.com/chengine-project/chengine/tree/develop/examples/media)
+[Vollständiges Beispiel]({{ '/de/examples/#media' | relative_url }})

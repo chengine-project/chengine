@@ -50,7 +50,7 @@ inlineKeyboard {
 }
 ```
 
-Cada botón debe tener exactamente una acción. Los datos de callback pueden ocupar entre 1 y 64 bytes UTF-8. El [ejemplo de catálogo](https://github.com/chengine-project/chengine/tree/develop/examples/catalog) muestra paginación y una ficha de producto en un solo mensaje.
+Cada botón debe tener exactamente una acción. Los datos de callback pueden ocupar entre 1 y 64 bytes UTF-8. El [ejemplo de catálogo]({{ '/es/examples/#catalog' | relative_url }}) muestra paginación y una ficha de producto en un solo mensaje.
 
 ## Editar el mensaje y el teclado
 
@@ -79,4 +79,4 @@ sendTelegramMessage {
 
 Para quitar el teclado de respuesta, envía un mensaje con `replyKeyboard { removeKeyboard() }`. Un mensaje admite un teclado de respuesta o uno inline, no ambos.
 
-[Ejemplo completo en el repositorio](https://github.com/chengine-project/chengine/tree/develop/examples/inline-keyboard)
+[Ejemplo completo]({{ '/es/examples/#buttons' | relative_url }})

@@ -45,7 +45,7 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 }
 ```
 
-Для отмены вызовите `Conversations.end()` в обработчике `/cancel`. Это пример прямой работы с сессией; [полный пример](https://github.com/chengine-project/chengine/tree/develop/examples/conversation) использует граф, проверяет пустой ответ и отсутствие ключа сессии.
+Для отмены вызовите `Conversations.end()` в обработчике `/cancel`. Это пример прямой работы с сессией; [полный пример]({{ '/examples/#conversation' | relative_url }}) использует граф, проверяет пустой ответ и отсутствие ключа сессии.
 
 ## Хранение и ограничения
 
@@ -71,4 +71,4 @@ PostgreSQL сохраняет состояние, но не синхронизи
 
 Экспериментальный `ConversationGraph` добавляет именованные узлы, условные переходы и ожидание следующего ответа поверх той же сессии. [Как устроены графы →]({{ '/graphs/' | relative_url }})
 
-[Полный пример в репозитории](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)
+[Полный пример]({{ '/examples/#conversation' | relative_url }})

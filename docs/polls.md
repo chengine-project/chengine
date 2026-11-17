@@ -60,4 +60,4 @@ fun answer(update: Update, request: BotRequestContext) =
 
 > Индивидуальные ответы приходят только для неанонимных опросов, отправленных ботом. Анонимные опросы дают события об общем состоянии.
 
-[Полный пример в репозитории](https://github.com/chengine-project/chengine/tree/develop/examples/polls)
+[Полный пример]({{ '/examples/#polls' | relative_url }})

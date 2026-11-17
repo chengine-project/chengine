@@ -79,4 +79,4 @@ editTelegramMedia {
 
 Provide `chatId` or let Chengine infer it from the incoming event. For inline messages, set `inlineMessageId`: Telegram accepts only a `file_id` or URL for such edits, not a new upload. Telegram also restricts edits to certain messages and media groups.
 
-[Complete example in the repository](https://github.com/chengine-project/chengine/tree/develop/examples/media)
+[Complete example]({{ '/en/examples/#media' | relative_url }})

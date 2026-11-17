@@ -46,7 +46,7 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 }
 ```
 
-Rufe zum Abbrechen `Conversations.end()` im Handler für `/cancel` auf. Dieses Beispiel verwendet Sitzungen direkt; das [vollständige Beispiel](https://github.com/chengine-project/chengine/tree/develop/examples/conversation) verwendet einen Graphen und prüft leere Antworten sowie fehlende Sitzungsschlüssel.
+Rufe zum Abbrechen `Conversations.end()` im Handler für `/cancel` auf. Dieses Beispiel verwendet Sitzungen direkt; das [vollständige Beispiel]({{ '/de/examples/#conversation' | relative_url }}) verwendet einen Graphen und prüft leere Antworten sowie fehlende Sitzungsschlüssel.
 
 ## Speicherung und Grenzen
 
@@ -72,4 +72,4 @@ PostgreSQL speichert den Zustand, synchronisiert aber keine mehreren Prozesse: D
 
 Der experimentelle `ConversationGraph` ergänzt benannte Knoten, bedingte Übergänge und das Warten auf eine Antwort auf Basis derselben Sitzung. [Mehr über Graphen →]({{ '/de/graphs/' | relative_url }})
 
-[Vollständiges Beispiel im Repository](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)
+[Vollständiges Beispiel]({{ '/de/examples/#conversation' | relative_url }})

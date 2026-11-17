@@ -20,6 +20,7 @@ lead: Chengine 是一个用于 Telegram 机器人的 Kotlin 框架，提供熟�
   <a class="card" href="{{ '/zh/sessions/' | relative_url }}"><strong>会话和对话 →</strong><span>在内存或 PostgreSQL 中保存状态。</span></a>
   <a class="card" href="{{ '/zh/polls/' | relative_url }}"><strong>投票 →</strong><span>发起投票并处理投票结果。</span></a>
   <a class="card" href="{{ '/zh/graphs/' | relative_url }}"><strong>图 →</strong><span>使用转换和等待步骤构建流程。</span></a>
+  <a class="card" href="{{ '/zh/examples/' | relative_url }}"><strong>完整示例 →</strong><span>在文档中查看完整处理器。</span></a>
 </div>
 
 ## 快速示例

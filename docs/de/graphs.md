@@ -26,7 +26,7 @@ val graph = ConversationGraph("start", mapOf(
 
 Erstelle im Handler eine Sitzung mit `Conversations.start`, rufe `graph.start(session)` auf und gib den Nachrichtentext des Ergebnisses zurück. Bei der nächsten Nachricht rufe `graph.resume(session, text)` auf. Wenn `result.completed` gleich `true` ist, beende die Sitzung mit `Conversations.end()`. Übergib Daten zwischen automatischen Knoten über die Sitzung: Eingabetext wird bei `Next` nicht weitergegeben. Ein Übergangslimit verhindert Endlosschleifen.
 
-[Vollständiges Beispiel mit Name, Stadt und Verzweigung](https://github.com/chengine-project/chengine/tree/develop/examples/conversation).
+[Vollständiges Beispiel mit Name, Stadt und Verzweigung]({{ '/de/examples/#conversation' | relative_url }}).
 
 ## Werkzeug für Agenten
 

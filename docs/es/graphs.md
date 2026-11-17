@@ -26,7 +26,7 @@ val graph = ConversationGraph("start", mapOf(
 
 En el controlador, crea una sesión con `Conversations.start`, llama a `graph.start(session)` y devuelve el texto del resultado. Para el siguiente mensaje llama a `graph.resume(session, text)`. Si `result.completed` es `true`, termina la sesión con `Conversations.end()`. Comparte datos entre nodos automáticos mediante la sesión: `Next` no reenvía el texto entrante. El número de transiciones está limitado para evitar ciclos infinitos.
 
-[Ejemplo completo con nombre, ciudad y bifurcación](https://github.com/chengine-project/chengine/tree/develop/examples/conversation).
+[Ejemplo completo con nombre, ciudad y bifurcación]({{ '/es/examples/#conversation' | relative_url }}).
 
 ## Herramienta para agentes
 

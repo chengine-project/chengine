@@ -61,4 +61,4 @@ Standardmäßig werden Zuordnungen in einem begrenzten Speicher gehalten und geh
 
 > Einzelne Antworten werden nur für nicht anonyme, vom Bot gesendete Umfragen zugestellt. Anonyme Umfragen liefern Ereignisse zum Gesamtstand.
 
-[Vollständiges Beispiel im Repository](https://github.com/chengine-project/chengine/tree/develop/examples/polls)
+[Vollständiges Beispiel]({{ '/de/examples/#polls' | relative_url }})

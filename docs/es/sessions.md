@@ -46,7 +46,7 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 }
 ```
 
-Para cancelar, llama a `Conversations.end()` en el controlador de `/cancel`. Este ejemplo usa la sesión directamente; el [ejemplo completo](https://github.com/chengine-project/chengine/tree/develop/examples/conversation) utiliza un grafo y comprueba las respuestas vacías y la ausencia de clave.
+Para cancelar, llama a `Conversations.end()` en el controlador de `/cancel`. Este ejemplo usa la sesión directamente; el [ejemplo completo]({{ '/es/examples/#conversation' | relative_url }}) utiliza un grafo y comprueba las respuestas vacías y la ausencia de clave.
 
 ## Almacenamiento y límites
 
@@ -72,4 +72,4 @@ PostgreSQL conserva el estado, pero no sincroniza varios procesos: necesitan coo
 
 El `ConversationGraph` experimental añade nodos con nombre, transiciones condicionales y espera de la siguiente respuesta sobre la misma sesión. [Cómo funcionan los grafos →]({{ '/es/graphs/' | relative_url }})
 
-[Ejemplo completo en el repositorio](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)
+[Ejemplo completo]({{ '/es/examples/#conversation' | relative_url }})

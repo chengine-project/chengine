@@ -20,6 +20,7 @@ Vom ersten Befehl bis zum mehrstufigen Dialog: Beschreibe das Verhalten des Bots
   <a class="card" href="{{ '/de/sessions/' | relative_url }}"><strong>Sitzungen und Dialoge →</strong><span>Status im Speicher oder in PostgreSQL halten.</span></a>
   <a class="card" href="{{ '/de/polls/' | relative_url }}"><strong>Umfragen →</strong><span>Abstimmungen durchführen und Antworten verarbeiten.</span></a>
   <a class="card" href="{{ '/de/graphs/' | relative_url }}"><strong>Graphen →</strong><span>Abläufe mit Übergängen und Wartepunkten erstellen.</span></a>
+  <a class="card" href="{{ '/de/examples/' | relative_url }}"><strong>Vollständige Beispiele →</strong><span>Vollständige Handler in der Dokumentation.</span></a>
 </div>
 
 ## Kurzes Beispiel

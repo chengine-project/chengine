@@ -50,7 +50,7 @@ inlineKeyboard {
 }
 ```
 
-每个按钮必须恰好指定一个动作。回调数据长度为 1–64 个 UTF-8 字节。[目录示例](https://github.com/chengine-project/chengine/tree/develop/examples/catalog)演示如何在同一条消息中切换页面并查看商品详情。
+每个按钮必须恰好指定一个动作。回调数据长度为 1–64 个 UTF-8 字节。[目录示例]({{ '/zh/examples/#catalog' | relative_url }})演示如何在同一条消息中切换页面并查看商品详情。
 
 ## 编辑消息和键盘
 
@@ -79,4 +79,4 @@ sendTelegramMessage {
 
 要移除回复键盘，请发送包含 `replyKeyboard { removeKeyboard() }` 的消息。一条消息只能包含回复键盘或内联键盘中的一种。
 
-[仓库中的完整示例](https://github.com/chengine-project/chengine/tree/develop/examples/inline-keyboard)
+[完整示例]({{ '/zh/examples/#buttons' | relative_url }})
