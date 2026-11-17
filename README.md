@@ -47,19 +47,12 @@ Telegram updates can arrive through long polling or a [webhook](https://chengine
 
 ## Quick start
 
-You will need JDK 17 or newer, Kotlin and Spring Boot, and a Telegram bot token and username. A public Maven release is not yet configured, so first build the library into your local Maven repository:
+You will need JDK 17 or newer, Kotlin and Spring Boot, and a Telegram bot token and username. Once published, Chengine artifacts are available from Maven Central. Check the [available starter versions](https://central.sonatype.com/artifact/io.github.chengine-project/spring-boot-starter-telegram); newly published versions may take some time to become available.
 
-```bash
-git clone https://github.com/chengine-project/chengine.git
-cd chengine
-./gradlew publishToMavenLocal
-```
-
-In a separate Spring Boot project, add `mavenLocal()` and the dependency:
+In a Spring Boot project, add the dependency:
 
 ```kotlin
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -67,6 +60,8 @@ dependencies {
     implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
 }
 ```
+
+If the release is not yet available, or to build from source, run `./gradlew publishToMavenLocal` in a Chengine checkout and add `mavenLocal()` before `mavenCentral()` in your project.
 
 Configure the application using environment variables:
 

@@ -58,6 +58,8 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 
 `session-postgres` 模块可在重启后保留 `ConversationSession`。添加依赖 `io.github.chengine-project:session-postgres:1.0.0`，配置 PostgreSQL `DataSource` 并注册 bean：
 
+此模块的可用版本请参阅 [Maven Central](https://central.sonatype.com/artifact/io.github.chengine-project/session-postgres)。
+
 ```kotlin
 @Bean
 fun sessionStore(dataSource: DataSource): SessionStore =

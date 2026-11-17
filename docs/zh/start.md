@@ -4,7 +4,7 @@ lang: zh
 title: 快速开始
 section: 基础
 permalink: /zh/start/
-lead: 在本地构建库，添加 starter，然后创建第一个处理器。
+lead: 添加 Chengine、配置机器人并创建第一个处理器。
 ---
 
 ## 环境要求
@@ -13,9 +13,11 @@ lead: 在本地构建库，添加 starter，然后创建第一个处理器。
 - Kotlin 和 Spring Boot；当前分支使用 Kotlin 2.2.21 和 Spring Boot 3.5.16。
 - 通过 BotFather 创建的 Telegram 机器人及其令牌和用户名。
 
-## 1. 构建库
+## 1. 获取依赖
 
-以下方法从本地 Maven 仓库引入当前源代码，不依赖已发布的版本。
+Chengine 构件通过 Maven Central 发布。请查看 [starter 的可用版本](https://central.sonatype.com/artifact/io.github.chengine-project/spring-boot-starter-telegram)，并在以下示例中使用固定版本。新发布的版本可能不会立即可用。
+
+如果版本尚不可用，或需要使用当前源代码，请在本地构建：
 
 ```bash
 git clone https://github.com/chengine-project/chengine.git
@@ -23,7 +25,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-当前分支的构件版本为 `1.0.0`。如果使用其他提交，请检查根目录 `build.gradle.kts` 中的 `version`。
+使用本地构建时，请在下方 `repositories` 中将 `mavenLocal()` 放在 `mavenCentral()` 之前。版本号以所选提交根目录的 `build.gradle.kts` 为准。
 
 ## 2. 添加 starter
 
@@ -38,7 +40,6 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 

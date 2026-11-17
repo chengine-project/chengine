@@ -58,6 +58,8 @@ The key includes platform, bot account, user, and chat. Telegram uses the config
 
 The `session-postgres` module persists `ConversationSession` across restarts. Add `io.github.chengine-project:session-postgres:1.0.0`, configure a PostgreSQL `DataSource`, and register a bean:
 
+See [Maven Central](https://central.sonatype.com/artifact/io.github.chengine-project/session-postgres) for available versions of this module.
+
 ```kotlin
 @Bean
 fun sessionStore(dataSource: DataSource): SessionStore =
