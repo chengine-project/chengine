@@ -47,3 +47,30 @@ subprojects {
         mavenCentral()
     }
 }
+// Every published module carries the project's license and Maven metadata.
+subprojects {
+    tasks.withType<Jar>().configureEach {
+        from(rootProject.file("LICENSE")) { into("META-INF") }
+    }
+    plugins.withId("maven-publish") {
+        extensions.configure<PublishingExtension> {
+            publications.withType<MavenPublication>().configureEach {
+                pom {
+                    name.set("Chengine ${project.name}")
+                    description.set("Kotlin framework for building chatbots")
+                    url.set("https://github.com/chengine-project/chengine")
+                    licenses {
+                        license {
+                            name.set("The MIT License")
+                            url.set("https://opensource.org/license/mit")
+                        }
+                    }
+                    scm {
+                        url.set("https://github.com/chengine-project/chengine")
+                        connection.set("scm:git:https://github.com/chengine-project/chengine.git")
+                    }
+                }
+            }
+        }
+    }
+}

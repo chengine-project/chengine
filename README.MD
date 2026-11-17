@@ -6,10 +6,12 @@ Create chat bots easily!
 
 ### Add Dependency
 
+Artifacts are not yet published to a public repository. Build and install the current checkout with `./gradlew publishToMavenLocal`, and configure your project to use `mavenLocal()` first. See the [quick start](docs/start.md).
+
 Gradle
 ```kotlin
 dependencies {
-    implementation("io.chengine:spring-boot-starter-telegram:0.1-ALPHA")
+    implementation("io.chengine:spring-boot-starter-telegram:1.0.1-BETA")
 }
 ```
 
@@ -17,11 +19,11 @@ Maven
 ```xml
 <dependencies>
     <!--...-->
-    <depencency>
+    <dependency>
         <groupId>io.chengine</groupId>
         <artifactId>spring-boot-starter-telegram</artifactId>
-        <version>0.1-ALPHA</version>
-    </depencency>
+        <version>1.0.1-BETA</version>
+    </dependency>
 </dependencies>
 ```
 ### Telegram Yaml Configuration
@@ -132,8 +134,9 @@ As a result, you will get something like this
 
 ## License
 
-```
-```
+Chengine is distributed under the [MIT License](LICENSE).
+
+For local publication checks and remaining public release setup, see [release preparation](docs/releasing.md).
 
 ## TelegramBots 10 migration
 

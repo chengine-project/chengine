@@ -10,8 +10,12 @@ permissions:
 
 jobs:
   build:
-    name: Build and test (JDK 21)
+    name: Build and test (JDK ${{ matrix.java }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [17, 21]
     timeout-minutes: 20
     services:
       postgres:
@@ -34,19 +38,30 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Set up JDK 21
+      - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: '${{ matrix.java }}'
           cache: gradle
       - name: Build and run tests
         run: ./gradlew build --no-daemon
+      - name: Publish to an isolated local Maven repository
+        run: ./gradlew publishToMavenLocal --no-daemon -Dmaven.repo.local="$RUNNER_TEMP/chengine-maven"
+      - name: Verify a separate consumer
+        env:
+          CHENGINE_LOCAL_MAVEN: ${{ runner.temp }}/chengine-maven
+        run: ./gradlew -p verification/consumer run --no-daemon
+      - name: Verify Maven POM consumption
+        env:
+          CHENGINE_LOCAL_MAVEN: ${{ runner.temp }}/chengine-maven
+          CHENGINE_POM_ONLY: 'true'
+        run: ./gradlew -p verification/consumer clean run --no-daemon --refresh-dependencies
       - name: Upload test reports on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
+          name: test-reports-jdk-${{ matrix.java }}
           path: '**/build/reports/tests/'
           if-no-files-found: ignore
           retention-days: 7
