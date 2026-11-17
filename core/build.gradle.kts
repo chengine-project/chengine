@@ -14,7 +14,7 @@ publishing {
 
 dependencies {
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.21")
 
     api("org.springframework:spring-context:5.3.20")
     api("com.github.ben-manes.caffeine:caffeine:3.1.0")
