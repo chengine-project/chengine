@@ -1,0 +1,5 @@
+# Experimental Telegram agent tool
+
+`TelegramSendMessageTool` binds a Telegram client to the chat of the current `BotRequestContext`. Its `name` and `description` can be exposed by an application to a model adapter; the adapter calls `execute(text)` when the model selects the tool. The tool returns Telegram's message ID after a successful send and propagates failures. The model supplies only the message text; the application supplies the client and request context. Blank messages and missing chat IDs are rejected.
+
+For a runnable fake-model example, see `TelegramSendMessageToolTest` in the Telegram module. Its fake model calls the tool, and a fake `TelegramClient` verifies the outgoing message without making a network request. No LLM provider, JSON tool-call parser, agent loop, automatic retries, or graph integration is included in this prototype. A real adapter must validate and parse model arguments, decide which tools to expose, and handle tool results and failures. The tool performs its send immediately, so application retry logic must account for possible duplicate messages.
