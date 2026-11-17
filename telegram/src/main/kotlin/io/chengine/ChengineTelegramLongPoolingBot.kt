@@ -13,6 +13,9 @@ import io.chengine.handler.TelegramSingleHandlerAnnotationProcessor
 import io.chengine.method.MethodReturnValueHandler
 import io.chengine.method.PartialApiMethodReturnValueHandler
 import io.chengine.method.ListApiMethodReturnValueHandler
+import io.chengine.poll.InMemoryTelegramPollOriginStore
+import io.chengine.poll.TelegramPollOrigin
+import io.chengine.poll.TelegramPollOriginStore
 import io.chengine.session.SessionKeyRequestExtractor
 import io.chengine.session.TelegramSessionKeyRequestExtractor
 import io.chengine.text.TelegramTextContentRequestExtractor
@@ -34,6 +37,9 @@ import org.telegram.telegrambots.meta.api.methods.groupadministration.SetChatPho
 open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
     lateinit var telegramBotsLongPollingBotBot: TelegramBotsLongPoolingBot
+
+    /** Configure before processing requests; share a durable implementation across instances if needed. */
+    var pollOriginStore: TelegramPollOriginStore = InMemoryTelegramPollOriginStore()
 
     override fun sessionBotIdentifier(): String =
         if (::telegramBotsLongPollingBotBot.isInitialized)
@@ -74,10 +80,16 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
     private fun executeMethod(method: Any) {
         when (method) {
+            is SendPoll -> {
+                val sent = telegramBotsLongPollingBotBot.client.execute(method)
+                val poll = requireNotNull(sent.poll) { "Telegram sent a poll without a poll ID" }
+                val chatId = requireNotNull(sent.chat?.id) { "Telegram sent a poll without a chat ID" }
+                val messageId = requireNotNull(sent.messageId) { "Telegram sent a poll without a message ID" }
+                pollOriginStore.put(sessionBotIdentifier(), TelegramPollOrigin(poll.id, chatId, messageId))
+            }
             is BotApiMethod<*> -> telegramBotsLongPollingBotBot.client.execute(method)
             is SendMediaGroup -> telegramBotsLongPollingBotBot.client.execute(method)
             is SendPhoto -> telegramBotsLongPollingBotBot.client.execute(method)
-            is SendPoll -> telegramBotsLongPollingBotBot.client.execute(method)
             is SendAudio -> telegramBotsLongPollingBotBot.client.execute(method)
             is SendDocument -> telegramBotsLongPollingBotBot.client.execute(method)
             is SendAnimation -> telegramBotsLongPollingBotBot.client.execute(method)
