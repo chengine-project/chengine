@@ -1,5 +1,14 @@
 <div align="center">
   <img src="docs/assets/readme-hero-v2.png" alt="Chengine — build Telegram bots with Kotlin" width="100%">
+  <p>
+    <a href="https://github.com/chengine-project/chengine/actions/workflows/gradle-publish.yml"><img src="https://github.com/chengine-project/chengine/actions/workflows/gradle-publish.yml/badge.svg?branch=main&amp;event=push" alt="Build and tests"></a>
+    <a href="https://central.sonatype.com/artifact/io.github.chengine-project/spring-boot-starter-telegram"><img src="https://img.shields.io/maven-central/v/io.github.chengine-project/spring-boot-starter-telegram?label=Maven%20Central&amp;color=orange" alt="Maven Central version"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license"></a>
+  </p>
+  <p>
+    <a href="https://t.me/chengine_framework"><img src="https://img.shields.io/badge/Telegram-Channel-26A5E4?logo=telegram&amp;logoColor=white" alt="Telegram channel"></a>
+    <a href="https://t.me/chengine_framework_chat"><img src="https://img.shields.io/badge/Telegram-Chat-26A5E4?logo=telegram&amp;logoColor=white" alt="Telegram chat"></a>
+  </p>
   <p><strong>Commands, buttons, and conversations in a familiar Kotlin DSL.</strong></p>
   <p>
     <a href="https://chengine-project.github.io/chengine/en/">Documentation</a> &nbsp;·&nbsp;
