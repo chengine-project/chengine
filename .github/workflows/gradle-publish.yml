@@ -48,6 +48,11 @@ jobs:
         run: python3 scripts/sync-doc-examples.py --check
       - name: Build and run tests
         run: ./gradlew build --no-daemon
+      - name: Verify signed Central bundle with a temporary key
+        if: matrix.java == 21
+        run: |
+          python3 scripts/verify-central-bundle.py
+          python3 scripts/verify-central-bundle.py --gpg
       - name: Publish to an isolated local Maven repository
         run: ./gradlew publishToMavenLocal --no-daemon -Dmaven.repo.local="$RUNNER_TEMP/chengine-maven"
       - name: Verify a separate consumer

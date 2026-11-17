@@ -18,7 +18,7 @@ dependencies {
     api("org.telegram:telegrambots-longpolling:10.3.0")
     api("org.telegram:telegrambots-client:10.3.0")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation(kotlin("stdlib"))
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")

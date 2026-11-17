@@ -15,7 +15,7 @@ publishing {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter:3.5.16")
+    api("org.springframework.boot:spring-boot-starter:3.5.16")
     implementation("org.springframework.boot:spring-boot-autoconfigure:3.5.16")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")

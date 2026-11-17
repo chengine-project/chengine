@@ -2,7 +2,7 @@
   "groups": [
     {
       "name": "chengine",
-      "type": "io.chengine.springframework.boot.autoconfigure.ChengineAutoConfiguration"
+      "type": "io.chengine.autoconfigure.ChengineTelegramAutoConfiguration"
     }
   ],
   "properties": [
