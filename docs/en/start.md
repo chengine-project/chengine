@@ -23,7 +23,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-The artifact version in this branch is `1.0.1-BETA`. Check `version` in the root `build.gradle.kts` when using a different commit.
+The artifact version in this branch is `1.0.0`. Check `version` in the root `build.gradle.kts` when using a different commit.
 
 ## 2. Add the starter
 
@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
 }
 
 kotlin { jvmToolchain(21) }

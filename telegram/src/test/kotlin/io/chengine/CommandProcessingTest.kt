@@ -27,6 +27,10 @@ class TestHandler {
 @Handler class DuplicateHandler { @HandleCommand("/hello") fun duplicate() = "duplicate" }
 @Handler class DuplicateTextHandler { @HandleText("/hello") fun duplicate() = "duplicate" }
 @Handler class EmptyHandler { @HandleCommand("") fun empty() = "empty" }
+@Handler class NoResponseHandler {
+    var called = false
+    @HandleCommand("/noresponse") fun noResponse() { called = true }
+}
 
 private class CapturingBot : ChengineTelegramLongPoolingBot() {
     var result: Any? = null
@@ -41,6 +45,14 @@ class CommandProcessingTest {
         message = Message().apply { this.text = text; chat = Chat(123L, "private") }
     }
     private fun response(bot: CapturingBot) = bot.result as SendMessage
+
+    @Test fun `unit handler completes without producing a response`() {
+        val handler = NoResponseHandler()
+        val bot = bot(handler)
+        bot.process(update("/noresponse"))
+        assertTrue(handler.called)
+        assertNull(bot.result)
+    }
 
     @Test fun `command with payload is routed and original update is retained`() {
         val bot = bot(TestHandler())

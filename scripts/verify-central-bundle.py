@@ -2,6 +2,7 @@
 """Generate a throwaway key, stage a bundle locally, and verify every signature."""
 from pathlib import Path
 import hashlib
+import io
 import argparse
 import os
 import re
@@ -25,7 +26,7 @@ with tempfile.TemporaryDirectory(prefix="cpg-", dir="/tmp") as tmp:
     gpg = ["gpg", "--homedir", str(gpgdir), "--batch", "--pinentry-mode", "loopback"]
     subprocess.run(gpg + ["--passphrase", "", "--quick-generate-key", "Chengine Release Test <release-test@example.invalid>", "rsa2048", "sign", "1d"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     env = os.environ.copy()
-    command = [str(root / "gradlew"), "publishAllPublicationsToCentralStagingRepository", "-PprepareCentral=true", "--no-daemon", "--offline"]
+    command = [str(root / "gradlew"), "publishAllPublicationsToCentralStagingRepository", "-PprepareCentral=true", "--no-daemon"]
     if args.gpg:
         env["GNUPGHOME"] = str(gpgdir)
         command.extend(["-PuseLocalGpg=true", "-Psigning.gnupg.executable=gpg", "-Psigning.gnupg.keyName=release-test@example.invalid"])
@@ -41,12 +42,26 @@ with tempfile.TemporaryDirectory(prefix="cpg-", dir="/tmp") as tmp:
     subprocess.run(["python3", str(root / "scripts/central-bundle.py"), "--version", version_match.group(1), "--output", str(bundle)], cwd=root, check=True)
     with zipfile.ZipFile(bundle) as archive:
         names = set(archive.namelist())
+        documented_types = {
+            "core": "-chengine/index.html",
+            "spring": "-chengine-auto-configuration/index.html",
+            "telegram": "-chengine-telegram-long-pooling-bot/index.html",
+            "spring-boot-starter-telegram": "-chengine-telegram-auto-configuration/index.html",
+            "session-postgres": "-postgres-session-store/index.html",
+        }
         artifacts = [name for name in names if name.endswith((".jar", ".pom", ".module"))]
         if len(artifacts) != 25 or len(names) != 100:
             raise SystemExit(f"Unexpected bundle contents: {len(artifacts)} artifacts, {len(names)} files")
         total_uncompressed = sum(item.file_size for item in archive.infolist())
         for name in artifacts:
             data = archive.read(name)
+            if name.endswith("-javadoc.jar"):
+                with zipfile.ZipFile(io.BytesIO(data)) as docs:
+                    html_pages = [entry for entry in docs.namelist() if entry.endswith(".html")]
+                    module = Path(name).parts[-3]
+                    expected = documented_types.get(module)
+                    if "index.html" not in html_pages or expected is None or not any(entry.endswith(expected) for entry in html_pages):
+                        raise SystemExit(f"Missing generated API documentation in {name}")
             if name.endswith(".pom"):
                 pom = ET.fromstring(data)
                 ns = {"m": "http://maven.apache.org/POM/4.0.0"}

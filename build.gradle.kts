@@ -8,6 +8,7 @@ plugins {
 
     id("org.springframework.boot") version "3.5.16" apply false
     id("io.spring.dependency-management") version "1.1.7" apply false
+    id("org.jetbrains.dokka") version "2.2.0" apply false
 }
 
 repositories {
@@ -25,7 +26,7 @@ dependencies {
 allprojects {
 
     group = "io.github.chengine-project"
-    version = "1.0.1-BETA"
+    version = "1.0.0"
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = "17"
@@ -42,6 +43,7 @@ allprojects {
 }
 
 subprojects {
+    pluginManager.apply("org.jetbrains.dokka")
     tasks.withType<Test> { useJUnitPlatform() }
 
     repositories {
@@ -97,7 +99,7 @@ subprojects {
             val keyId = providers.environmentVariable("CHENGINE_SIGNING_KEY_ID").orNull
             val javadocJar = tasks.register<Jar>("centralJavadocJar") {
                 archiveClassifier.set("javadoc")
-                from(rootProject.file("verification/central-javadoc.html")) { rename { "index.html" } }
+                from(tasks.named("dokkaGeneratePublicationHtml"))
             }
             val publishing = extensions.getByType<PublishingExtension>()
             publishing.publications.withType<MavenPublication>().configureEach { artifact(javadocJar) }
