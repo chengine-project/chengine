@@ -1,32 +1,19 @@
 package io.chengine
 
 import io.chengine.connector.AbstractBot
-import org.apache.logging.log4j.kotlin.logger
-import org.telegram.telegrambots.bots.TelegramLongPollingBot
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod
+import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient
+import org.telegram.telegrambots.longpolling.interfaces.LongPollingUpdateConsumer
 import org.telegram.telegrambots.meta.api.objects.Update
-import java.io.Serializable
+import org.telegram.telegrambots.meta.generics.TelegramClient
 
+/** Connects Telegram's update consumer and client to Chengine. */
 open class TelegramBotsLongPoolingBot(
     val token: String,
     val userName: String,
-    val abstractBot: AbstractBot
-) : TelegramLongPollingBot() {
-
-    private val logger = logger()
-
-    init {
-        logger.info { "Initializing telegram long pooling bot" }
+    val abstractBot: AbstractBot,
+    val client: TelegramClient = OkHttpTelegramClient(token)
+) : LongPollingUpdateConsumer {
+    override fun consume(updates: List<Update>) {
+        updates.forEach { abstractBot.process(it) }
     }
-
-    override fun getBotToken(): String = token
-
-    override fun getBotUsername(): String = userName
-
-    override fun onUpdateReceived(update: Update) {
-        logger.debug { "Update received, userId: ${update.getUserId()}, chatId: ${update.getChatId()}" }
-        abstractBot.process(update)
-    }
-
-    override fun <T : Serializable, Method : BotApiMethod<T>> execute(method: Method): T = super.execute(method)
 }

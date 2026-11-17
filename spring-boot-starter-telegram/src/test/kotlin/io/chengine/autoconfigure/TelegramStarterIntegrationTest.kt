@@ -9,8 +9,8 @@ import io.chengine.session.InMemorySessionStore
 import io.chengine.session.Session
 import io.chengine.session.SessionKey
 import io.chengine.session.SessionStore
-import org.telegram.telegrambots.meta.api.objects.Chat
-import org.telegram.telegrambots.meta.api.objects.Message
+import org.telegram.telegrambots.meta.api.objects.chat.Chat
+import org.telegram.telegrambots.meta.api.objects.message.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.api.objects.User
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -24,8 +24,8 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.telegram.telegrambots.meta.TelegramBotsApi
-import org.telegram.telegrambots.meta.generics.LongPollingBot
+import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication
+import io.chengine.TelegramBotsLongPoolingBot
 
 @Handler
 class StartupHandler {
@@ -48,7 +48,7 @@ class TestSessionStore : SessionStore {
 open class TestApplication {
     @Bean open fun testHandler() = StartupHandler()
     @Bean open fun testSessionStore() = TestSessionStore()
-    @Bean open fun telegramBotsApi(): TelegramBotsApi = mock(TelegramBotsApi::class.java)
+    @Bean open fun telegramBotsApplication(): TelegramBotsLongPollingApplication = mock(TelegramBotsLongPollingApplication::class.java)
 }
 
 class TelegramStarterIntegrationTest {
@@ -67,12 +67,12 @@ class TelegramStarterIntegrationTest {
             assertNotNull(bot)
             bot.process(Update().apply { message = Message().apply {
                 text = "/start"
-                chat = Chat().apply { id = 10L }
-                from = User().apply { id = 1L }
+                chat = Chat(10L, "private")
+                from = User(1L, "Test", false)
             } })
             assertEquals("test_bot", context.getBean(TestSessionStore::class.java).lastSaved?.botId)
-            verify(context.getBean(TelegramBotsApi::class.java))
-                .registerBot(context.getBean(LongPollingBot::class.java))
+            verify(context.getBean(TelegramBotsLongPollingApplication::class.java))
+                .registerBot("test-token", context.getBean(TelegramBotsLongPoolingBot::class.java))
         } finally {
             context.close()
         }

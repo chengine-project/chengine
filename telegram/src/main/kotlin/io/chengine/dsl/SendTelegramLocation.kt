@@ -29,7 +29,7 @@ class SendTelegramLocationBuilder(
             throw RuntimeException("Location longitude can't be null")
         }
 
-        val sendLocation = SendLocation()
+        val sendLocation = SendLocation.builder().chatId(chatId ?: "").latitude(latitude!!).longitude(longitude!!).build()
         chatId?.let {
             sendLocation.chatId = it
         }

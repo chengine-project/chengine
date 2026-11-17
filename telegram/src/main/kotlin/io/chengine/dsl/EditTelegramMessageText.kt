@@ -12,7 +12,7 @@ class EditTelegramMessageTextBuilder {
     var parseMode: ParseMode? = null
 
     fun _build(): EditMessageText {
-        return EditMessageText().apply {
+        return EditMessageText.builder().build().apply {
             this@EditTelegramMessageTextBuilder.chatId?.let {
                 this.chatId = it.toString()
             }

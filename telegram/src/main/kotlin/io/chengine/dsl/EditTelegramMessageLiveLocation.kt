@@ -7,9 +7,5 @@ fun editTelegramMessageLiveLocation(block: EditTelegramMessageLiveLocationBuilde
 }
 
 class EditTelegramMessageLiveLocationBuilder {
-    fun _build(): EditMessageLiveLocation {
-        val editMessageLiveLocation = EditMessageLiveLocation()
-
-        return editMessageLiveLocation
-    }
+    fun _build(): EditMessageLiveLocation = TODO("Not yet implemented")
 }

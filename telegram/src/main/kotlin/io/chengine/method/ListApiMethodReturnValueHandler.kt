@@ -2,7 +2,7 @@ package io.chengine.method
 
 import io.chengine.connector.BotRequestContext
 import io.chengine.connector.BotResponseContext
-import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod
+import org.telegram.telegrambots.meta.api.methods.botapimethods.PartialBotApiMethod
 import java.io.Serializable
 import kotlin.reflect.KClass
 

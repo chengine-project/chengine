@@ -6,8 +6,8 @@ import io.chengine.session.UserSessionContextHolder
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Chat
-import org.telegram.telegrambots.meta.api.objects.Message
+import org.telegram.telegrambots.meta.api.objects.chat.Chat
+import org.telegram.telegrambots.meta.api.objects.message.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.api.objects.User
 
@@ -21,8 +21,8 @@ class ConversationProcessingTest {
     private fun send(bot: ConversationBot, text: String, user: Long = 1L, chatId: Long = 10L): String? {
         val update = Update().apply { message = Message().apply {
             this.text = text
-            chat = Chat().apply { id = chatId }
-            from = User().apply { id = user }
+            chat = Chat(chatId, "private")
+            from = User(user, "Test", false)
         } }
         bot.process(update)
         assertNull(UserSessionContextHolder.currentSession())

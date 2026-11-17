@@ -20,7 +20,7 @@ class DeleteTelegramMessageBuilder {
         }
         messageId ?: throw RuntimeException("Message id can't be null")
 
-        val deleteMessage = DeleteMessage()
+        val deleteMessage = DeleteMessage.builder().chatId(chatId ?: "").messageId(messageId!!).build()
         chatId?.let {
             deleteMessage.chatId = it
         }

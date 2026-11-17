@@ -4,6 +4,7 @@ import io.chengine.common.isNull
 import io.chengine.common.then
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardRow
 
 // Telegram Inline Keyboard
 
@@ -91,12 +92,12 @@ interface InlineKeyboardSupporter {
 }
 
 fun TelegramInlineKeyboard?.toReplyMarkup() = this?.let { keyboard ->
-    val telegramInlineKeyboardMarkup = InlineKeyboardMarkup()
-    val telegramInlineKeyboardRows = ArrayList<List<InlineKeyboardButton>>()
+    val telegramInlineKeyboardMarkup = InlineKeyboardMarkup.builder().keyboard(emptyList()).build()
+    val telegramInlineKeyboardRows = ArrayList<InlineKeyboardRow>()
     keyboard.forEach { row ->
-        val telegramInlineKeyboardRow = ArrayList<InlineKeyboardButton>()
+        val telegramInlineKeyboardRow = InlineKeyboardRow()
         row.forEach { button ->
-            val telegramInlineKeyboardButton = InlineKeyboardButton()
+            val telegramInlineKeyboardButton = InlineKeyboardButton.builder().text(button.text).build()
             telegramInlineKeyboardButton.text = button.text
             telegramInlineKeyboardButton.callbackData = button.callbackData
             button.switchInlineQueryCurrentChat?.let { telegramInlineKeyboardButton.switchInlineQueryCurrentChat = it }

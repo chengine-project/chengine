@@ -16,11 +16,19 @@ import io.chengine.session.SessionKeyRequestExtractor
 import io.chengine.session.TelegramSessionKeyRequestExtractor
 import io.chengine.text.TelegramTextContentRequestExtractor
 import io.chengine.text.TextContentRequestExtractor
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll
 import org.telegram.telegrambots.meta.api.methods.send.SendAudio
 import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument
+import org.telegram.telegrambots.meta.api.methods.send.SendAnimation
+import org.telegram.telegrambots.meta.api.methods.send.SendVideo
+import org.telegram.telegrambots.meta.api.methods.send.SendVideoNote
+import org.telegram.telegrambots.meta.api.methods.send.SendSticker
+import org.telegram.telegrambots.meta.api.methods.send.SendVoice
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageMedia
+import org.telegram.telegrambots.meta.api.methods.groupadministration.SetChatPhoto
 
 open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
@@ -64,11 +72,19 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
     private fun executeMethod(method: Any) {
         when (method) {
-            is BotApiMethod<*> -> telegramBotsLongPollingBotBot.execute(method)
-            is SendMediaGroup -> telegramBotsLongPollingBotBot.execute(method)
-            is SendPhoto -> telegramBotsLongPollingBotBot.execute(method)
-            is SendPoll -> telegramBotsLongPollingBotBot.execute(method)
-            is SendAudio -> telegramBotsLongPollingBotBot.execute(method)
+            is BotApiMethod<*> -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendMediaGroup -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendPhoto -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendPoll -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendAudio -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendDocument -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendAnimation -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendVideo -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendVideoNote -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendSticker -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SendVoice -> telegramBotsLongPollingBotBot.client.execute(method)
+            is EditMessageMedia -> telegramBotsLongPollingBotBot.client.execute(method)
+            is SetChatPhoto -> telegramBotsLongPollingBotBot.client.execute(method)
             else -> throw RuntimeException(
                 """
                        Response object is not assignable from BotApiMethod class. 

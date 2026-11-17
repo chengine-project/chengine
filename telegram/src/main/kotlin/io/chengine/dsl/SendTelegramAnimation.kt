@@ -6,7 +6,5 @@ fun sendTelegramAnimation(block: SendTelegramAnimationBuilder.() -> Unit) =
     SendTelegramAnimationBuilder().apply(block)._build()
 
 class SendTelegramAnimationBuilder {
-    fun _build() = SendAnimation().apply {
-        TODO()
-    }
+    fun _build(): SendAnimation = TODO("Not yet implemented")
 }

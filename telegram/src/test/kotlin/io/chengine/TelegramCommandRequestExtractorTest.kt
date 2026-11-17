@@ -4,13 +4,13 @@ import io.chengine.command.TelegramCommandRequestExtractor
 import io.chengine.connector.DefaultBotRequestContext
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.telegram.telegrambots.meta.api.objects.Chat
-import org.telegram.telegrambots.meta.api.objects.Message
+import org.telegram.telegrambots.meta.api.objects.chat.Chat
+import org.telegram.telegrambots.meta.api.objects.message.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 
 class TelegramCommandRequestExtractorTest {
     private fun extract(text: String, username: String?): String? {
-        val update = Update().apply { message = Message().apply { this.text = text; chat = Chat().apply { id = 1L } } }
+        val update = Update().apply { message = Message().apply { this.text = text; chat = Chat(1L, "private") } }
         val request = DefaultBotRequestContext().apply { contextMap[Update::class] = update }
         return TelegramCommandRequestExtractor { username }.extractFrom(request)?.path
     }

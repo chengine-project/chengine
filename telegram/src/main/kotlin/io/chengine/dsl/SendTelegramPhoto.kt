@@ -21,7 +21,7 @@ class SendTelegramPhotoBuilder(
     var parseMode: ParseMode? = null
     var allowSendingWithoutReply: Boolean? = null
 
-    fun _build() = SendPhoto().apply {
+    fun _build() = SendPhoto.builder().chatId(chatId ?: "").photo(requireNotNull(photo) { "Photo is required" }).build().apply {
         this@SendTelegramPhotoBuilder.photo?.let { photo = it }
         this@SendTelegramPhotoBuilder.disableNotification?.let { disableNotification = it }
         this@SendTelegramPhotoBuilder.replyToMessageId?.let { replyToMessageId = it }

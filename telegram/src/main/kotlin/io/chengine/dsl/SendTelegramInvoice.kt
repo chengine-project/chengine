@@ -3,7 +3,7 @@ package io.chengine.dsl
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import org.telegram.telegrambots.meta.api.methods.send.SendInvoice
+import org.telegram.telegrambots.meta.api.methods.invoices.SendInvoice
 import org.telegram.telegrambots.meta.api.objects.payments.LabeledPrice
 
 fun sendTelegramInvoice(block: SendTelegramInvoiceBuilder.() -> Unit): SendInvoice {
@@ -66,7 +66,7 @@ class SendTelegramInvoiceBuilder {
     }
 
     fun _build(): SendInvoice {
-        val sendInvoice = SendInvoice()
+        val sendInvoice = SendInvoice.builder().chatId(chatId ?: "").title(requireNotNull(title)).description(requireNotNull(description)).payload(Json.encodeToString(serializer(), InvoicePayloadMetadata(paymentIdentifier, payload))).currency(requireNotNull(currency)).prices(requireNotNull(prices)).build()
 
         chatId?.let {
             if (it.isNotBlank()) {
@@ -131,7 +131,7 @@ class LabeledPriceBuilder {
     var amount: Int? = null
 
     fun _build(): LabeledPrice {
-        val labeledPrice = LabeledPrice()
+        val labeledPrice = LabeledPrice.builder().label(requireNotNull(label)).amount(requireNotNull(amount)).build()
         labeledPrice.label = label!!
         labeledPrice.amount = amount!!
         return labeledPrice

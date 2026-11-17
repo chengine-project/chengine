@@ -6,7 +6,5 @@ fun sendTelegramVideoNote(block: SendTelegramVideoNoteBuilder.() -> Unit) =
     SendTelegramVideoNoteBuilder().apply(block)._build()
 
 class SendTelegramVideoNoteBuilder {
-    fun _build() = SendVideoNote().apply {
-        TODO()
-    }
+    fun _build(): SendVideoNote = TODO("Not yet implemented")
 }

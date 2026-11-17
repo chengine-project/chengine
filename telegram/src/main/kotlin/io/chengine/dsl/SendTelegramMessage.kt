@@ -27,7 +27,7 @@ class SendTelegramMessageBuilder(
             throw RuntimeException("Message text can't be null")
         }
 
-        val sendMessage = SendMessage()
+        val sendMessage = SendMessage.builder().chatId(chatId ?: "").text(text!!).build()
         chatId?.let {
             sendMessage.chatId = it
         }

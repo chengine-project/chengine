@@ -11,7 +11,7 @@ class PinTelegramChatMessageBuilder {
     var messageId: Int? = null
     var disableNotification: Boolean? = null
 
-    fun _build() = PinChatMessage().apply {
+    fun _build() = PinChatMessage.builder().chatId(chatId?.toString() ?: "").messageId(requireNotNull(messageId)).build().apply {
         this@PinTelegramChatMessageBuilder.chatId?.let {
             this.chatId = it.toString()
         }
