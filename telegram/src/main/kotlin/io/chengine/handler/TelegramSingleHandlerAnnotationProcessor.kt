@@ -10,6 +10,7 @@ class TelegramSingleHandlerAnnotationProcessor(handlerRegistry: DefaultHandlerRe
     AbstractSingleHandlerAnnotationProcessor(handlerRegistry) {
     override fun support(): Set<KClass<out Annotation>> {
         return setOf(
+            TelegramHandleCallback::class,
             TelegramHandleChosenInlineQuery::class,
             TelegramHandleInlineQuery::class,
             TelegramHandlePollAnswer::class,

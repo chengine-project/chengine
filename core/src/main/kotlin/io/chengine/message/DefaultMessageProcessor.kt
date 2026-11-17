@@ -6,6 +6,7 @@ import io.chengine.interceptor.RequestInterceptorChainFactory
 import io.chengine.method.HandlerMethodArgumentExtractor
 import io.chengine.method.HandlerMethodResolver
 import io.chengine.method.MethodReturnValueHandlerResolver
+import io.chengine.session.UserSessionContextHolder
 import org.apache.logging.log4j.kotlin.logger
 import org.springframework.stereotype.Component
 
@@ -23,12 +24,17 @@ class DefaultMessageProcessor(
 
         logger.debug { "Request received: $request" }
 
-        interceptorChainFactory.get().doIntercept(request)
-        handlerMethodResolver.resolve(request)?.let { method ->
-            val args = handlerMethodArgumentExtractor.extractArgumentsFrom(request, method)
-            method.invoke(Any::class, args)?.let { result ->
-                methodReturnValueHandlerResolver.resolve(result, method, request, response)
-            } ?: throw RuntimeException("Returned value is null, break message processing")
-        } ?: throw RuntimeException("Can't resolve method to process the request: $request")
+        try {
+            interceptorChainFactory.get().doIntercept(request)
+            handlerMethodResolver.resolve(request)?.let { method ->
+                val args = handlerMethodArgumentExtractor.extractArgumentsFrom(request, method)
+                method.invoke(Any::class, args)?.let { result ->
+                    methodReturnValueHandlerResolver.resolve(result, method, request, response)
+                } ?: throw RuntimeException("Returned value is null, break message processing")
+            } ?: logger.debug { "No handler found for request: $request" }
+            UserSessionContextHolder.flush()
+        } finally {
+            UserSessionContextHolder.clear()
+        }
     }
 }

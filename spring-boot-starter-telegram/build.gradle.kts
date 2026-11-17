@@ -24,6 +24,7 @@ dependencies {
     api(project(":core"))
 
     implementation(kotlin("stdlib"))
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar>().configureEach {

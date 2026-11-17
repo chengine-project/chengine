@@ -4,41 +4,44 @@ import io.chengine.connector.BotApiIdentifier
 import io.chengine.connector.BotRequestContext
 import io.chengine.connector.TelegramBotApiIdentifier
 import io.chengine.connector.get
-import io.chengine.getUserId
 import org.apache.logging.log4j.kotlin.logger
 import org.telegram.telegrambots.meta.api.objects.Update
 
-class TelegramCommandRequestExtractor : CommandRequestExtractor {
-
+class TelegramCommandRequestExtractor(
+    private val botUsername: () -> String? = { null }
+) : CommandRequestExtractor {
     private val logger = logger()
+    private val addressedCommand = Regex("^(/[^/#@\\s]+)@([a-zA-Z0-9_]+)(?=/|#|$)")
 
-    override fun support(): BotApiIdentifier {
-        return TelegramBotApiIdentifier.instance
-    }
+    override fun support(): BotApiIdentifier = TelegramBotApiIdentifier.instance
 
     override fun extractFrom(request: BotRequestContext): Command? {
-        return request.get<Update>()?.let {
-            var command: String? = null
-            if (it.hasCallbackQuery()) {
-                command = it.callbackQuery.data
+        val update = request.get<Update>() ?: return null
+        val messageText = update.message?.text
+        var command = if (messageText != null) {
+            messageText.trim().substringBefore(' ').substringBefore('\n').substringBefore('\t')
+        } else {
+            update.callbackQuery?.data
+        } ?: return null
+
+        if (!DefaultCommandValidator.instance.isCommand(command)) return null
+
+        // Telegram addresses group commands to a specific bot. Callback data is Chengine's own format.
+        if (messageText != null) {
+            addressedCommand.find(command)?.let { match ->
+                val username = botUsername() ?: return null
+                if (!match.groupValues[2].equals(username.removePrefix("@"), ignoreCase = true)) return null
+                command = match.groupValues[1] + command.substring(match.range.last + 1)
             }
-            if (it.hasMessage()) {
-                command = it.message.text
-            }
-            command?.let { c ->
-                val validator = DefaultCommandValidator.instance
-                if (validator.isCommand(c)) {
-                    try {
-                        DefaultCommandParser.instance.parse(c)
-                    } catch (ex: CommandValidationException) {
-                        logger.error(ex) { "Can not parse a command $c, userId: ${it.getUserId()}" }
-                        return null
-                    }
-                } else {
-                    logger.debug { "Received text $c not a command, userId: ${it.getUserId()}" }
-                    return null
-                }
-            }
+        }
+        return try {
+            DefaultCommandParser.instance.parse(command)
+        } catch (ex: CommandValidationException) {
+            logger.debug { "Ignoring invalid command: ${ex.message}" }
+            null
+        } catch (ex: CommandParsingException) {
+            logger.debug { "Ignoring invalid command: ${ex.message}" }
+            null
         }
     }
 }

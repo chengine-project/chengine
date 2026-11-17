@@ -40,6 +40,8 @@ allprojects {
 }
 
 subprojects {
+    tasks.withType<Test> { useJUnitPlatform() }
+
     repositories {
         mavenCentral()
     }

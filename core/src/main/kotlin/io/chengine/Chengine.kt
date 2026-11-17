@@ -3,6 +3,7 @@ package io.chengine
 import io.chengine.connector.Factory
 import io.chengine.handler.HandlerRegistrar
 import io.chengine.message.DefaultMessageProcessor
+import io.chengine.session.DefaultSessionManager
 import org.apache.logging.log4j.kotlin.logger
 import org.springframework.beans.factory.getBean
 import org.springframework.beans.factory.getBeansOfType
@@ -40,6 +41,7 @@ open class Chengine(config: ChengineConfig) {
         printBanner()
         logger.info { "Chengine initializing started..." }
         context = AnnotationConfigApplicationContext(ComponentScanClass::class.java)
+        config.sessionStore?.let { context.getBean<DefaultSessionManager>().useStore(it) }
         config.bots.forEach { bot ->
             context
                 .getBean<DefaultMessageProcessor>()

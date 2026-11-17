@@ -21,7 +21,7 @@ class DefaultHandlerMethodArgumentExtractor : HandlerMethodArgumentExtractor {
                     val paramName = it.value
                     val command = request.command()
                     val value = command?.getParam(paramName)
-                    val typedValue = stringToType(value!!, parameter.type.jvmErasure)
+                    val typedValue = stringToType(value ?: throw IllegalArgumentException("Missing command parameter `$paramName` for ${method.method.name}"), parameter.type.jvmErasure)
                     args[i] = (typedValue)
                 } ?: run {
                     args[i] = extractParameterWithType(request, parameter.type.jvmErasure)
@@ -38,9 +38,7 @@ class DefaultHandlerMethodArgumentExtractor : HandlerMethodArgumentExtractor {
             return request
         }
 
-        return request.get(clazz) ?: run {
-
-        }
+        return request.get(clazz) ?: throw IllegalArgumentException("Cannot extract handler argument of type ${clazz.qualifiedName}")
     }
 
     private fun stringToType(s: String, clazz: KClass<*>): Any {

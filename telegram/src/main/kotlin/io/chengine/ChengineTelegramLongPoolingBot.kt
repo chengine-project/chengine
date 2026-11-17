@@ -26,6 +26,11 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
     lateinit var telegramBotsLongPollingBotBot: TelegramBotsLongPoolingBot
 
+    override fun sessionBotIdentifier(): String =
+        if (::telegramBotsLongPollingBotBot.isInitialized)
+            telegramBotsLongPollingBotBot.userName.removePrefix("@").lowercase(java.util.Locale.ROOT)
+        else super.sessionBotIdentifier()
+
     override fun botApiIdentifier(): BotApiIdentifier = TelegramBotApiIdentifier.instance
 
     override fun executeResponse(response: BotResponseContext) {
@@ -44,7 +49,7 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
 
     override fun sessionKeyExtractor(): SessionKeyRequestExtractor = TelegramSessionKeyRequestExtractor()
 
-    override fun commandRequestExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor()
+    override fun commandRequestExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor { if (::telegramBotsLongPollingBotBot.isInitialized) telegramBotsLongPollingBotBot.userName else null }
 
     override fun singleHandlerAnnotationExtractor(): SingleHandlerAnnotationExtractor = TelegramSingleHandlerAnnotationExtractor()
 
@@ -52,7 +57,7 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
         PartialApiMethodReturnValueHandler()
     )
 
-    override fun commandExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor()
+    override fun commandExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor { if (::telegramBotsLongPollingBotBot.isInitialized) telegramBotsLongPollingBotBot.userName else null }
 
     override fun textContentExtractor(): TextContentRequestExtractor = TelegramTextContentRequestExtractor()
     override fun singleHandlerAnnotationProcessor(): List<AbstractSingleHandlerAnnotationProcessor> = emptyList()

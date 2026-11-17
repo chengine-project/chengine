@@ -18,7 +18,7 @@ class DefaultHandlerMethodResolver(@Autowired private val handlerRegistry: Handl
 
             val command = request.command()
             if (command != null) {
-                val handlerMethod = handlerRegistry.getHandlerMethodBy(command)
+                val handlerMethod = handlerRegistry.getHandlerMethodBy(command.path)
                 if (handlerMethod != null) {
                     return handlerMethod
                 }

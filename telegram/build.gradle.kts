@@ -19,7 +19,11 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation(kotlin("stdlib"))
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
+
+kotlin.sourceSets.getByName("test").kotlin.srcDir("../examples/conversation")
 
 java {
     withSourcesJar()

@@ -22,7 +22,6 @@ abstract class AbstractSingleHandlerAnnotationProcessor(private val handlerRegis
         support().forEach { annotation ->
             handler::class
                 .memberFunctions
-                .filter { it.isOpen }
                 .forEach { function ->
                     function
                         .annotations
