@@ -88,7 +88,7 @@ Invalid or duplicate command bindings fail during initialization with an error. 
 
 ## Samples
 
-You can find chengine samples [here](https://github.com/mikheevshow/chengine-samples)
+See the [photo and document example](examples/media/README.md), the [conversation example](examples/conversation/README.md), and the [inline keyboard example](examples/inline-keyboard/README.md). More samples are available [here](https://github.com/mikheevshow/chengine-samples).
 
 ## How To Help
 
