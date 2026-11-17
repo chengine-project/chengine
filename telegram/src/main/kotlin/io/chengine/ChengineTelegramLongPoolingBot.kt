@@ -12,6 +12,7 @@ import io.chengine.handler.TelegramSingleHandlerAnnotationExtractor
 import io.chengine.handler.TelegramSingleHandlerAnnotationProcessor
 import io.chengine.method.MethodReturnValueHandler
 import io.chengine.method.PartialApiMethodReturnValueHandler
+import io.chengine.method.ListApiMethodReturnValueHandler
 import io.chengine.session.SessionKeyRequestExtractor
 import io.chengine.session.TelegramSessionKeyRequestExtractor
 import io.chengine.text.TelegramTextContentRequestExtractor
@@ -62,7 +63,8 @@ open class ChengineTelegramLongPoolingBot : AbstractBot() {
     override fun singleHandlerAnnotationExtractor(): SingleHandlerAnnotationExtractor = TelegramSingleHandlerAnnotationExtractor()
 
     override fun methodReturnValueHandlers(): List<MethodReturnValueHandler<*>> = listOf(
-        PartialApiMethodReturnValueHandler()
+        PartialApiMethodReturnValueHandler(),
+        ListApiMethodReturnValueHandler()
     )
 
     override fun commandExtractor(): CommandRequestExtractor = TelegramCommandRequestExtractor { if (::telegramBotsLongPollingBotBot.isInitialized) telegramBotsLongPollingBotBot.userName else null }
