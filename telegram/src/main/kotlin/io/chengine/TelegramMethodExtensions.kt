@@ -4,6 +4,8 @@ package io.chengine
 
 import io.chengine.common.isNull
 import io.chengine.connector.BotRequestContext
+import io.chengine.connector.get
+import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands
 import org.telegram.telegrambots.meta.api.methods.games.SetGameScore
 import org.telegram.telegrambots.meta.api.methods.invoices.SendInvoice
@@ -102,11 +104,15 @@ inline fun EditMessageLiveLocation.setChatIdFromRequest(requestContext: BotReque
 }
 
 inline fun EditMessageReplyMarkup.setChatIdFromRequest(requestContext: BotRequestContext) {
-    if (chatId.isNullOrBlank()) chatId = requestContext.getTelegramChatId()
+    if (inlineMessageId.isNullOrBlank() && chatId.isNullOrBlank()) {
+        chatId = requireNotNull(requestContext.get<Update>()?.getChatId()) { "Cannot determine chat ID for message edit" }.toString()
+    }
 }
 
 inline fun EditMessageText.setChatIdFromRequest(requestContext: BotRequestContext) {
-    if (chatId.isNullOrBlank()) chatId = requestContext.getTelegramChatId()
+    if (inlineMessageId.isNullOrBlank() && chatId.isNullOrBlank()) {
+        chatId = requireNotNull(requestContext.get<Update>()?.getChatId()) { "Cannot determine chat ID for message edit" }.toString()
+    }
 }
 
 inline fun DeleteMessage.setChatIdFromRequest(requestContext: BotRequestContext) {
