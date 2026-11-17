@@ -1,6 +1,9 @@
 package example.polls
 
 import io.chengine.command.HandleCommand
+import io.chengine.connector.BotRequestContext
+import io.chengine.telegramPollOrigin
+import io.chengine.dsl.sendTelegramMessage
 import io.chengine.dsl.TelegramPollType
 import io.chengine.dsl.sendTelegramPoll
 import io.chengine.handler.Handler
@@ -27,11 +30,10 @@ class PollHandler {
         isAnonymous = false
     }
 
-    @TelegramHandlePollAnswer fun onAnswer(update: Update) {
-        val answer = update.pollAnswer
-        // Persist or process answer.pollId, answer.optionIds and the optional voter identity here.
-        println("Received answer for poll ${answer.pollId}: ${answer.optionIds}")
-    }
+    @TelegramHandlePollAnswer fun onAnswer(update: Update, request: BotRequestContext) =
+        if (request.telegramPollOrigin() != null) sendTelegramMessage {
+            text = if (update.pollAnswer.optionIds.isEmpty()) "Голос отозван." else "Спасибо за ответ!"
+        } else Unit // A mapping may be unavailable after restart or for a poll sent elsewhere.
 
     @TelegramHandlePoll fun onPollUpdate(update: Update) {
         val poll = update.poll ?: update.message?.poll ?: return
