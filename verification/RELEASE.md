@@ -2,6 +2,14 @@
 
 The verified namespace is `io.github.chengine-project`. The project stages its five Maven modules together. Ordinary builds and local publications do not require signing credentials and do not contact Maven Central.
 
+## GitHub Actions
+
+The **Prepare Maven Central release** workflow runs only when manually dispatched on the current `main` commit. It runs the build and tests, signs all five modules, packages them and saves the bundle as a GitHub Actions artifact for seven days. It requires the repository secret `CHENGINE_SIGNING_KEY` and, if the key is protected, `CHENGINE_SIGNING_PASSWORD`; `CHENGINE_SIGNING_KEY_ID` is optional when needed for a signing subkey.
+
+Leave **Upload to Central Portal** unchecked to prepare a bundle without uploading it. To upload for validation, add `CENTRAL_PORTAL_USERNAME` and `CENTRAL_PORTAL_PASSWORD` repository secrets containing the username and password of a [Central Portal user token](https://central.sonatype.org/publish/generate-portal-token/), then start the workflow with the option checked. These are not the GitHub or Sonatype account password. The workflow uploads a `USER_MANAGED` deployment; check its validation result and publish it separately in the Central Portal. If an upload times out or returns an unexpected response, check the Portal for an existing deployment before retrying.
+
+## Local preparation
+
 Run the fully local verification first:
 
 ```bash

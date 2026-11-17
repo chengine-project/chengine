@@ -2,5 +2,6 @@
 .gradle
 build/
 .kotlin/
+__pycache__/
 
 docs/.jekyll-cache/
