@@ -22,6 +22,8 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.autoconfigure.AutoConfigurations
+import org.springframework.boot.test.context.runner.ApplicationContextRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication
@@ -52,6 +54,22 @@ open class TestApplication {
 }
 
 class TelegramStarterIntegrationTest {
+    @Test fun `starter reports missing telegram credentials`() {
+        val runner = ApplicationContextRunner()
+            .withConfiguration(AutoConfigurations.of(ChengineAutoConfiguration::class.java, ChengineTelegramAutoConfiguration::class.java))
+            .withBean(TelegramBotsLongPollingApplication::class.java, java.util.function.Supplier { mock(TelegramBotsLongPollingApplication::class.java) })
+
+        runner.withPropertyValues("chengine.telegram.username=test_bot").run { context ->
+            assertNotNull(context.startupFailure)
+        }
+        runner.withPropertyValues("chengine.telegram.token=test-token").run { context ->
+            assertNotNull(context.startupFailure)
+        }
+        runner.withPropertyValues("chengine.telegram.token= ", "chengine.telegram.username=test_bot").run { context ->
+            assertNotNull(context.startupFailure)
+        }
+    }
+
     @Test fun `starter initializes and registers bot`() {
         val application = SpringApplication(TestApplication::class.java)
         application.setDefaultProperties(mapOf(

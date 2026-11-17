@@ -14,9 +14,13 @@ import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication
 @Configuration
 @AutoConfigureBefore(ChengineAutoConfiguration::class)
 open class ChengineTelegramAutoConfiguration(
-    @Value("\${chengine.telegram.token}") val token: String,
-    @Value("\${chengine.telegram.username}") val username: String,
+    @Value("\${chengine.telegram.token:}") val token: String,
+    @Value("\${chengine.telegram.username:}") val username: String,
 ) {
+    init {
+        require(token.isNotBlank()) { "Set chengine.telegram.token to the Telegram bot token" }
+        require(username.isNotBlank()) { "Set chengine.telegram.username to the Telegram bot username" }
+    }
     @Bean(destroyMethod = "close")
     @ConditionalOnMissingBean
     open fun telegramBotsApplication() = TelegramBotsLongPollingApplication()
