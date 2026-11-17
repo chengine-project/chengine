@@ -45,6 +45,33 @@ class CallbackProcessingTest {
         assertEquals("Check", keyboard.keyboard[0][0].text)
         assertEquals("check_button", keyboard.keyboard[0][0].callbackData)
     }
+    @Test fun `url and callback buttons contain only their own actions`() {
+        val method = sendTelegramMessage {
+            text = "Choose"
+            inlineKeyboard { row {
+                button { text = "Link"; url = "https://example.com" }
+                button { text = "Callback"; callbackData = "ok" }
+            } }
+        }
+        val row = (method.replyMarkup as InlineKeyboardMarkup).keyboard[0]
+        assertEquals("https://example.com", row[0].url)
+        assertNull(row[0].callbackData)
+        assertEquals("ok", row[1].callbackData)
+        assertNull(row[1].url)
+    }
+    @Test fun `rejects missing and conflicting actions and invalid callback size`() {
+        fun build(action: io.chengine.dsl.TelegramInlineKeyboardButtonBuilder.() -> Unit) =
+            io.chengine.dsl.TelegramInlineKeyboardButtonBuilder().apply { text = "Button"; action() }._build()
+        assertThrows(IllegalArgumentException::class.java) { build {} }
+        assertThrows(IllegalArgumentException::class.java) { build { url = "https://example.com"; callbackData = "ok" } }
+        assertThrows(IllegalArgumentException::class.java) { build { url = " " } }
+        assertThrows(IllegalArgumentException::class.java) { build { callbackData = "" } }
+        assertThrows(IllegalArgumentException::class.java) { build { callbackData = "я".repeat(33) } }
+        assertThrows(IllegalArgumentException::class.java) { build { pay = false } }
+        assertEquals("я".repeat(32), build { callbackData = "я".repeat(32) }.callbackData)
+        assertEquals("", build { switchInlineQuery = "" }.switchInlineQuery)
+        assertEquals(true, build { pay = true }.pay)
+    }
     @Test fun `callback data reaches handler and is acknowledged`() {
         val bot = bot()
         bot.process(callback("check_button"))
