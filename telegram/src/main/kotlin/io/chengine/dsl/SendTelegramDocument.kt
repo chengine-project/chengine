@@ -27,7 +27,7 @@ class SendTelegramDocumentBuilder(
         .document(requireNotNull(document) { "Document is required" })
         .build().apply {
             caption = this@SendTelegramDocumentBuilder.caption
-            parseMode = this@SendTelegramDocumentBuilder.parseMode?.name
+            parseMode = this@SendTelegramDocumentBuilder.parseMode?.apiValue
             disableNotification = this@SendTelegramDocumentBuilder.disableNotification
             replyToMessageId = this@SendTelegramDocumentBuilder.replyToMessageId
             allowSendingWithoutReply = this@SendTelegramDocumentBuilder.allowSendingWithoutReply

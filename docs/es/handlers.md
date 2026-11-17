@@ -61,3 +61,12 @@ Las respuestas se envían secuencialmente en el orden de la lista. Si un envío 
 Primero se busca el comando, luego una coincidencia exacta de texto y, por último, el controlador general del tipo de evento. Para rutas de comandos Chengine también admite el formato `/item/id#42` con el parámetro `@CommandParameter("id")`.
 
 [Ejemplo de diálogo →]({{ '/es/sessions/' | relative_url }})
+
+## Respuestas de texto
+
+Un manejador puede devolver un `String`; Chengine lo envía al chat del evento. Para texto con formato usa `sendTelegramMessage` con `parseMode = ParseMode.MARKDOWN_V2`. Escapa los caracteres especiales según las reglas de Telegram.
+
+```kotlin
+@HandleCommand("/hello")
+fun hello(): String = "Hello!"
+```

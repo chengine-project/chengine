@@ -96,4 +96,31 @@ fun main(args: Array<String>) {
 
 Запустите приложение и отправьте боту `/hello`. Стартер использует long polling.
 
+
+## Webhook вместо long polling
+
+По умолчанию используется polling. Для webhook добавьте в зависимости `implementation("org.springframework.boot:spring-boot-starter-web")` и настройте приложение:
+
+```yaml
+chengine:
+  telegram:
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
+    mode: webhook
+    webhook:
+      path: /telegram/webhook
+      secret: ${TELEGRAM_WEBHOOK_SECRET}
+```
+
+Опубликуйте HTTPS-адрес `https://example.com/telegram/webhook` через сервер или обратный прокси. Задайте `TELEGRAM_WEBHOOK_SECRET` (1–256 латинских букв, цифр, `_` или `-`) и зарегистрируйте URL в Telegram после запуска приложения:
+
+```bash
+export TELEGRAM_WEBHOOK_URL=https://example.com/telegram/webhook
+curl -fsS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/setWebhook" \
+  --data-urlencode "url=${TELEGRAM_WEBHOOK_URL}" \
+  --data-urlencode "secret_token=${TELEGRAM_WEBHOOK_SECRET}"
+```
+
+Если используется Spring Security, разрешите POST на этот путь и исключите его из CSRF-проверки: запрос проверяется по секретному заголовку. Telegram повторяет доставку при ответе с ошибкой, поэтому обработчики должны учитывать возможные повторы. Для возврата к polling удалите webhook через `deleteWebhook`.
+
 [Далее: команды и обработчики →]({{ '/handlers/' | relative_url }})

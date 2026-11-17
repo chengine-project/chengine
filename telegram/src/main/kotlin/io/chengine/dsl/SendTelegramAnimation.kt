@@ -17,7 +17,7 @@ class SendTelegramAnimationBuilder(override var inlineKeyboard: TelegramInlineKe
     fun animation(block: TelegramInputFileBuilder.() -> Unit) { animation = TelegramInputFileBuilder().apply(block)._build() }
     fun _build(): SendAnimation = SendAnimation(chatId ?: "", requireNotNull(animation) { "Animation is required" }).apply {
         caption = this@SendTelegramAnimationBuilder.caption
-        parseMode = this@SendTelegramAnimationBuilder.parseMode?.name
+        parseMode = this@SendTelegramAnimationBuilder.parseMode?.apiValue
         disableNotification = this@SendTelegramAnimationBuilder.disableNotification
         replyToMessageId = this@SendTelegramAnimationBuilder.replyToMessageId
         allowSendingWithoutReply = this@SendTelegramAnimationBuilder.allowSendingWithoutReply

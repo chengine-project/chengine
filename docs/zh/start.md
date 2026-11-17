@@ -97,4 +97,31 @@ fun main(args: Array<String>) {
 
 启动应用并向机器人发送 `/hello`。starter 使用长轮询。
 
+
+## 使用 Webhook 代替长轮询
+
+默认使用轮询。使用 Webhook 时，添加依赖 `implementation("org.springframework.boot:spring-boot-starter-web")` 并配置应用：
+
+```yaml
+chengine:
+  telegram:
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
+    mode: webhook
+    webhook:
+      path: /telegram/webhook
+      secret: ${TELEGRAM_WEBHOOK_SECRET}
+```
+
+通过服务器或反向代理以 HTTPS 提供 `https://example.com/telegram/webhook`。设置 `TELEGRAM_WEBHOOK_SECRET`（1–256 个 ASCII 字母、数字、`_` 或 `-`），启动应用后向 Telegram 注册 URL：
+
+```bash
+export TELEGRAM_WEBHOOK_URL=https://example.com/telegram/webhook
+curl -fsS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/setWebhook" \
+  --data-urlencode "url=${TELEGRAM_WEBHOOK_URL}" \
+  --data-urlencode "secret_token=${TELEGRAM_WEBHOOK_SECRET}"
+```
+
+如果使用 Spring Security，请允许此路径的 POST 请求并将其排除在 CSRF 检查之外：请求通过秘密请求头验证。Telegram 会重试失败的投递，处理程序应考虑重复消息。要恢复轮询，请通过 `deleteWebhook` 删除 Webhook。
+
 [下一步：命令和处理器 →]({{ '/zh/handlers/' | relative_url }})

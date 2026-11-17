@@ -23,7 +23,7 @@ class SendTelegramPhotoBuilder(
         this@SendTelegramPhotoBuilder.photo?.let { photo = it }
         this@SendTelegramPhotoBuilder.disableNotification?.let { disableNotification = it }
         this@SendTelegramPhotoBuilder.replyToMessageId?.let { replyToMessageId = it }
-        this@SendTelegramPhotoBuilder.parseMode?.let { parseMode = it.name }
+        this@SendTelegramPhotoBuilder.parseMode?.let { parseMode = it.apiValue }
         this@SendTelegramPhotoBuilder.caption?.let { caption = it }
         this@SendTelegramPhotoBuilder.allowSendingWithoutReply?.let { allowSendingWithoutReply = it }
         replyMarkup = this@SendTelegramPhotoBuilder.inlineKeyboard?.toReplyMarkup()

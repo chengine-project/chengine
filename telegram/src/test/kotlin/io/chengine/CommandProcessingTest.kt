@@ -27,6 +27,7 @@ class TestHandler {
 @Handler class DuplicateHandler { @HandleCommand("/hello") fun duplicate() = "duplicate" }
 @Handler class DuplicateTextHandler { @HandleText("/hello") fun duplicate() = "duplicate" }
 @Handler class EmptyHandler { @HandleCommand("") fun empty() = "empty" }
+@Handler class StringReplyHandler { @HandleCommand("/string") fun reply() = "Hello" }
 @Handler class NoResponseHandler {
     var called = false
     @HandleCommand("/noresponse") fun noResponse() { called = true }
@@ -45,6 +46,13 @@ class CommandProcessingTest {
         message = Message().apply { this.text = text; chat = Chat(123L, "private") }
     }
     private fun response(bot: CapturingBot) = bot.result as SendMessage
+
+    @Test fun `string handler becomes a message addressed to the request chat`() {
+        val bot = bot(StringReplyHandler())
+        bot.process(update("/string"))
+        assertEquals("Hello", response(bot).text)
+        assertEquals("123", response(bot).chatId)
+    }
 
     @Test fun `unit handler completes without producing a response`() {
         val handler = NoResponseHandler()

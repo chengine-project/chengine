@@ -60,3 +60,12 @@ fun hello() = listOf(
 Сначала ищется команда, затем точное совпадение текста, затем общий обработчик типа события. Для command-пути Chengine также поддерживается формат `/item/id#42` с параметром `@CommandParameter("id")`.
 
 [Пример диалога →]({{ '/sessions/' | relative_url }})
+
+## Текстовый ответ
+
+Обработчик может вернуть `String`: Chengine отправит её как сообщение в чат события. Для форматированного текста используйте `sendTelegramMessage` и `parseMode = ParseMode.MARKDOWN_V2`. Специальные символы MarkdownV2 нужно экранировать по правилам Telegram.
+
+```kotlin
+@HandleCommand("/hello")
+fun hello(): String = "Hello!"
+```

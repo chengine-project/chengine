@@ -17,6 +17,7 @@ publishing {
 dependencies {
     api("org.springframework.boot:spring-boot-starter:3.5.16")
     implementation("org.springframework.boot:spring-boot-autoconfigure:3.5.16")
+    compileOnly("org.springframework:spring-webmvc:6.2.19")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
     api(project(":spring"))
@@ -25,6 +26,7 @@ dependencies {
 
     implementation(kotlin("stdlib"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-web:3.5.16")
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar>().configureEach {

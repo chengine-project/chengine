@@ -29,7 +29,7 @@ class SendTelegramAudioBuilder(
         .audio(requireNotNull(audio) { "Audio is required" })
         .build().apply {
             caption = this@SendTelegramAudioBuilder.caption
-            parseMode = this@SendTelegramAudioBuilder.parseMode?.name
+            parseMode = this@SendTelegramAudioBuilder.parseMode?.apiValue
             duration = this@SendTelegramAudioBuilder.duration
             performer = this@SendTelegramAudioBuilder.performer
             title = this@SendTelegramAudioBuilder.title

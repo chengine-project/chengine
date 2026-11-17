@@ -31,7 +31,7 @@ class SendTelegramVideoBuilder(
         .video(requireNotNull(video) { "Video is required" })
         .build().apply {
             caption = this@SendTelegramVideoBuilder.caption
-            parseMode = this@SendTelegramVideoBuilder.parseMode?.name
+            parseMode = this@SendTelegramVideoBuilder.parseMode?.apiValue
             duration = this@SendTelegramVideoBuilder.duration
             width = this@SendTelegramVideoBuilder.width
             height = this@SendTelegramVideoBuilder.height
