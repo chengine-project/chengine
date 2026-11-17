@@ -56,7 +56,7 @@ Der Schlüssel umfasst Plattform, Bot-Konto, Benutzer und Chat. Bei Telegram wir
 
 ## PostgreSQL
 
-Das Modul `session-postgres` speichert `ConversationSession` über Neustarts hinweg. Füge `io.chengine:session-postgres:1.0.1-BETA` hinzu, konfiguriere eine PostgreSQL-`DataSource` und registriere eine Bean:
+Das Modul `session-postgres` speichert `ConversationSession` über Neustarts hinweg. Füge `io.github.chengine-project:session-postgres:1.0.1-BETA` hinzu, konfiguriere eine PostgreSQL-`DataSource` und registriere eine Bean:
 
 ```kotlin
 @Bean

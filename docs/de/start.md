@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("io.chengine:spring-boot-starter-telegram:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
 }
 
 kotlin { jvmToolchain(21) }
