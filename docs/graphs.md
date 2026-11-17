@@ -25,7 +25,7 @@ val graph = ConversationGraph("start", mapOf(
 
 В обработчике создайте сессию через `Conversations.start`, вызовите `graph.start(session)` и верните текст результата. Для следующего сообщения вызовите `graph.resume(session, text)`. Если `result.completed` равен `true`, завершите сессию через `Conversations.end()`. Передавайте данные между автоматическими узлами через сессию: входной текст при `Next` не передаётся. Число переходов ограничено, чтобы остановить бесконечный цикл.
 
-[Полный пример с именем, городом и ветвлением](https://github.com/chengine-project/chengine/tree/develop/examples/conversation).
+[Полный пример с именем, городом и ветвлением]({{ '/examples/#conversation' | relative_url }}).
 
 ## Инструмент для агента
 

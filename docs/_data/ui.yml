@@ -1,0 +1,115 @@
+ru:
+  html_lang: ru
+  skip: Перейти к содержимому
+  docs: Документация
+  nav: Разделы документации
+  language: Язык
+  main: Основное
+  features: Возможности
+  project: Проект
+  overview: Обзор
+  start: Быстрый старт
+  handlers: Команды и обработчики
+  buttons: Кнопки и callback
+  media: Фото, файлы и медиа
+  polls: Опросы и викторины
+  sessions: Сессии и диалоги
+  graphs: Графы и агенты
+  examples: Примеры
+  releasing: Подготовка релиза
+  status: Документация develop
+  status_detail: API может меняться
+  source: Исходный код
+  home: Главная
+en:
+  html_lang: en
+  skip: Skip to content
+  docs: Documentation
+  nav: Documentation sections
+  language: Language
+  main: Essentials
+  features: Features
+  project: Project
+  overview: Overview
+  start: Quick start
+  handlers: Commands and handlers
+  buttons: Buttons and callbacks
+  media: Photos, files and media
+  polls: Polls and quizzes
+  sessions: Sessions and conversations
+  graphs: Graphs and agents
+  examples: Examples
+  releasing: Release preparation
+  status: Develop documentation
+  status_detail: API may change
+  source: Source code
+  home: Home
+zh:
+  html_lang: zh-CN
+  skip: 跳转到正文
+  docs: 文档
+  nav: 文档章节
+  language: 语言
+  main: 基础
+  features: 功能
+  project: 项目
+  overview: 概览
+  start: 快速开始
+  handlers: 命令与处理器
+  buttons: 按钮与回调
+  media: 图片、文件与媒体
+  polls: 投票与测验
+  sessions: 会话与对话
+  graphs: 图与智能体
+  examples: 示例
+  releasing: 发布准备
+  status: develop 分支文档
+  status_detail: API 可能变化
+  source: 源代码
+  home: 首页
+es:
+  html_lang: es
+  skip: Ir al contenido
+  docs: Documentación
+  nav: Secciones de documentación
+  language: Idioma
+  main: Fundamentos
+  features: Funcionalidades
+  project: Proyecto
+  overview: Resumen
+  start: Inicio rápido
+  handlers: Comandos y manejadores
+  buttons: Botones y callbacks
+  media: Fotos, archivos y contenido
+  polls: Encuestas y cuestionarios
+  sessions: Sesiones y diálogos
+  graphs: Grafos y agentes
+  examples: Ejemplos
+  releasing: Preparación de la versión
+  status: Documentación de develop
+  status_detail: La API puede cambiar
+  source: Código fuente
+  home: Inicio
+de:
+  html_lang: de
+  skip: Zum Inhalt springen
+  docs: Dokumentation
+  nav: Dokumentationsbereiche
+  language: Sprache
+  main: Grundlagen
+  features: Funktionen
+  project: Projekt
+  overview: Überblick
+  start: Schnellstart
+  handlers: Befehle und Handler
+  buttons: Schaltflächen und Callbacks
+  media: Fotos, Dateien und Medien
+  polls: Umfragen und Quiz
+  sessions: Sitzungen und Dialoge
+  graphs: Graphen und Agenten
+  examples: Beispiele
+  releasing: Release-Vorbereitung
+  status: Dokumentation für develop
+  status_detail: API kann sich ändern
+  source: Quellcode
+  home: Startseite

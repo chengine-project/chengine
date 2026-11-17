@@ -1,0 +1,100 @@
+---
+layout: default
+lang: en
+title: Quick start
+section: GETTING STARTED
+permalink: /en/start/
+lead: Build the library locally, add the starter, and create your first handler.
+---
+
+## Requirements
+
+- JDK 17 or newer. CI tests JDK 17 and 21.
+- Kotlin and Spring Boot; this branch uses Kotlin 2.2.21 and Spring Boot 3.5.16.
+- A Telegram bot created with BotFather, its token, and username.
+
+## 1. Build the library
+
+The instructions below use the current source from a local Maven repository and do not depend on a published release.
+
+```bash
+git clone https://github.com/chengine-project/chengine.git
+cd chengine
+./gradlew publishToMavenLocal
+```
+
+The artifact version in this branch is `1.0.1-BETA`. Check `version` in the root `build.gradle.kts` when using a different commit.
+
+## 2. Add the starter
+
+In a separate Spring Boot project with JDK 21 installed, add the following to `build.gradle.kts`:
+
+```kotlin
+plugins {
+    kotlin("jvm") version "2.2.21"
+    kotlin("plugin.spring") version "2.2.21"
+    id("org.springframework.boot") version "3.5.16"
+    id("io.spring.dependency-management") version "1.1.7"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("io.chengine:spring-boot-starter-telegram:1.0.1-BETA")
+}
+
+kotlin { jvmToolchain(21) }
+```
+
+## 3. Configure the bot
+
+In `src/main/resources/application.yml`:
+
+```yaml
+chengine:
+  telegram:
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
+```
+
+Set the environment variables before starting. Do not commit the token to Git.
+
+## 4. Add a handler
+
+```kotlin
+import io.chengine.command.HandleCommand
+import io.chengine.dsl.sendTelegramMessage
+import io.chengine.handler.Handler
+import org.springframework.stereotype.Component
+
+@Handler
+@Component
+class HelloHandler {
+    @HandleCommand("/hello")
+    fun hello() = sendTelegramMessage {
+        text = "Hello!"
+    }
+}
+```
+
+Add an entry point in a parent package of the handler:
+
+```kotlin
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class Application
+
+fun main(args: Array<String>) {
+    runApplication<Application>(*args)
+}
+```
+
+Run the application and send `/hello` to the bot. The starter uses long polling.
+
+[Next: commands and handlers →]({{ '/en/handlers/' | relative_url }})

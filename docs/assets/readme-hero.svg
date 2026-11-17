@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
-<title id="title">Chengine — создавайте Telegram-ботов на Kotlin</title><desc id="desc">Тёмная обложка с названием проекта и схемой диалога</desc>
+<title id="title">Chengine — build Telegram bots with Kotlin</title><desc id="desc">Dark banner with the project name and the original green and orange CHatbot engine mark</desc>
 <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111c34"/><stop offset="1" stop-color="#172b44"/></linearGradient><linearGradient id="a" x2="1" y2="1"><stop stop-color="#92ebd2"/><stop offset="1" stop-color="#65a4ff"/></linearGradient></defs>
 <rect width="1200" height="320" rx="22" fill="url(#bg)"/><circle cx="1030" cy="14" r="210" fill="#ffffff" opacity=".025"/><circle cx="1100" cy="285" r="220" fill="#76d8c3" opacity=".04"/>
 <rect x="55" y="50" width="43" height="43" rx="13" fill="url(#a)"/><text x="76.5" y="79" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="20" fill="#102138">ch</text>
 <text x="113" y="79" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" fill="#a7bcd1">KOTLIN  ·  TELEGRAM</text>
 <text x="55" y="164" font-family="Arial,sans-serif" font-size="66" font-weight="700" letter-spacing="-2" fill="#fff">Chengine<tspan fill="#8ce1cb">.</tspan></text>
-<text x="58" y="205" font-family="Arial,sans-serif" font-size="21" fill="#c6d6e6">Создавайте ботов, которые умеют больше.</text>
+<text x="58" y="205" font-family="Arial,sans-serif" font-size="21" fill="#c6d6e6">Build bots that do more.</text>
 <rect x="58" y="238" width="160" height="32" rx="16" fill="#87dec8" opacity=".12"/><text x="138" y="259" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#9cebd6">SPRING BOOT</text>
 <rect x="232" y="238" width="106" height="32" rx="16" fill="#8baeff" opacity=".12"/><text x="285" y="259" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#b2c9ff">MIT</text>
-<path d="M804 100 H880 V148 H941 M804 203 H880 V148" fill="none" stroke="#6bcdbd" stroke-width="2" opacity=".7"/><circle cx="880" cy="148" r="5" fill="#8ce1cb"/>
-<rect x="690" y="70" width="114" height="60" rx="14" fill="#223b55" stroke="#4f7182"/><text x="747" y="106" text-anchor="middle" font-family="monospace" font-size="16" fill="#d5e9eb">/start</text>
-<rect x="690" y="173" width="114" height="60" rx="14" fill="#223b55" stroke="#4f7182"/><text x="747" y="209" text-anchor="middle" font-family="monospace" font-size="16" fill="#d5e9eb">callback</text>
-<rect x="941" y="117" width="188" height="62" rx="14" fill="#87dec8"/><text x="1035" y="154" text-anchor="middle" font-family="monospace" font-weight="700" font-size="16" fill="#163342">handler { }</text>
+<rect x="678" y="77" width="465" height="170" rx="18" fill="#fff"/>
+<text x="701" y="195" font-family="Arial,sans-serif" font-size="118" font-weight="800" letter-spacing="-8" fill="#008500">CH</text>
+<text x="876" y="142" font-family="Arial,sans-serif" font-size="54" font-weight="800" letter-spacing="-2" fill="#008500">atbot</text>
+<text x="876" y="207" font-family="Arial,sans-serif" font-size="54" font-weight="800" letter-spacing="-2" fill="#ffa500">engine</text>
 </svg>

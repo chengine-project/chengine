@@ -49,7 +49,7 @@ inlineKeyboard {
 }
 ```
 
-У каждой кнопки должно быть ровно одно действие. Для callback допустимы данные длиной 1–64 байта UTF-8. [Пример каталога](https://github.com/chengine-project/chengine/tree/develop/examples/catalog) показывает переключение страниц и карточку товара в одном сообщении.
+У каждой кнопки должно быть ровно одно действие. Для callback допустимы данные длиной 1–64 байта UTF-8. [Пример каталога]({{ '/examples/#catalog' | relative_url }}) показывает переключение страниц и карточку товара в одном сообщении.
 
 ## Изменение сообщения и клавиатуры
 
@@ -78,4 +78,4 @@ sendTelegramMessage {
 
 Чтобы убрать reply-клавиатуру, отправьте сообщение с `replyKeyboard { removeKeyboard() }`. Одно сообщение принимает либо reply-, либо inline-клавиатуру.
 
-[Полный пример в репозитории](https://github.com/chengine-project/chengine/tree/develop/examples/inline-keyboard)
+[Полный пример]({{ '/examples/#buttons' | relative_url }})
