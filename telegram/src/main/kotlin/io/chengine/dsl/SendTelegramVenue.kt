@@ -4,31 +4,28 @@ import org.telegram.telegrambots.meta.api.methods.send.SendVenue
 
 fun sendTelegramVenue(block: TelegramVenueBuilder.() -> Unit): SendVenue = TelegramVenueBuilder().apply(block)._build()
 
-
-class TelegramVenueBuilder {
-
+class TelegramVenueBuilder(override var inlineKeyboard: TelegramInlineKeyboard? = null) : InlineKeyboardSupporter {
     var chatId: Long? = null
     var latitude: Double? = null
     var longitude: Double? = null
     var title: String? = null
-    var disableNotification: Boolean? = null
     var address: String? = null
     var foursquareId: String? = null
+    var disableNotification: Boolean? = null
     var replyToMessageId: String? = null
-
-    fun _build(): SendVenue = TODO("Not yet implemented")
+    fun _build(): SendVenue {
+        val lat = requireNotNull(latitude) { "Latitude is required" }
+        val lon = requireNotNull(longitude) { "Longitude is required" }
+        require(lat in -90.0..90.0 && lon in -180.0..180.0) { "Invalid coordinates" }
+        val venueTitle = requireNotNull(title) { "Title is required" }
+        val venueAddress = requireNotNull(address) { "Address is required" }
+        require(venueTitle.isNotBlank() && venueAddress.isNotBlank()) { "Title and address must not be blank" }
+        val replyId = replyToMessageId?.let { requireNotNull(it.toIntOrNull()) { "Reply message ID must be an integer" } }
+        return SendVenue.builder().chatId(chatId?.toString() ?: "").latitude(lat).longitude(lon).title(venueTitle).address(venueAddress).build().apply {
+            foursquareId = this@TelegramVenueBuilder.foursquareId
+            disableNotification = this@TelegramVenueBuilder.disableNotification
+            replyToMessageId = replyId
+            replyMarkup = inlineKeyboard.toReplyMarkup()
+        }
+    }
 }
-
-//private static final String CHATID_FIELD = "chat_id";
-//private static final String LATITUDE_FIELD = "latitude";
-//private static final String LONGITUDE_FIELD = "longitude";
-//private static final String TITLE_FIELD = "title";
-//private static final String DISABLENOTIFICATION_FIELD = "disable_notification";
-//private static final String ADDRESS_FIELD = "address";
-//private static final String FOURSQUAREID_FIELD = "foursquare_id";
-//private static final String REPLYTOMESSAGEID_FIELD = "reply_to_message_id";
-//private static final String REPLYMARKUP_FIELD = "reply_markup";
-//private static final String FOURSQUARETYPE_FIELD = "foursquare_type";
-//private static final String ALLOWSENDINGWITHOUTREPLY_FIELD = "allow_sending_without_reply";
-//private static final String GOOGLEPLACEID_FIELD = "google_place_id";
-//private static final String GOOGLEPLACETYPE_FIELD = "google_place_type";

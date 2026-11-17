@@ -12,7 +12,8 @@ annotation class SendTelegramMessageDsl
 @SendTelegramMessageDsl
 class SendTelegramMessageBuilder(
     override var inlineKeyboard: TelegramInlineKeyboard? = null
-) : InlineKeyboardSupporter {
+) : InlineKeyboardSupporter, TelegramReplyKeyboardMarkupSupporter {
+    override var replyKeyboard: TelegramReplyKeyboard? = null
 
     var chatId: String? = null
     var text: String? = null
@@ -37,7 +38,8 @@ class SendTelegramMessageBuilder(
         sendMessage.parseMode = parseMode?.toString()
         sendMessage.disableNotification = disableNotification
         sendMessage.replyToMessageId = replyToMessageId
-        sendMessage.replyMarkup = inlineKeyboard.toReplyMarkup()
+        require(inlineKeyboard == null || replyKeyboard == null) { "Choose either inline or reply keyboard" }
+        sendMessage.replyMarkup = inlineKeyboard.toReplyMarkup() ?: replyKeyboard.toReplyMarkup()
 
         return sendMessage
     }
