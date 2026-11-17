@@ -16,3 +16,22 @@ fun receive(update: Update) = sendTelegramMessage {
 ```
 
 Long-polling reports exceptions per update and continues with the rest of a batch. Override `TelegramBotsLongPoolingBot.onUpdateError` to integrate application logging or monitoring. Cancellation, interruption, and JVM errors propagate. Failed updates are not automatically retried; side effects performed before an error are not rolled back.
+
+## Stickers, animations, and media edits
+
+`sendTelegramSticker { sticker { name = "file_id" } }` and `sendTelegramAnimation { animation { file = File("clip.mp4") }; caption = "..." }` accept the same file sources as the other send builders. Telegram also restricts which sticker and animation formats are accepted.
+
+Use `editTelegramMessageCaption` to change or clear a caption, and `editTelegramMedia` to replace the media and optional caption. For example:
+
+```kotlin
+editTelegramMedia {
+    messageId = update.callbackQuery.message.messageId
+    media {
+        type = TelegramMediaType.PHOTO
+        file = File("replacement.jpg")
+        caption = "Новое фото"
+    }
+}
+```
+
+The edit methods derive the chat ID from the incoming update, unless an explicit `chatId` is supplied. For inline-mode messages, use `inlineMessageId` and a Telegram `file_id` or URL: uploading a new file is not supported by Telegram in this case. Telegram applies further restrictions to edits of media groups and already-sent messages. These methods do not download files or automatically retry failed edits.
