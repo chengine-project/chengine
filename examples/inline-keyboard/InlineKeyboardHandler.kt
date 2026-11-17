@@ -13,12 +13,16 @@ import org.telegram.telegrambots.meta.api.objects.Update
 open class InlineKeyboardHandler {
     @HandleCommand("/start")
     open fun start() = sendTelegramMessage {
-        text = "Нажмите кнопку, чтобы проверить callback."
+        text = "Проверьте кнопку и ссылку на документацию."
         inlineKeyboard {
             row {
                 button {
                     text = "Проверить кнопку"
                     callbackData = "check_button"
+                }
+                button {
+                    text = "Документация"
+                    url = "https://chengine-project.github.io/chengine/"
                 }
             }
         }
