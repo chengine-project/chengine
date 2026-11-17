@@ -15,7 +15,7 @@ publishing {
 
 dependencies {
     api(project(":core"))
-    api("org.telegram:telegrambots:5.3.0")
+    api("org.telegram:telegrambots:6.9.7.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation(kotlin("stdlib"))
