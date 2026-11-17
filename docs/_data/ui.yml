@@ -1,4 +1,5 @@
 ru:
+  language_name: Русский
   html_lang: ru
   skip: Перейти к содержимому
   docs: Документация
@@ -22,6 +23,7 @@ ru:
   source: Исходный код
   home: Главная
 en:
+  language_name: English
   html_lang: en
   skip: Skip to content
   docs: Documentation
@@ -45,6 +47,7 @@ en:
   source: Source code
   home: Home
 zh:
+  language_name: 简体中文
   html_lang: zh-CN
   skip: 跳转到正文
   docs: 文档
@@ -68,6 +71,7 @@ zh:
   source: 源代码
   home: 首页
 es:
+  language_name: Español
   html_lang: es
   skip: Ir al contenido
   docs: Documentación
@@ -91,6 +95,7 @@ es:
   source: Código fuente
   home: Inicio
 de:
+  language_name: Deutsch
   html_lang: de
   skip: Zum Inhalt springen
   docs: Dokumentation
