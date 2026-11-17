@@ -104,7 +104,9 @@ inline fun EditMessageMedia.setChatIdFromRequest(requestContext: BotRequestConte
 }
 
 inline fun EditMessageLiveLocation.setChatIdFromRequest(requestContext: BotRequestContext) {
-    if (chatId.isNullOrBlank()) chatId = requestContext.getTelegramChatId()
+    if (inlineMessageId.isNullOrBlank() && chatId.isNullOrBlank()) {
+        chatId = requireNotNull(requestContext.get<Update>()?.getChatId()) { "Cannot determine chat ID for message edit" }.toString()
+    }
 }
 
 inline fun EditMessageReplyMarkup.setChatIdFromRequest(requestContext: BotRequestContext) {

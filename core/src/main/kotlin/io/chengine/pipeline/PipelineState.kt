@@ -21,9 +21,9 @@ data class PipelineState(val pipelineDefinition: PipelineDefinition) {
             val stepsListSize = pipelineDefinition.stageDefinitions.size
             if (stepsListSize > stepIndex + 1) {
                 currentStage.incrementAndGet()
+            } else {
+                throw RuntimeException("Can't up stage because last stage achieved")
             }
-
-            throw RuntimeException("Can't up stage because last stage achieved")
         }
     }
 
