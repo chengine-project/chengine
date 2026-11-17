@@ -23,7 +23,7 @@ dependencies {
 
 allprojects {
 
-    group = "io.chengine"
+    group = "io.github.chengine-project"
     version = "1.0.1-BETA"
 
     tasks.withType<JavaCompile> {

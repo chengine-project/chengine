@@ -56,7 +56,7 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 
 ## PostgreSQL
 
-`session-postgres` 模块可在重启后保留 `ConversationSession`。添加依赖 `io.chengine:session-postgres:1.0.1-BETA`，配置 PostgreSQL `DataSource` 并注册 bean：
+`session-postgres` 模块可在重启后保留 `ConversationSession`。添加依赖 `io.github.chengine-project:session-postgres:1.0.1-BETA`，配置 PostgreSQL `DataSource` 并注册 bean：
 
 ```kotlin
 @Bean

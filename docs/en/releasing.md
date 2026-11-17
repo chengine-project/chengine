@@ -20,4 +20,4 @@ CHENGINE_LOCAL_MAVEN="$RELEASE_TEST_REPO" CHENGINE_POM_ONLY=true ./gradlew -p ve
 
 For PostgreSQL integration tests, set `CHENGINE_TEST_POSTGRES_URL`, `CHENGINE_TEST_POSTGRES_USER`, and `CHENGINE_TEST_POSTGRES_PASSWORD` before building. Tests delete rows from `chengine_sessions`, so use a dedicated test database. Without the URL these tests are skipped.
 
-Public publication is not yet configured. Before the first release, choose a Maven repository, confirm ownership of the `io.chengine` coordinates, configure artifact signing and credentials, and check the repository's metadata and documentation requirements. The version is defined in the root `build.gradle.kts`; the MIT license is included in the JAR and declared in the POM.
+Public publication is not yet configured. Before the first release, choose a Maven repository, confirm ownership of the `io.github.chengine-project` coordinates, configure artifact signing and credentials, and check the repository's metadata and documentation requirements. The version is defined in the root `build.gradle.kts`; the MIT license is included in the JAR and declared in the POM.
