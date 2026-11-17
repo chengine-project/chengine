@@ -23,7 +23,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-La versión de los artefactos en esta rama es `1.0.1-BETA`. Si usas otro commit, comprueba `version` en el archivo raíz `build.gradle.kts`.
+La versión de los artefactos en esta rama es `1.0.0`. Si usas otro commit, comprueba `version` en el archivo raíz `build.gradle.kts`.
 
 ## 2. Conecta el starter
 
@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
 }
 
 kotlin { jvmToolchain(21) }

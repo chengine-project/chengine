@@ -11,8 +11,8 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
-    implementation("io.github.chengine-project:session-postgres:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
+    implementation("io.github.chengine-project:session-postgres:1.0.0")
 }
 
 application { mainClass.set("io.chengine.verification.Main") }

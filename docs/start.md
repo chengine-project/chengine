@@ -22,7 +22,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-В этой ветке версия артефактов — `1.0.1-BETA`. Проверьте `version` в корневом `build.gradle.kts`, если используете другой коммит.
+В этой ветке версия артефактов — `1.0.0`. Проверьте `version` в корневом `build.gradle.kts`, если используете другой коммит.
 
 ## 2. Подключите стартер
 
@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
 }
 
 kotlin { jvmToolchain(21) }

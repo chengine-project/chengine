@@ -14,7 +14,7 @@ For a real release, select the version in the root `build.gradle.kts` and ensure
 
 ```bash
 ./gradlew clean publishAllPublicationsToCentralStagingRepository -PprepareCentral=true -PuseLocalGpg=true -Psigning.gnupg.executable=gpg -Psigning.gnupg.keyName=YOUR_KEY_FINGERPRINT
-python3 scripts/central-bundle.py --version 1.0.1-BETA
+python3 scripts/central-bundle.py --version 1.0.0
 ```
 
 To use an in-memory key instead, provide these environment variables through a secure local secret manager or CI secrets, never in the repository:
@@ -27,9 +27,9 @@ Do not use the disposable verification key for a real release. Keep a secure bac
 
 ```bash
 ./gradlew clean publishAllPublicationsToCentralStagingRepository -PprepareCentral=true
-python3 scripts/central-bundle.py --version 1.0.1-BETA
+python3 scripts/central-bundle.py --version 1.0.0
 ```
 
-`build/central/chengine-bundle.zip` contains the five modules' JARs, sources, POMs, Gradle metadata, documentation JARs, signatures, and required MD5/SHA-1 checksums. The documentation JARs currently contain a link to the project documentation, not generated API reference. Review the version, artifact contents, signatures and credentials before uploading. Staging and bundling never upload or publish a release.
+`build/central/chengine-bundle.zip` contains the five modules' JARs, sources, POMs, Gradle metadata, Dokka-generated HTML API documentation JARs, signatures, and required MD5/SHA-1 checksums. Review the version, artifact contents, signatures and credentials before uploading. Staging and bundling never upload or publish a release.
 
 The bundle can be uploaded through the Central Portal as a user-managed deployment, validated, and inspected before a separate manual publish action. Published Maven Central versions cannot be changed. Follow [the Central Portal upload documentation](https://central.sonatype.org/publish/publish-portal-upload/) and [artifact requirements](https://central.sonatype.org/publish/requirements/).

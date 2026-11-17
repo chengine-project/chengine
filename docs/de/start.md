@@ -23,7 +23,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-Die Artefaktversion in diesem Branch ist `1.0.1-BETA`. Prüfe bei einem anderen Commit `version` in der zentralen Datei `build.gradle.kts`.
+Die Artefaktversion in diesem Branch ist `1.0.0`. Prüfe bei einem anderen Commit `version` in der zentralen Datei `build.gradle.kts`.
 
 ## 2. Starter einbinden
 
@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
 }
 
 kotlin { jvmToolchain(21) }

@@ -23,7 +23,7 @@ cd chengine
 ./gradlew publishToMavenLocal
 ```
 
-当前分支的构件版本为 `1.0.1-BETA`。如果使用其他提交，请检查根目录 `build.gradle.kts` 中的 `version`。
+当前分支的构件版本为 `1.0.0`。如果使用其他提交，请检查根目录 `build.gradle.kts` 中的 `version`。
 
 ## 2. 添加 starter
 
@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.1-BETA")
+    implementation("io.github.chengine-project:spring-boot-starter-telegram:1.0.0")
 }
 
 kotlin { jvmToolchain(21) }
