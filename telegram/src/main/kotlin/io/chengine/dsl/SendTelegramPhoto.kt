@@ -2,8 +2,6 @@ package io.chengine.dsl
 
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto
 import org.telegram.telegrambots.meta.api.objects.InputFile
-import java.io.File
-import java.io.InputStream
 
 fun sendTelegramPhoto(block: SendTelegramPhotoBuilder.() -> Unit): SendPhoto {
     return SendTelegramPhotoBuilder().apply(block)._build()
@@ -37,26 +35,4 @@ class SendTelegramPhotoBuilder(
 
 }
 
-class PhotoBuilder {
-
-    var name: String? = null
-    var file: File? = null
-    var mediaStream: InputStream? = null
-
-    fun _build(): InputFile {
-        if (name != null && file == null && mediaStream == null) {
-            return InputFile(name)
-        }
-        if (name == null && file != null && mediaStream == null) {
-            return InputFile(file)
-        }
-        if (name != null && file != null && mediaStream == null) {
-            return InputFile(file, name)
-        }
-        if (name != null && file == null && mediaStream != null) {
-            return InputFile(mediaStream, name)
-        }
-
-        throw RuntimeException("Incorrect photo block!")
-    }
-}
+class PhotoBuilder : TelegramInputFileBuilder()

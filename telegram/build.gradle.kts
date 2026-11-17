@@ -24,7 +24,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
-kotlin.sourceSets.getByName("test").kotlin.srcDirs("../examples/conversation", "../examples/inline-keyboard")
+kotlin.sourceSets.getByName("test").kotlin.srcDirs("../examples/conversation", "../examples/inline-keyboard", "../examples/media")
 
 java {
     withSourcesJar()
