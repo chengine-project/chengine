@@ -28,15 +28,15 @@ class DefaultHandlerRegistry: HandlerRegistry {
         return pipelineDefinitionMap[clazz] ?: throw RuntimeException("Pipeline with class `${clazz.simpleName}` not found")
     }
 
-    override fun getSingleHandlerBy(annotation: KClass<out Annotation>): HandlerMethod {
-        return singleHandlerMap[annotation] ?: throw RuntimeException("Handler method for annotation `${annotation.simpleName}` not found")
-    }
+    override fun getSingleHandlerBy(annotation: KClass<out Annotation>): HandlerMethod? = singleHandlerMap[annotation]
 
     fun putCommand(commandPath: String, handlerMethod: HandlerMethod) {
+        require(!containsBinding(commandPath)) { "Duplicated binding `$commandPath`" }
         commandHandlerMap[commandPath] = handlerMethod
     }
 
     fun putSingleHandler(annotation: KClass<out Annotation>, handlerMethod: HandlerMethod) {
+        require(!singleHandlerMap.containsKey(annotation)) { "Duplicated handler for `${annotation.simpleName}`" }
         singleHandlerMap[annotation] = handlerMethod
     }
 

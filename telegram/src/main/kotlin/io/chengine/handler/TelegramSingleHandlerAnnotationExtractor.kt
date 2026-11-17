@@ -17,7 +17,9 @@ class TelegramSingleHandlerAnnotationExtractor : SingleHandlerAnnotationExtracto
 
     override fun extractFrom(request: BotRequestContext): KClass<out Annotation>? {
         return request.get<Update>()?.let {
-            it.inlineQuery?.let {
+            it.callbackQuery?.let {
+                TelegramHandleCallback::class
+            } ?: it.inlineQuery?.let {
                 TelegramHandleInlineQuery::class
             } ?: it.poll?.let {
                 TelegramHandlePoll::class

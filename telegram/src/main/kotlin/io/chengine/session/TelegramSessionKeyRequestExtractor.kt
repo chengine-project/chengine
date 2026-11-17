@@ -14,11 +14,10 @@ class TelegramSessionKeyRequestExtractor : SessionKeyRequestExtractor {
         return TelegramBotApiIdentifier.instance
     }
 
-    override fun extractFrom(request: BotRequestContext): SessionKey {
-        return request.get<Update>()?.let {
-            val userId = it.getUserId().toString()
-            val chatId = it.getChatId().toString()
-            SessionKey(userId, chatId, support().identifier())
-        } ?: throw RuntimeException("Can't extract session message key")
+    override fun extractFrom(request: BotRequestContext): SessionKey? {
+        val update = request.get<Update>() ?: return null
+        val userId = update.getUserId() ?: return null
+        val chatId = update.getChatId() ?: return null
+        return SessionKey(userId.toString(), chatId.toString(), support().identifier())
     }
 }

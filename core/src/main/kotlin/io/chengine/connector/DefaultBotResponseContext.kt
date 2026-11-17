@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 
 class DefaultBotResponseContext : BotResponseContext {
 
-    lateinit var currentResponseObject: Any
+    var currentResponseObject: Any? = null
     val contextMap: HashMap<KClass<Any>, Any> = hashMapOf()
 
     override fun currentResponseObject(): Any? = currentResponseObject

@@ -15,6 +15,6 @@ interface HandlerRegistry {
 
     fun getPipelineDefinitionBy(clazz: KClass<*>): PipelineDefinition
 
-    fun getSingleHandlerBy(annotation: KClass<out Annotation>): HandlerMethod
+    fun getSingleHandlerBy(annotation: KClass<out Annotation>): HandlerMethod?
 
 }

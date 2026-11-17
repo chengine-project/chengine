@@ -19,7 +19,7 @@ class HandleCommandAnnotationProcessor(
 ) : AnnotationProcessor {
 
     private val logger = logger()
-    private val commandPrefixRegex = "/[a-zA-z]+".toRegex()
+    private val commandPrefixRegex = "/[a-zA-Z]+".toRegex()
 
     override fun process(handler: Any) {
         handler::class.findAnnotation<Handler>()?.let {
@@ -34,18 +34,17 @@ class HandleCommandAnnotationProcessor(
             handler::class.declaredMemberFunctions.forEach { function ->
                 var commandPath = "" + commandPrefix
                 function.findAnnotation<HandleCommand>()?.let { handleCommand ->
-                    try {
-                        (handleCommand.command == "").then {
-                            throw RuntimeException("Command annotation value can't be empty in class ${handler.javaClass.canonicalName}")
-                        }
-                        commandPath += handleCommand.command
-                        commandValidator.validate(commandPath)
-                        val handlerMethod = HandlerMethod(handler, function)
-                        handlerRegistry.putCommand(commandPath, handlerMethod)
-                        logger.info { "Command registered: `$commandPath`" }
-                    } catch (ex: Exception) {
-
+                    require(handleCommand.command.isNotEmpty()) {
+                        "Command annotation value can't be empty in ${handler.javaClass.name}.${function.name}"
                     }
+                    commandPath += handleCommand.command
+                    try {
+                        commandValidator.validate(commandPath)
+                    } catch (ex: Exception) {
+                        throw IllegalArgumentException("Invalid command `$commandPath` in ${handler.javaClass.name}.${function.name}", ex)
+                    }
+                    handlerRegistry.putCommand(commandPath, HandlerMethod(handler, function))
+                    logger.info { "Command registered: `$commandPath`" }
                 }
             }
         }

@@ -1,6 +1,7 @@
 package io.chengine.command
 
 import io.chengine.connector.BotRequestContext
+import io.chengine.connector.Bot
 import io.chengine.connector.DefaultBotRequestContext
 import io.chengine.connector.RequestExtractorFactory
 import io.chengine.interceptor.RequestInterceptor
@@ -15,7 +16,7 @@ class CommandRequestInterceptor(private val commandRequestExtractorFactory: Requ
 
     override fun doIntercept(request: BotRequestContext, chain: RequestInterceptorChain) {
         val apiIdentifier = request.apiIdentifier()
-        val extractor = commandRequestExtractorFactory.get(apiIdentifier)
+        val extractor = request.get(Bot::class)?.commandRequestExtractor() ?: commandRequestExtractorFactory.get(apiIdentifier)
         val defaultContext = request as DefaultBotRequestContext
         defaultContext.command = extractor?.extractFrom(request)
         logger.debug { "Request intercepted. Command is `${defaultContext.command}`" }
