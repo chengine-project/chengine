@@ -1,0 +1,8 @@
+title: Chengine
+description: Kotlin-фреймворк для Telegram-ботов
+url: https://chengine-project.github.io
+baseurl: /chengine
+markdown: kramdown
+highlighter: rouge
+exclude:
+  - README.md

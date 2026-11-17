@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <title>{{ page.title | escape }} · Chengine</title>
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip" href="#content">Перейти к содержимому</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="Chengine — главная"><span class="brand-mark">ch</span><span>chengine<span class="brand-dot">.</span></span></a>
+      <span class="top-label">ДОКУМЕНТАЦИЯ</span>
+      <a class="github-link" href="https://github.com/chengine-project/chengine">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <div class="shell">
+    <nav class="sidebar" aria-label="Разделы документации">
+      <div class="nav-label">ОСНОВНОЕ</div>
+      <a {% if page.url == '/' %}aria-current="page"{% endif %} href="{{ '/' | relative_url }}">Обзор</a>
+      <a {% if page.url == '/start/' %}aria-current="page"{% endif %} href="{{ '/start/' | relative_url }}">Быстрый старт</a>
+      <a {% if page.url == '/handlers/' %}aria-current="page"{% endif %} href="{{ '/handlers/' | relative_url }}">Команды и обработчики</a>
+      <div class="nav-label">ВОЗМОЖНОСТИ</div>
+      <a {% if page.url == '/buttons/' %}aria-current="page"{% endif %} href="{{ '/buttons/' | relative_url }}">Кнопки и callback</a>
+      <a {% if page.url == '/media/' %}aria-current="page"{% endif %} href="{{ '/media/' | relative_url }}">Фото, файлы и медиа</a>
+      <a {% if page.url == '/polls/' %}aria-current="page"{% endif %} href="{{ '/polls/' | relative_url }}">Опросы и викторины</a>
+      <a {% if page.url == '/sessions/' %}aria-current="page"{% endif %} href="{{ '/sessions/' | relative_url }}">Сессии и диалоги</a>
+      <div class="sidebar-note"><span class="status-dot"></span> Документация develop<br><small>API может меняться</small></div>
+    </nav>
+    <main id="content" class="content">
+      <div class="eyebrow">CHENGINE <span>/</span> {{ page.section | default: 'ДОКУМЕНТАЦИЯ' }}</div>
+      <h1>{{ page.title | escape }}</h1>
+      {% if page.lead %}<p class="lead">{{ page.lead | escape }}</p>{% endif %}
+      {{ content }}
+      <footer class="footer"><span>Chengine · Kotlin + Telegram</span><a href="https://github.com/chengine-project/chengine">Исходный код ↗</a></footer>
+    </main>
+  </div>
+</body>
+</html>
