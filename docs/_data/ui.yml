@@ -15,6 +15,7 @@ ru:
   polls: Опросы и викторины
   sessions: Сессии и диалоги
   graphs: Графы и агенты
+  examples: Примеры
   releasing: Подготовка релиза
   status: Документация develop
   status_detail: API может меняться
@@ -37,6 +38,7 @@ en:
   polls: Polls and quizzes
   sessions: Sessions and conversations
   graphs: Graphs and agents
+  examples: Examples
   releasing: Release preparation
   status: Develop documentation
   status_detail: API may change
@@ -59,6 +61,7 @@ zh:
   polls: 投票与测验
   sessions: 会话与对话
   graphs: 图与智能体
+  examples: 示例
   releasing: 发布准备
   status: develop 分支文档
   status_detail: API 可能变化
@@ -81,6 +84,7 @@ es:
   polls: Encuestas y cuestionarios
   sessions: Sesiones y diálogos
   graphs: Grafos y agentes
+  examples: Ejemplos
   releasing: Preparación de la versión
   status: Documentación de develop
   status_detail: La API puede cambiar
@@ -103,6 +107,7 @@ de:
   polls: Umfragen und Quiz
   sessions: Sitzungen und Dialoge
   graphs: Graphen und Agenten
+  examples: Beispiele
   releasing: Release-Vorbereitung
   status: Dokumentation für develop
   status_detail: API kann sich ändern

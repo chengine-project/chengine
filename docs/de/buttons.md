@@ -50,7 +50,7 @@ inlineKeyboard {
 }
 ```
 
-Jeder Button benötigt genau eine Aktion. Callback-Daten dürfen 1–64 UTF-8-Bytes umfassen. Das [Katalogbeispiel](https://github.com/chengine-project/chengine/tree/develop/examples/catalog) zeigt Seitenwechsel und Produktkarte in einer Nachricht.
+Jeder Button benötigt genau eine Aktion. Callback-Daten dürfen 1–64 UTF-8-Bytes umfassen. Das [Katalogbeispiel]({{ '/de/examples/#catalog' | relative_url }}) zeigt Seitenwechsel und Produktkarte in einer Nachricht.
 
 ## Nachricht und Tastatur bearbeiten
 
@@ -79,4 +79,4 @@ sendTelegramMessage {
 
 Zum Entfernen einer Antworttastatur sende eine Nachricht mit `replyKeyboard { removeKeyboard() }`. Eine Nachricht akzeptiert entweder eine Antwort- oder eine Inline-Tastatur.
 
-[Vollständiges Beispiel im Repository](https://github.com/chengine-project/chengine/tree/develop/examples/inline-keyboard)
+[Vollständiges Beispiel]({{ '/de/examples/#buttons' | relative_url }})

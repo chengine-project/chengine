@@ -26,7 +26,7 @@ val graph = ConversationGraph("start", mapOf(
 
 In a handler, create a session with `Conversations.start`, call `graph.start(session)`, and return the result message. On the next message call `graph.resume(session, text)`. If `result.completed` is `true`, end the session with `Conversations.end()`. Pass data between automatic nodes through the session: input text is not forwarded by `Next`. A transition limit stops infinite loops.
 
-[Complete example with name, city, and branching](https://github.com/chengine-project/chengine/tree/develop/examples/conversation).
+[Complete example with name, city, and branching]({{ '/en/examples/#conversation' | relative_url }}).
 
 ## Agent tool
 

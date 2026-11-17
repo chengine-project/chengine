@@ -20,6 +20,7 @@ Desde el primer comando hasta un diálogo de varios pasos: describe el comportam
   <a class="card" href="{{ '/es/sessions/' | relative_url }}"><strong>Sesiones y diálogos →</strong><span>Guarda el estado en memoria o PostgreSQL.</span></a>
   <a class="card" href="{{ '/es/polls/' | relative_url }}"><strong>Encuestas →</strong><span>Crea votaciones y procesa respuestas.</span></a>
   <a class="card" href="{{ '/es/graphs/' | relative_url }}"><strong>Grafos →</strong><span>Crea flujos con transiciones y pausas.</span></a>
+  <a class="card" href="{{ '/es/examples/' | relative_url }}"><strong>Ejemplos completos →</strong><span>Manejadores completos en la documentación.</span></a>
 </div>
 
 ## Ejemplo rápido

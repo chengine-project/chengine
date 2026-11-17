@@ -50,7 +50,7 @@ inlineKeyboard {
 }
 ```
 
-Each button must have exactly one action. Callback data must be 1–64 UTF-8 bytes. The [catalog example](https://github.com/chengine-project/chengine/tree/develop/examples/catalog) shows page navigation and a product card within one message.
+Each button must have exactly one action. Callback data must be 1–64 UTF-8 bytes. The [catalog example]({{ '/en/examples/#catalog' | relative_url }}) shows page navigation and a product card within one message.
 
 ## Editing a message and keyboard
 
@@ -79,4 +79,4 @@ sendTelegramMessage {
 
 To remove a reply keyboard, send a message with `replyKeyboard { removeKeyboard() }`. A message accepts either a reply or an inline keyboard.
 
-[Complete example in the repository](https://github.com/chengine-project/chengine/tree/develop/examples/inline-keyboard)
+[Complete example]({{ '/en/examples/#buttons' | relative_url }})

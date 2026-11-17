@@ -61,4 +61,4 @@ fun answer(update: Update, request: BotRequestContext) =
 
 > 只有机器人发送的非匿名投票才会产生个人回复。匿名投票提供汇总状态事件。
 
-[仓库中的完整示例](https://github.com/chengine-project/chengine/tree/develop/examples/polls)
+[完整示例]({{ '/zh/examples/#polls' | relative_url }})

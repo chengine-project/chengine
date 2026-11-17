@@ -20,6 +20,7 @@ From your first command to a multi-step conversation: describe your bot in Kotli
   <a class="card" href="{{ '/en/sessions/' | relative_url }}"><strong>Sessions and conversations →</strong><span>Store state in memory or PostgreSQL.</span></a>
   <a class="card" href="{{ '/en/polls/' | relative_url }}"><strong>Polls →</strong><span>Run polls and process answers.</span></a>
   <a class="card" href="{{ '/en/graphs/' | relative_url }}"><strong>Graphs →</strong><span>Build flows with transitions and waiting.</span></a>
+  <a class="card" href="{{ '/en/examples/' | relative_url }}"><strong>Complete examples →</strong><span>Ready-to-use handlers in the documentation.</span></a>
 </div>
 
 ## Quick example

@@ -61,4 +61,4 @@ By default poll mappings are stored in a bounded in-memory store and are lost af
 
 > Individual answers are delivered only for non-anonymous polls sent by the bot. Anonymous polls produce aggregate state updates.
 
-[Complete example in the repository](https://github.com/chengine-project/chengine/tree/develop/examples/polls)
+[Complete example]({{ '/en/examples/#polls' | relative_url }})

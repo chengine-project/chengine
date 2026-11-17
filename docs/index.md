@@ -18,6 +18,7 @@ lead: Chengine — Kotlin-фреймворк для Telegram-ботов со з�
   <a class="card" href="{{ '/sessions/' | relative_url }}"><strong>Сессии и диалоги →</strong><span>Храните состояние в памяти или PostgreSQL.</span></a>
   <a class="card" href="{{ '/polls/' | relative_url }}"><strong>Опросы →</strong><span>Проводите голосования и обрабатывайте ответы.</span></a>
   <a class="card" href="{{ '/graphs/' | relative_url }}"><strong>Графы →</strong><span>Стройте сценарии с переходами и ожиданием.</span></a>
+  <a class="card" href="{{ '/examples/' | relative_url }}"><strong>Примеры целиком →</strong><span>Готовые обработчики прямо в документации.</span></a>
 </div>
 
 ## Быстрый пример

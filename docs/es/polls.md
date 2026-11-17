@@ -61,4 +61,4 @@ Por defecto, las asociaciones se guardan en un almacén en memoria de tamaño li
 
 > Las respuestas individuales solo llegan para encuestas no anónimas enviadas por el bot. Las encuestas anónimas producen eventos de estado agregado.
 
-[Ejemplo completo en el repositorio](https://github.com/chengine-project/chengine/tree/develop/examples/polls)
+[Ejemplo completo]({{ '/es/examples/#polls' | relative_url }})

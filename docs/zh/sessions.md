@@ -46,7 +46,7 @@ fun answer(request: BotRequestContext) = sendTelegramMessage {
 }
 ```
 
-要取消对话，可在 `/cancel` 处理器中调用 `Conversations.end()`。这是直接操作会话的示例；[完整示例](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)使用图，并检查空回复与缺失的会话键。
+要取消对话，可在 `/cancel` 处理器中调用 `Conversations.end()`。这是直接操作会话的示例；[完整示例]({{ '/zh/examples/#conversation' | relative_url }})使用图，并检查空回复与缺失的会话键。
 
 ## 存储和限制
 
@@ -72,4 +72,4 @@ PostgreSQL 会保存状态，但不会同步多个进程；多进程部署需要
 
 实验性的 `ConversationGraph` 在同一会话之上提供命名节点、条件转换和等待下一个回复。[了解图的工作方式 →]({{ '/zh/graphs/' | relative_url }})
 
-[仓库中的完整示例](https://github.com/chengine-project/chengine/tree/develop/examples/conversation)
+[完整示例]({{ '/zh/examples/#conversation' | relative_url }})
