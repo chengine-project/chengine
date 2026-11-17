@@ -50,4 +50,13 @@ class ConversationProcessingTest {
         assertTrue(send(bot, "Новое имя")!!.contains("городе"))
         assertTrue(send(bot, "Омск")!!.contains("Новое имя"))
     }
+    @Test fun `can skip city and rejects empty answers without advancing`() {
+        val bot = bot()
+        send(bot, "/start")
+        assertTrue(send(bot, "  ")!!.contains("непустой"))
+        assertTrue(send(bot, "Аня")!!.contains("городе"))
+        assertTrue(send(bot, "  ")!!.contains("непустой"))
+        assertEquals("Приятно познакомиться, Аня!", send(bot, "ПрОпУсТиТь"))
+        assertTrue(send(bot, "дальше")!!.contains("/start"))
+    }
 }
