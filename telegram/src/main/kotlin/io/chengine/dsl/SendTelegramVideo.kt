@@ -8,7 +8,5 @@ class SendTelegramVideoBuilder {
 
 
 
-    fun _build() = SendVideo().apply {
-        TODO()
-    }
+    fun _build(): SendVideo = TODO("Not yet implemented")
 }

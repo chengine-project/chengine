@@ -28,7 +28,7 @@ class SendTelegramDiceBuilder(
         emoji.isNull {
             throw RuntimeException("Emoji can't be null or empty")
         }
-        val sendDice = SendDice()
+        val sendDice = SendDice.builder().chatId(charId ?: "").build()
         charId?.let {
             sendDice.chatId = it
         }

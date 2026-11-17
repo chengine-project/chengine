@@ -7,9 +7,5 @@ fun sendTelegramDocument(block: SendTelegramDocumentBuilder.() -> Unit): SendDoc
 }
 
 class SendTelegramDocumentBuilder {
-    fun _build(): SendDocument {
-        val sendDocument = SendDocument()
-
-        return sendDocument
-    }
+    fun _build(): SendDocument = TODO("Not yet implemented")
 }

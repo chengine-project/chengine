@@ -15,8 +15,8 @@ import io.chengine.session.SessionStore
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Chat
-import org.telegram.telegrambots.meta.api.objects.Message
+import org.telegram.telegrambots.meta.api.objects.chat.Chat
+import org.telegram.telegrambots.meta.api.objects.message.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.api.objects.User
 import java.util.concurrent.ConcurrentHashMap
@@ -30,7 +30,7 @@ private class TestBot : ChengineTelegramLongPoolingBot() {
     override fun executeResponse(response: BotResponseContext) { replies.add((response.currentResponseObject() as SendMessage).text) }
 }
 private fun update(text: String, user: Long = 1, chatId: Long = 10): Update = Update().apply {
-    message = Message().apply { this.text = text; chat = Chat().apply { id = chatId }; from = User().apply { id = user } }
+    message = Message().apply { this.text = text; chat = Chat(chatId, "private"); from = User(user, "Test", false) }
 }
 private fun bot(name: String) = TestBot().also { it.telegramBotsLongPollingBotBot = TelegramBotsLongPoolingBot("test", name, it) }
 

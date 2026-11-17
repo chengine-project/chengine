@@ -19,11 +19,11 @@ class CallbackTestHandler {
         text = "Press"
         inlineKeyboard { row { button { text = "Check"; callbackData = "check_button" } } }
     }
-    @HandleCommand("/command") fun command(update: Update) = AnswerCallbackQuery().apply {
+    @HandleCommand("/command") fun command(update: Update) = AnswerCallbackQuery(update.callbackQuery.id).apply {
         callbackQueryId = update.callbackQuery.id
         text = "command"
     }
-    @TelegramHandleCallback fun callback(update: Update) = AnswerCallbackQuery().apply {
+    @TelegramHandleCallback fun callback(update: Update) = AnswerCallbackQuery(update.callbackQuery.id).apply {
         callbackQueryId = update.callbackQuery.id
         text = "callback: ${update.callbackQuery.data}"
     }

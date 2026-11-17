@@ -25,7 +25,7 @@ open class InlineKeyboardHandler {
     }
 
     @TelegramHandleCallback
-    open fun callback(update: Update) = AnswerCallbackQuery().apply {
+    open fun callback(update: Update) = AnswerCallbackQuery(update.callbackQuery.id).apply {
         callbackQueryId = update.callbackQuery.id
         text = if (update.callbackQuery.data == "check_button") "Кнопка работает!" else "Неизвестная кнопка"
         showAlert = true

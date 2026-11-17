@@ -5,6 +5,8 @@ import io.chengine.connector.BotResponseContext
 import io.chengine.connector.DefaultBotResponseContext
 import io.chengine.setChatIdFromRequest
 import org.telegram.telegrambots.meta.api.methods.*
+import org.telegram.telegrambots.meta.api.methods.botapimethods.PartialBotApiMethod
+import org.telegram.telegrambots.meta.api.methods.invoices.SendInvoice
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands
 import org.telegram.telegrambots.meta.api.methods.games.SetGameScore
 import org.telegram.telegrambots.meta.api.methods.groupadministration.*

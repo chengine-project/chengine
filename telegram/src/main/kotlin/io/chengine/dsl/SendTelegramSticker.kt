@@ -5,7 +5,5 @@ import org.telegram.telegrambots.meta.api.methods.send.SendSticker
 fun sendTelegramSticker(block: SendTelegramStickerBuilder.() -> Unit) = SendTelegramStickerBuilder().apply(block)._build()
 
 class  SendTelegramStickerBuilder {
-    fun _build() = SendSticker().apply {
-        TODO()
-    }
+    fun _build(): SendSticker = TODO("Not yet implemented")
 }

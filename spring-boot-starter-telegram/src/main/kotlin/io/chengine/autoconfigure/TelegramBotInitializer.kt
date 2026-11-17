@@ -1,22 +1,12 @@
 package io.chengine.autoconfigure
 
+import io.chengine.TelegramBotsLongPoolingBot
 import org.springframework.beans.factory.InitializingBean
-import org.telegram.telegrambots.meta.TelegramBotsApi
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException
-import org.telegram.telegrambots.meta.generics.LongPollingBot
+import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication
 
 open class TelegramBotInitializer(
-    private val telegramBotsApi: TelegramBotsApi,
-    private val longPollingBot: List<LongPollingBot>
+    private val application: TelegramBotsLongPollingApplication,
+    private val bots: List<TelegramBotsLongPoolingBot>
 ) : InitializingBean {
-
-    override fun afterPropertiesSet() {
-        try {
-            longPollingBot.forEach {
-                telegramBotsApi.registerBot(it)
-            }
-        } catch (ex: TelegramApiException) {
-            throw RuntimeException(ex)
-        }
-    }
+    override fun afterPropertiesSet() { bots.forEach { application.registerBot(it.token, it) } }
 }

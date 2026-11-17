@@ -6,8 +6,6 @@ fun sendTelegramPoll(block: SendTelegramPollBuilder.() -> Unit) = SendTelegramPo
 
 class SendTelegramPollBuilder {
 
-    fun _build() = SendPoll().apply {
-        TODO()
-    }
+    fun _build(): SendPoll = TODO("Not yet implemented")
 
 }

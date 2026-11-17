@@ -16,11 +16,7 @@ class TelegramVenueBuilder {
     var foursquareId: String? = null
     var replyToMessageId: String? = null
 
-    fun _build(): SendVenue {
-        return SendVenue().apply {
-
-        }
-    }
+    fun _build(): SendVenue = TODO("Not yet implemented")
 }
 
 //private static final String CHATID_FIELD = "chat_id";

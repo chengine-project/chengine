@@ -22,7 +22,7 @@ class SendTelegramContactBuilder(
 
     fun _build(): SendContact {
 
-        val sendContact = SendContact()
+        val sendContact = SendContact.builder().chatId(chatId ?: "").firstName(requireNotNull(firstName)).phoneNumber(requireNotNull(phoneNumber)).build()
         chatId?.let {
             sendContact.chatId = it
         }

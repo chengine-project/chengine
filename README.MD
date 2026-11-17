@@ -128,3 +128,7 @@ As a result, you will get something like this
 
 ```
 ```
+
+## TelegramBots 10 migration
+
+The Telegram adapter uses `telegrambots-longpolling` and `telegrambots-client` 10.3.0. Custom integrations that used `TelegramBotsApi` or `TelegramLongPollingBot` need to switch to `TelegramBotsLongPollingApplication`, `LongPollingUpdateConsumer`, and `TelegramClient`. The Spring starter registers the update consumer and closes the polling application when the context shuts down. Telegram model types such as `Message` and `Chat` have moved to `objects.message` and `objects.chat`; API methods may require their builder or required-argument constructors. The minimum Java version is 17.

@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
-import org.telegram.telegrambots.meta.api.objects.Chat
-import org.telegram.telegrambots.meta.api.objects.Message
+import org.telegram.telegrambots.meta.api.objects.chat.Chat
+import org.telegram.telegrambots.meta.api.objects.message.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 
 @Handler
@@ -38,7 +38,7 @@ class CommandProcessingTest {
         Chengine(ChengineConfig(handlers.toList(), listOf(it)))
     }
     private fun update(text: String): Update = Update().apply {
-        message = Message().apply { this.text = text; chat = Chat().apply { id = 123L } }
+        message = Message().apply { this.text = text; chat = Chat(123L, "private") }
     }
     private fun response(bot: CapturingBot) = bot.result as SendMessage
 
