@@ -18,7 +18,7 @@ class EditTelegramMessageCaptionBuilder(override var inlineKeyboard: TelegramInl
             messageId = this@EditTelegramMessageCaptionBuilder.messageId
             inlineMessageId = this@EditTelegramMessageCaptionBuilder.inlineMessageId
             caption = this@EditTelegramMessageCaptionBuilder.caption
-            parseMode = this@EditTelegramMessageCaptionBuilder.parseMode?.name
+            parseMode = this@EditTelegramMessageCaptionBuilder.parseMode?.apiValue
             replyMarkup = inlineKeyboard.toReplyMarkup()
         }
     }

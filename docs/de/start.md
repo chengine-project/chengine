@@ -97,4 +97,31 @@ fun main(args: Array<String>) {
 
 Starte die Anwendung und sende dem Bot `/hello`. Der Starter verwendet Long Polling.
 
+
+## Webhook statt Long Polling
+
+Polling ist die Voreinstellung. Für Webhooks füge `implementation("org.springframework.boot:spring-boot-starter-web")` hinzu und konfiguriere die Anwendung:
+
+```yaml
+chengine:
+  telegram:
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
+    mode: webhook
+    webhook:
+      path: /telegram/webhook
+      secret: ${TELEGRAM_WEBHOOK_SECRET}
+```
+
+Stelle `https://example.com/telegram/webhook` über HTTPS mit einem Server oder Reverse-Proxy bereit. Setze `TELEGRAM_WEBHOOK_SECRET` (1–256 ASCII-Buchstaben, Ziffern, `_` oder `-`) und registriere nach dem Start die URL bei Telegram:
+
+```bash
+export TELEGRAM_WEBHOOK_URL=https://example.com/telegram/webhook
+curl -fsS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/setWebhook" \
+  --data-urlencode "url=${TELEGRAM_WEBHOOK_URL}" \
+  --data-urlencode "secret_token=${TELEGRAM_WEBHOOK_SECRET}"
+```
+
+Erlaube bei Spring Security POST-Anfragen an diesen Pfad und nimm ihn von CSRF aus: Der geheime Header prüft die Anfrage. Telegram wiederholt fehlgeschlagene Zustellungen; Handler müssen mögliche Duplikate berücksichtigen. Für die Rückkehr zu Polling den Webhook mit `deleteWebhook` entfernen.
+
 [Weiter: Befehle und Handler →]({{ '/de/handlers/' | relative_url }})

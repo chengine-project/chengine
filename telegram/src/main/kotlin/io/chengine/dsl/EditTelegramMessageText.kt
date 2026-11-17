@@ -21,7 +21,7 @@ class EditTelegramMessageTextBuilder(override var inlineKeyboard: TelegramInline
             this.messageId = this@EditTelegramMessageTextBuilder.messageId
             this.inlineMessageId = this@EditTelegramMessageTextBuilder.inlineMessageId
             this.text = content
-            this.parseMode = this@EditTelegramMessageTextBuilder.parseMode?.name
+            this.parseMode = this@EditTelegramMessageTextBuilder.parseMode?.apiValue
             this.replyMarkup = inlineKeyboard.toReplyMarkup()
         }
     }

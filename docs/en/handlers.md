@@ -61,3 +61,12 @@ Responses are sent sequentially in list order. If sending fails, subsequent meth
 Chengine looks for a command first, then an exact text match, then a general event-type handler. Chengine also supports command paths like `/item/id#42` with `@CommandParameter("id")`.
 
 [Conversation example →]({{ '/en/sessions/' | relative_url }})
+
+## Text responses
+
+A handler can return a `String`; Chengine sends it to the event chat. For formatted text use `sendTelegramMessage` with `parseMode = ParseMode.MARKDOWN_V2`. Escape MarkdownV2 special characters according to Telegram rules.
+
+```kotlin
+@HandleCommand("/hello")
+fun hello(): String = "Hello!"
+```

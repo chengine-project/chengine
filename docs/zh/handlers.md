@@ -61,3 +61,12 @@ fun hello() = listOf(
 先查找命令，再查找精确匹配的文本，最后查找该事件类型的通用处理器。Chengine 命令路径还支持 `/item/id#42` 格式，配合 `@CommandParameter("id")` 使用。
 
 [对话示例 →]({{ '/zh/sessions/' | relative_url }})
+
+## 文本回复
+
+处理程序可以返回 `String`，Chengine 会将其发送到事件所在聊天。格式化文本可使用 `sendTelegramMessage` 和 `parseMode = ParseMode.MARKDOWN_V2`。请按照 Telegram 规则转义特殊字符。
+
+```kotlin
+@HandleCommand("/hello")
+fun hello(): String = "Hello!"
+```

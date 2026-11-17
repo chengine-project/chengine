@@ -15,9 +15,24 @@
       "name": "chengine.telegram.username",
       "type": "java.lang.String",
       "description": "Put telegram bot username here"
+    },
+    {
+      "name": "chengine.telegram.mode",
+      "type": "java.lang.String",
+      "description": "Update transport: polling or webhook.",
+      "defaultValue": "polling"
+    },
+    {
+      "name": "chengine.telegram.webhook.path",
+      "type": "java.lang.String",
+      "description": "HTTP path for incoming Telegram updates.",
+      "defaultValue": "/telegram/webhook"
+    },
+    {
+      "name": "chengine.telegram.webhook.secret",
+      "type": "java.lang.String",
+      "description": "Secret token checked against the Telegram webhook request header."
     }
   ],
-  "hints": [
-
-  ]
+  "hints": []
 }

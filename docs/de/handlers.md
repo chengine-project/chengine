@@ -61,3 +61,12 @@ Antworten werden nacheinander in Listenreihenfolge gesendet. Schlägt ein Versan
 Zuerst wird ein Befehl gesucht, dann eine exakte Textübereinstimmung und zuletzt ein allgemeiner Handler für den Ereignistyp. Für Befehlspfade unterstützt Chengine auch `/item/id#42` mit `@CommandParameter("id")`.
 
 [Dialogbeispiel →]({{ '/de/sessions/' | relative_url }})
+
+## Textantworten
+
+Ein Handler kann einen `String` zurückgeben; Chengine sendet ihn an den Chat des Ereignisses. Verwende für formatierten Text `sendTelegramMessage` mit `parseMode = ParseMode.MARKDOWN_V2`. Maskiere Sonderzeichen nach den Telegram-Regeln.
+
+```kotlin
+@HandleCommand("/hello")
+fun hello(): String = "Hello!"
+```

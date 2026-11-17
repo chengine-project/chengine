@@ -35,7 +35,7 @@ class SendTelegramMessageBuilder(
         sendMessage.text = text!!
         sendMessage.allowSendingWithoutReply = allowSendingWithoutReply
         sendMessage.disableWebPagePreview = disableWebPagePreview
-        sendMessage.parseMode = parseMode?.toString()
+        sendMessage.parseMode = parseMode?.apiValue
         sendMessage.disableNotification = disableNotification
         sendMessage.replyToMessageId = replyToMessageId
         require(inlineKeyboard == null || replyKeyboard == null) { "Choose either inline or reply keyboard" }

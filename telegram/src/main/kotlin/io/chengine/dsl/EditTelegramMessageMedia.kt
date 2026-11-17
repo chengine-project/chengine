@@ -54,7 +54,7 @@ class MediaBuilder {
             else -> throw IllegalArgumentException("A file, stream, or Telegram file_id is required")
         }
         result.caption = caption
-        result.parseMode = parseMode?.name
+        result.parseMode = parseMode?.apiValue
         return result
     }
 }

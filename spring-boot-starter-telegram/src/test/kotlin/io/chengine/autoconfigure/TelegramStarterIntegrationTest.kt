@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication
 import io.chengine.TelegramBotsLongPoolingBot
+import org.telegram.telegrambots.meta.generics.TelegramClient
 
 @Handler
 class StartupHandler {
@@ -51,6 +52,7 @@ open class TestApplication {
     @Bean open fun testHandler() = StartupHandler()
     @Bean open fun testSessionStore() = TestSessionStore()
     @Bean open fun telegramBotsApplication(): TelegramBotsLongPollingApplication = mock(TelegramBotsLongPollingApplication::class.java)
+    @Bean open fun telegramClient(): TelegramClient = mock(TelegramClient::class.java)
 }
 
 class TelegramStarterIntegrationTest {

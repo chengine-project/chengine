@@ -34,6 +34,8 @@ class HelloHandler {
 | **Conversations** | Keep session state and user data in memory or PostgreSQL |
 | **Graphs** | Build experimental flows with branching and waiting for replies |
 
+Telegram updates can arrive through long polling or a [webhook](https://chengine-project.github.io/chengine/en/start/#webhook-instead-of-long-polling).
+
 ## Quick start
 
 You will need JDK 17 or newer, Kotlin and Spring Boot, and a Telegram bot token and username. A public Maven release is not yet configured, so first build the library into your local Maven repository:

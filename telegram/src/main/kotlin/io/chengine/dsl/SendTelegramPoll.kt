@@ -53,12 +53,7 @@ class SendTelegramPollBuilder(
                 allowMultipleAnswers = this@SendTelegramPollBuilder.allowMultipleAnswers
                 correctOptionIds = this@SendTelegramPollBuilder.correctOptionIds
                 explanation = this@SendTelegramPollBuilder.explanation
-                explanationParseMode = when (this@SendTelegramPollBuilder.explanationParseMode) {
-                    ParseMode.MARKDOWN -> "Markdown"
-                    ParseMode.MARKDOWN_V2 -> "MarkdownV2"
-                    ParseMode.HTML -> "HTML"
-                    null -> null
-                }
+                explanationParseMode = this@SendTelegramPollBuilder.explanationParseMode?.apiValue
                 openPeriod = this@SendTelegramPollBuilder.openPeriod
                 closeDate = this@SendTelegramPollBuilder.closeDate
                 disableNotification = this@SendTelegramPollBuilder.disableNotification

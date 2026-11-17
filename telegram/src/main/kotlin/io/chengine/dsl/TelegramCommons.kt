@@ -1,7 +1,7 @@
 package io.chengine.dsl
 
-enum class ParseMode {
-    MARKDOWN,
-    MARKDOWN_V2,
-    HTML
+enum class ParseMode(val apiValue: String) {
+    MARKDOWN("Markdown"),
+    MARKDOWN_V2("MarkdownV2"),
+    HTML("HTML")
 }
