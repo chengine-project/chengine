@@ -1,6 +1,8 @@
 package example.media
 
 import io.chengine.command.HandleCommand
+import io.chengine.dsl.sendTelegramAudio
+import io.chengine.dsl.sendTelegramVideo
 import io.chengine.dsl.sendTelegramDocument
 import io.chengine.dsl.sendTelegramPhoto
 import io.chengine.handler.Handler
@@ -19,5 +21,15 @@ class MediaHandler {
     @HandleCommand("/document") fun document() = sendTelegramDocument {
         document { file = File("document.pdf") }
         caption = "Документ из файла"
+    }
+    @HandleCommand("/video") fun video() = sendTelegramVideo {
+        video { file = File("video.mp4") }
+        caption = "Видео из файла"
+        supportsStreaming = true
+    }
+
+    @HandleCommand("/audio") fun audio() = sendTelegramAudio {
+        audio { file = File("audio.mp3") }
+        title = "Пример аудио"
     }
 }
