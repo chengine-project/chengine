@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/readme-hero.svg" alt="Chengine — build Telegram bots with Kotlin" width="100%">
+  <img src="docs/assets/readme-hero-v2.png" alt="Chengine — build Telegram bots with Kotlin" width="100%">
   <p><strong>Commands, buttons, and conversations in a familiar Kotlin DSL.</strong></p>
   <p>
     <a href="https://chengine-project.github.io/chengine/en/">Documentation</a> &nbsp;·&nbsp;
