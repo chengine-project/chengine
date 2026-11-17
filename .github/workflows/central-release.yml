@@ -1,0 +1,106 @@
+name: Prepare Maven Central release
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_to_central:
+        description: Upload to Central Portal for validation (manual publication)
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: central-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: chengine
+          POSTGRES_PASSWORD: chengine
+          POSTGRES_DB: chengine_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U chengine -d chengine_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      CHENGINE_TEST_POSTGRES_URL: jdbc:postgresql://localhost:5432/chengine_test
+      CHENGINE_TEST_POSTGRES_USER: chengine
+      CHENGINE_TEST_POSTGRES_PASSWORD: chengine
+    steps:
+      - name: Require main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo 'Run this workflow on main.' >&2
+          exit 1
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Require the current main commit
+        run: |
+          git fetch origin main
+          test "$GITHUB_SHA" = "$(git rev-parse FETCH_HEAD)" || { echo 'Main changed; start a new run.' >&2; exit 1; }
+      - name: Check release credentials
+        env:
+          CHENGINE_SIGNING_KEY: ${{ secrets.CHENGINE_SIGNING_KEY }}
+          CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
+          CENTRAL_PORTAL_PASSWORD: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
+          UPLOAD_TO_CENTRAL: ${{ inputs.upload_to_central }}
+        run: |
+          test -n "$CHENGINE_SIGNING_KEY" || { echo 'Missing CHENGINE_SIGNING_KEY.' >&2; exit 1; }
+          if [ "$UPLOAD_TO_CENTRAL" = true ]; then
+            test -n "$CENTRAL_PORTAL_USERNAME" && test -n "$CENTRAL_PORTAL_PASSWORD" || { echo 'Missing Central Portal token secrets.' >&2; exit 1; }
+          fi
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - name: Verify documentation and upload client
+        run: |
+          python3 scripts/sync-doc-examples.py --check
+          python3 -m unittest discover -s verification -p 'test_central_upload.py'
+      - name: Build and test
+        run: ./gradlew clean build --no-daemon
+      - name: Determine release version
+        id: version
+        run: |
+          version=$(python3 -c 'import pathlib,re; s=pathlib.Path("build.gradle.kts").read_text(); m=re.search(r"^\s*version\s*=\s*\"([A-Za-z0-9][A-Za-z0-9._-]*)\"",s,re.MULTILINE); assert m, "Project version not found"; print(m.group(1))')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Prepare signed artifacts
+        env:
+          CHENGINE_SIGNING_KEY: ${{ secrets.CHENGINE_SIGNING_KEY }}
+          CHENGINE_SIGNING_PASSWORD: ${{ secrets.CHENGINE_SIGNING_PASSWORD }}
+          CHENGINE_SIGNING_KEY_ID: ${{ secrets.CHENGINE_SIGNING_KEY_ID }}
+        run: ./gradlew publishAllPublicationsToCentralStagingRepository -PprepareCentral=true --no-daemon
+      - name: Package and verify bundle
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          python3 scripts/central-bundle.py --version "$RELEASE_VERSION"
+          unzip -t build/central/chengine-bundle.zip
+      - name: Retain signed bundle for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: chengine-central-${{ steps.version.outputs.version }}
+          path: build/central/chengine-bundle.zip
+          if-no-files-found: error
+          retention-days: 7
+      - name: Upload for manual Central Portal review
+        if: inputs.upload_to_central
+        env:
+          CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
+          CENTRAL_PORTAL_PASSWORD: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: python3 scripts/upload-central-bundle.py --version "$RELEASE_VERSION"
