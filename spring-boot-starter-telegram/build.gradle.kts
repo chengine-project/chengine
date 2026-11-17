@@ -15,8 +15,8 @@ publishing {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter:3.5.16")
+    implementation("org.springframework.boot:spring-boot-autoconfigure:3.5.16")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
     api(project(":spring"))
@@ -32,6 +32,7 @@ tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar>().configu
 }
 
 tasks.jar {
+    archiveClassifier.set("")
     enabled = true
 }
 
