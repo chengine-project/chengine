@@ -36,7 +36,11 @@ class TelegramSingleHandlerAnnotationExtractor : SingleHandlerAnnotationExtracto
                     TelegramHandleContact::class
                 } ?: m.successfulPayment?.let {
                     TelegramHandleSuccessPayment::class
-                } ?: m.text?.let { text ->
+                } ?: (if (!m.photo.isNullOrEmpty() || m.document != null || m.video != null ||
+                    m.audio != null || m.voice != null || m.animation != null ||
+                    m.videoNote != null || m.sticker != null) {
+                    TelegramHandleMedia::class
+                } else null) ?: m.text?.let { text ->
                     return if (!text.startsWith("/")) {
                         TelegramHandleText::class
                     } else {
