@@ -16,7 +16,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.21")
 
-    api("org.springframework:spring-context:5.3.20")
+    api("org.springframework:spring-context:6.2.19")
     api("com.github.ben-manes.caffeine:caffeine:3.1.0")
     api("org.apache.logging.log4j:log4j-api-kotlin:1.1.0")
 

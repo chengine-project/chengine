@@ -80,7 +80,7 @@ class HelloHandler {
 
 Telegram commands can include a payload after whitespace (for example, `/start campaign`). The command is routed by its first word; read the payload from the original `Update` passed to the handler. In group chats, `/start@bot_username` is handled only when the username matches the configured bot. Existing Chengine command paths and `#` parameters are supported. Unknown or malformed commands are ignored.
 
-Invalid or duplicate command bindings fail during initialization with an error. To run the build and tests, use JDK 11 and:
+Invalid or duplicate command bindings fail during initialization with an error. To run the build and tests, use JDK 17 or newer and:
 
 ```bash
 ./gradlew build
