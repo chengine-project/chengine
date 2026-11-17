@@ -44,15 +44,20 @@ fun quiz() = sendTelegramPoll {
 Используйте `@TelegramHandlePollAnswer` для индивидуального ответа и `@TelegramHandlePoll` для состояния опроса. Оба обработчика получают исходный `Update`.
 
 ```kotlin
+import io.chengine.connector.BotRequestContext
+import io.chengine.telegramPollOrigin
+
 @TelegramHandlePollAnswer
-fun answer(update: Update) {
-    val answer = update.pollAnswer
-    println("Опрос ${answer.pollId}: ${answer.optionIds}")
-}
+fun answer(update: Update, request: BotRequestContext) =
+    if (request.telegramPollOrigin() != null) sendTelegramMessage {
+        text = if (update.pollAnswer.optionIds.isEmpty()) "Голос отозван" else "Спасибо за ответ!"
+    } else Unit
 ```
 
-Пользователь может отменить голос: тогда `optionIds` пуст. Вместо `user` может присутствовать `voterChat`.
+`telegramPollOrigin()` возвращает ID опроса, исходный чат и ID сообщения, если связь известна. Если обработчик вернул сообщение без явного `chatId`, Chengine отправит его в исходный чат. Пользователь может отменить голос: тогда `optionIds` пуст. Вместо `user` может присутствовать `voterChat`.
 
-> Индивидуальные ответы приходят только для неанонимных опросов, отправленных ботом. События опроса не содержат ID исходного чата: если он нужен для ответа, сохраняйте связь `pollId → chatId` в своём приложении.
+По умолчанию связи опросов хранятся в ограниченном хранилище в памяти и пропадают после перезапуска. Для постоянного хранения реализуйте `TelegramPollOriginStore` и установите его в `ChengineTelegramLongPoolingBot.pollOriginStore` до обработки событий. Для опросов, отправленных вне Chengine, после истечения записи или при гонке во время отправки связь может отсутствовать. Опросы не создают сессии; исходный чат опроса не обязательно является чатом голосующего.
+
+> Индивидуальные ответы приходят только для неанонимных опросов, отправленных ботом. Анонимные опросы дают события об общем состоянии.
 
 [Полный пример в репозитории](https://github.com/chengine-project/chengine/tree/develop/examples/polls)

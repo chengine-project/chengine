@@ -27,6 +27,9 @@
       <a {% if page.url == '/media/' %}aria-current="page"{% endif %} href="{{ '/media/' | relative_url }}">Фото, файлы и медиа</a>
       <a {% if page.url == '/polls/' %}aria-current="page"{% endif %} href="{{ '/polls/' | relative_url }}">Опросы и викторины</a>
       <a {% if page.url == '/sessions/' %}aria-current="page"{% endif %} href="{{ '/sessions/' | relative_url }}">Сессии и диалоги</a>
+      <a {% if page.url == '/graphs/' %}aria-current="page"{% endif %} href="{{ '/graphs/' | relative_url }}">Графы и агенты</a>
+      <div class="nav-label">ПРОЕКТ</div>
+      <a {% if page.url == '/releasing/' %}aria-current="page"{% endif %} href="{{ '/releasing/' | relative_url }}">Подготовка релиза</a>
       <div class="sidebar-note"><span class="status-dot"></span> Документация develop<br><small>API может меняться</small></div>
     </nav>
     <main id="content" class="content">

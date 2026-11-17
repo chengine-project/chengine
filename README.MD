@@ -1,143 +1,96 @@
-# Chengine
+<div align="center">
+  <img src="docs/assets/readme-hero.svg" alt="Chengine — создавайте Telegram-ботов на Kotlin" width="100%">
+  <p><strong>Команды, кнопки и диалоги — в привычном Kotlin DSL.</strong></p>
+  <p>
+    <a href="https://chengine-project.github.io/chengine/">Документация</a> &nbsp;·&nbsp;
+    <a href="https://chengine-project.github.io/chengine/start/">Быстрый старт</a> &nbsp;·&nbsp;
+    <a href="examples/">Примеры</a> &nbsp;·&nbsp;
+    <a href="LICENSE">MIT License</a>
+  </p>
+</div>
 
-Create chat bots easily!
+---
 
-## Quick Start With Spring Boot
+Chengine — Kotlin-фреймворк для Telegram-ботов со Spring Boot. Опишите обработчик, верните ответ — фреймворк направит событие нужному методу и отправит результат через Telegram Bot API.
 
-### Add Dependency
-
-Artifacts are not yet published to a public repository. Build and install the current checkout with `./gradlew publishToMavenLocal`, and configure your project to use `mavenLocal()` first. See the [quick start](docs/start.md).
-
-Gradle
 ```kotlin
+@Handler
+@Component
+class HelloHandler {
+    @HandleCommand("/hello")
+    fun hello() = sendTelegramMessage {
+        text = "Привет! Я работаю на Chengine 👋"
+    }
+}
+```
+
+## Что умеет
+
+| Возможность | Для чего |
+| --- | --- |
+| **Команды и события** | Обработчики команд, текста, callback, медиа и опросов |
+| **Клавиатуры** | Inline-кнопки, ссылки, reply-клавиатуры и редактирование сообщений |
+| **Медиа** | Фото, документы, видео, аудио, стикеры и анимации |
+| **Диалоги** | Сессии в памяти или PostgreSQL, шаги и данные пользователя |
+| **Графы** | Экспериментальные сценарии с ветвлением и ожиданием ответа |
+
+## Быстрый старт
+
+Понадобятся JDK 17+, Kotlin и Spring Boot, а также токен и имя Telegram-бота. Публичный Maven-релиз ещё не настроен, поэтому сначала соберите библиотеку в локальный Maven-репозиторий:
+
+```bash
+git clone https://github.com/chengine-project/chengine.git
+cd chengine
+./gradlew publishToMavenLocal
+```
+
+В отдельном Spring Boot-проекте добавьте `mavenLocal()` и зависимость:
+
+```kotlin
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 dependencies {
     implementation("io.chengine:spring-boot-starter-telegram:1.0.1-BETA")
 }
 ```
 
-Maven
-```xml
-<dependencies>
-    <!--...-->
-    <dependency>
-        <groupId>io.chengine</groupId>
-        <artifactId>spring-boot-starter-telegram</artifactId>
-        <version>1.0.1-BETA</version>
-    </dependency>
-</dependencies>
-```
-### Telegram Yaml Configuration
-
-You can configure telegram long pooling bot by adding following lines below into your `application.yml` config file:
+Укажите настройки приложения через переменные окружения:
 
 ```yaml
 chengine:
   telegram:
-    token: 1173254904:AAABBBCCCEEEDDDFFFGGGIIIE
-    username: just_some_bot_username
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
 ```
 
-### Handler
+Добавьте обработчик из примера выше с импортами `io.chengine.command.HandleCommand`, `io.chengine.dsl.sendTelegramMessage`, `io.chengine.handler.Handler` и `org.springframework.stereotype.Component`. Запустите Spring Boot-приложение и отправьте боту `/hello`.
 
-```kotlin
+**[Полный быстрый старт →](https://chengine-project.github.io/chengine/start/)**
 
-import io.chengine.command.HandleCommand
-import io.chengine.dsl.ParseMode
-import io.chengine.dsl.sendTelegramMessage
-import io.chengine.handler.Handler
-import org.springframework.stereotype.Component
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
+## Исследуйте примеры
 
-@Handler
-@Component
-class HelloHandler {
+| Пример | Что показывает |
+| --- | --- |
+| [Каталог](examples/catalog/) | Несколько рядов кнопок, страницы и обновление одного сообщения |
+| [Диалог](examples/conversation/) | Имя и город, условный переход и отмена |
+| [Медиа](examples/media/) | Отправка файлов и обработка входящих медиа |
+| [Опросы](examples/polls/) | Викторины, ответы и исходный чат опроса |
+| [PostgreSQL](examples/postgres-sessions/) | Сохранение сессий между перезапусками |
+| [Другие примеры](examples/) | Редактирование сообщений, клавиатуры и инструмент для агента |
 
-    @HandleCommand("/hi")
-    fun hi(): SendMessage =
-        sendTelegramMessage {
-            text = "Hi!"
-        }
-
-    @HandleCommand("/hello")
-    fun hello(update: Update): SendMessage =
-        sendTelegramMessage {
-            text = "*Hello user ${update.message.from.userName}!*"
-            parseMode = ParseMode.MARKDOWN
-        }
-    
-    // Or you may use @HandleText annotation to bind methods with human readable text
-    
-    @HandleText("❤️ hello")
-    fun helloHuman() = sendTelegramMessage {
-        text = "Hi Human!"
-    }
-}
-
-```
-
-
-
-### Commands and testing
-
-Telegram commands can include a payload after whitespace (for example, `/start campaign`). The command is routed by its first word; read the payload from the original `Update` passed to the handler. In group chats, `/start@bot_username` is handled only when the username matches the configured bot. Existing Chengine command paths and `#` parameters are supported. Unknown or malformed commands are ignored.
-
-Invalid or duplicate command bindings fail during initialization with an error. To run the build and tests, use JDK 17 or newer and:
+## Сборка и тесты
 
 ```bash
 ./gradlew build
 ```
 
-## Documentation
+CI проверяет JDK 17 и 21, а интеграционные тесты PostgreSQL запускаются с отдельной базой. [Инструкция по локальной проверке и подготовке релиза](docs/releasing.md).
 
-See the [documentation](docs/index.md) and [GitHub Pages setup](docs/README.md).
+API развивается. Граф сценариев и инструмент для агента — экспериментальные; интеграции с конкретной LLM пока нет. Постоянное хранилище сессий не координирует параллельную работу разных экземпляров приложения.
 
-## Samples
+---
 
-See the [media example](examples/media/README.md), the [conversation example](examples/conversation/README.md), and the [inline keyboard example](examples/inline-keyboard/README.md). More samples are available [here](https://github.com/mikheevshow/chengine-samples).
-
-See also the [polls and quizzes example](examples/polls/README.md).
-
-## How To Help
-
-### Paste Chengine Link Into Start Message ❤️
-
-
-You can help us become a little better known by pasting the link to our framework at the end of the start message, as in the example below.
-
-```kotlin
-
-
-
-@Handler
-@Component
-class StartHandler {
-    
-    @HandleCommand("/start")
-    fun start() = sendTelegramMessage {
-        text = """
-            Some beautiful message about your bot! You may past our link at the end of */start* message
-            
-            Powered by [Chengine](https://github.com/chengine-project/chengine)
-        """.trimIndent()
-        
-        parseMode = ParseMode.MARKDOWN
-        disableWebPagePreview = true
-    }
-}
-
-```
-
-As a result, you will get something like this
-
-<img width="849" alt="Снимок экрана 2021-09-30 в 04 28 29" src="https://user-images.githubusercontent.com/10999015/135370774-363b823b-fd22-401c-9742-b9bc5f6460b1.png">
-
-## License
-
-Chengine is distributed under the [MIT License](LICENSE).
-
-For local publication checks and remaining public release setup, see [release preparation](docs/releasing.md).
-
-## TelegramBots 10 migration
-
-The Telegram adapter uses `telegrambots-longpolling` and `telegrambots-client` 10.3.0. Custom integrations that used `TelegramBotsApi` or `TelegramLongPollingBot` need to switch to `TelegramBotsLongPollingApplication`, `LongPollingUpdateConsumer`, and `TelegramClient`. The Spring starter registers the update consumer and closes the polling application when the context shuts down. Telegram model types such as `Message` and `Chat` have moved to `objects.message` and `objects.chat`; API methods may require their builder or required-argument constructors. The minimum Java version is 17.
+[Документация](https://chengine-project.github.io/chengine/) · [Исходный код](https://github.com/chengine-project/chengine) · [Лицензия MIT](LICENSE)
