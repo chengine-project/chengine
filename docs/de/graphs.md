@@ -33,3 +33,5 @@ Erstelle im Handler eine Sitzung mit `Conversations.start`, rufe `graph.start(se
 Das experimentelle `TelegramSendMessageTool` bindet sich an den Chat der aktuellen Anfrage und sendet Text über den übergebenen Telegram-Client. Das Modell liefert den Text, der Chat kommt aus dem Kontext. Das Tool selbst enthält keine LLM-Integration und keine Agentenschleife. [Beschreibung und Grenzen](https://github.com/chengine-project/chengine/tree/main/examples/agent-tool).
 
 Ein experimentelles Beispiel für Koog, ein Telegram-Tool und OpenRouter findest du im [Beispiel mit Anleitung](https://github.com/chengine-project/chengine/tree/main/examples/koog-telegram).
+
+Für nicht blockierende Aufrufe verwende `AsyncConversationGraph`: Knoten sind `suspend`-Funktionen und `koogAgentNode(agent)` ruft Koog mit einem Timeout auf. Starte den Graphen in einer verwalteten Coroutine und übergib die Sitzung explizit. Das Speichern der Sitzung und die Koordination paralleler Anfragen übernimmt die Anwendung.

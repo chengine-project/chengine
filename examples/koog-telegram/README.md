@@ -21,6 +21,22 @@ Test without network access or API keys:
 
 The OpenRouter integration test is skipped unless `CHENGINE_TEST_OPENROUTER=true` and `OPENROUTER_API_KEY` are set. It makes a real model request but uses a fake Telegram client; it does not send a Telegram message.
 
-The example intentionally invokes the agent synchronously on Chengine's request thread and creates an executor per request. This is a bounded demonstration, not a background processing design: Chengine currently uses `ThreadLocal` session context and an in-process per-session lock. Capture the chat ID before entering a coroutine, avoid sharing the tool set across chats, and do not reuse request-scoped session state after the handler returns. There is no persistent model conversation history, distributed locking, duplicate suppression, retry policy, or cross-instance queue in this example. A timeout or retry after a successful send can produce duplicate messages. Treat model outputs as untrusted.
+The example uses `AsyncConversationGraph` and `koogAgentNode` to invoke Koog in a coroutine without blocking the Telegram request thread. `TelegramTools` runs the blocking Telegram client on `Dispatchers.IO`. The handler captures the request-bound sender and immutable session key before launching a lifecycle-bound coroutine; it does not access Chengine's thread-local session context from the coroutine. A second `/koog` request for the same session is ignored while the first is in progress. Other sessions can proceed independently. The sample logs failures; it does not send an error message or retry automatically.
 
-`KoogGraphTest` also demonstrates calling a mocked Koog agent from a synchronous `ConversationGraph` node. It blocks for the duration of the agent call and is not an asynchronous graph implementation. For production use, design an asynchronous job lifecycle and session coordination first.
+For a graph that waits for a message before invoking the agent:
+
+```kotlin
+val graph = AsyncConversationGraph("ask", mapOf(
+    "ask" to { _, _ -> GraphTransition.Await("agent", "What is your name?") },
+    "agent" to koogAgentNode(agent, timeoutMillis = 30_000),
+))
+
+// Call from a managed coroutine; keep the session explicitly in application-owned storage.
+val question = graph.start(session)
+// When the next message arrives, load that session and resume from a managed coroutine.
+val answer = graph.resume(session, text)
+```
+
+The graph itself neither loads nor persists sessions and does not synchronize concurrent access to the same session: the caller owns session lifecycle, persistence, and concurrency. The example's single-flight guard is local to one process and its graph session is temporary. There is no persistent model conversation history, distributed locking, durable queue, or retry policy. Cancellation or timeout does not guarantee that a Telegram request already in progress was cancelled or unsent; retries can produce duplicates. Node side effects are not rolled back on cancellation.
+
+`KoogGraphTest` tests the graph with a mocked Koog agent, including actual suspension and cancellation. The optional OpenRouter test uses the async graph with a real model and a fake Telegram client.

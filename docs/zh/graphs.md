@@ -33,3 +33,5 @@ val graph = ConversationGraph("start", mapOf(
 实验性的 `TelegramSendMessageTool` 绑定当前请求的聊天，并通过传入的 Telegram 客户端发送文本。模型提供文本，聊天取自上下文。该工具本身不包含 LLM 集成或代理循环。[说明与限制](https://github.com/chengine-project/chengine/tree/main/examples/agent-tool)。
 
 有关 Koog、Telegram 工具和 OpenRouter 的实验性集成，请参阅[示例和说明](https://github.com/chengine-project/chengine/tree/main/examples/koog-telegram)。
+
+对于非阻塞调用，请使用 `AsyncConversationGraph`：节点是 `suspend` 函数，`koogAgentNode(agent)` 使用超时调用 Koog。在受生命周期管理的协程中运行图，并显式传入会话。应用负责持久化会话和协调并发请求。

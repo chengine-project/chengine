@@ -13,7 +13,14 @@ import io.chengine.agent.TelegramSendMessageTool
 import io.chengine.connector.DefaultBotRequestContext
 import io.chengine.connector.TelegramBotApiIdentifier
 import io.chengine.session.SessionKey
+import io.chengine.session.ConversationSession
+import io.chengine.graph.AsyncConversationGraph
+import io.chengine.graph.GraphTransition
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -24,10 +31,11 @@ import org.telegram.telegrambots.meta.generics.TelegramClient
 import java.lang.reflect.Proxy
 import java.util.concurrent.Executors
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import kotlin.reflect.full.valueParameters
 
 class TelegramToolsTest {
-    private fun sender(chatId: String, messages: MutableList<SendMessage>, fail: Boolean = false): TelegramSendMessageTool {
+    private fun sender(chatId: String, messages: MutableList<SendMessage>, fail: Boolean = false, beforeSend: (() -> Unit)? = null): TelegramSendMessageTool {
         val request = DefaultBotRequestContext().apply {
             botApiIdentifier = TelegramBotApiIdentifier.instance
             sessionKey = SessionKey("user", chatId, "telegram", "bot")
@@ -35,6 +43,7 @@ class TelegramToolsTest {
         val client = Proxy.newProxyInstance(TelegramClient::class.java.classLoader, arrayOf(TelegramClient::class.java)) { _, method, args ->
             if (method.name == "execute" && args?.singleOrNull() is SendMessage) {
                 if (fail) throw IllegalStateException("send failed")
+                beforeSend?.invoke()
                 messages.add(args[0] as SendMessage)
                 Message().apply { messageId = 42 }
             } else error("Unexpected client method: ${method.name}")
@@ -84,6 +93,25 @@ class TelegramToolsTest {
         }
     }
 
+    @Test fun `blocking Telegram client runs away from the calling coroutine thread`() = runBlocking {
+        val entered = CompletableDeferred<Unit>()
+        val release = CountDownLatch(1)
+        val messages = mutableListOf<SendMessage>()
+        val tools = TelegramTools(sender("123", messages, beforeSend = {
+            entered.complete(Unit)
+            check(release.await(5, TimeUnit.SECONDS))
+        }))
+        try {
+            val pending = async(start = CoroutineStart.UNDISPATCHED) { tools.sendToCurrentChat("hello") }
+            withTimeout(2_000) { entered.await() }
+            org.junit.jupiter.api.Assertions.assertFalse(pending.isCompleted)
+            release.countDown()
+            assertEquals(42, pending.await())
+        } finally {
+            release.countDown()
+        }
+    }
+
     @Test fun `mock model requests the Koog tool and sends only to bound chat`() = runBlocking {
         val sent = mutableListOf<SendMessage>()
         val tool = TelegramTools(sender("123", sent)).getTool("send_telegram_message")
@@ -121,7 +149,13 @@ class TelegramToolsTest {
             systemPrompt = "You must use the send_telegram_message tool to send the requested message. Never answer without calling this tool.",
             maxIterations = 12,
         )
-        kotlinx.coroutines.withTimeout(60_000) { agent.run("Send the exact text: Hello from Koog") }
+        val graph = AsyncConversationGraph("wait", mapOf(
+            "wait" to { _, _ -> GraphTransition.Await("agent", "") },
+            "agent" to koogAgentNode(agent, timeoutMillis = 60_000),
+        ))
+        val session = ConversationSession(SessionKey("user", "123", "telegram", "bot"), "wait")
+        graph.start(session)
+        graph.resume(session, "Send the exact text: Hello from Koog")
         assertEquals(1, tools.sentCount)
         assertEquals(1, sent.size)
         assertEquals("123", sent.single().chatId)

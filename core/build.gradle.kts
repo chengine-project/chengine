@@ -15,6 +15,7 @@ publishing {
 dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.21")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
     api("org.springframework:spring-context:6.2.19")
     api("com.github.ben-manes.caffeine:caffeine:3.1.0")
