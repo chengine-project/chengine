@@ -5,3 +5,5 @@ include("spring")
 include("telegram")
 include("spring-boot-starter-telegram")
 include("session-postgres")
+
+include("koog")

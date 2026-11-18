@@ -30,4 +30,6 @@ En el controlador, crea una sesión con `Conversations.start`, llama a `graph.st
 
 ## Herramienta para agentes
 
-El `TelegramSendMessageTool` experimental se vincula al chat de la solicitud actual y envía texto mediante el cliente de Telegram proporcionado. El modelo aporta el texto y el chat se obtiene del contexto. El proyecto incluye una prueba con un modelo simulado; todavía no hay un adaptador LLM ni un ciclo de agente listos para usar. [Descripción y límites](https://github.com/chengine-project/chengine/tree/develop/examples/agent-tool).
+El `TelegramSendMessageTool` experimental se vincula al chat de la solicitud actual y envía texto mediante el cliente de Telegram proporcionado. El modelo aporta el texto y el chat se obtiene del contexto. La herramienta por sí sola no incluye una integración LLM ni un ciclo de agente. [Descripción y límites](https://github.com/chengine-project/chengine/tree/main/examples/agent-tool).
+
+Para una integración experimental con Koog, una herramienta de Telegram y OpenRouter, consulta el [ejemplo y las instrucciones](https://github.com/chengine-project/chengine/tree/main/examples/koog-telegram).

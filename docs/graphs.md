@@ -29,4 +29,6 @@ val graph = ConversationGraph("start", mapOf(
 
 ## Инструмент для агента
 
-Экспериментальный `TelegramSendMessageTool` привязывается к чату текущего запроса и позволяет вызвать отправку текста через переданный Telegram-клиент. Модель передаёт текст, а чат берётся из контекста. В проекте есть тест с поддельной моделью; готового адаптера к LLM или цикла агента пока нет. [Описание и ограничения](https://github.com/chengine-project/chengine/tree/develop/examples/agent-tool).
+Экспериментальный `TelegramSendMessageTool` привязывается к чату текущего запроса и позволяет вызвать отправку текста через переданный Telegram-клиент. Модель передаёт текст, а чат берётся из контекста. Сам инструмент не содержит интеграции с LLM или агентного цикла. [Описание и ограничения](https://github.com/chengine-project/chengine/tree/main/examples/agent-tool).
+
+Экспериментальный пример интеграции с Koog, инструментом Telegram и OpenRouter: [код и инструкции](https://github.com/chengine-project/chengine/tree/main/examples/koog-telegram).

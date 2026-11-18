@@ -95,7 +95,7 @@ Add the handler shown above, with imports for `io.chengine.command.HandleCommand
 
 CI checks JDK 17 and 21, and PostgreSQL integration tests run against a dedicated database. See the [local verification and release preparation guide](https://chengine-project.github.io/chengine/en/releasing/).
 
-The API is evolving. Conversation graphs and the agent tool are experimental; there is no integration with a specific LLM yet. Persistent session storage does not coordinate concurrent work across multiple application instances.
+The API is evolving. Conversation graphs and the Koog agent integration are experimental. Persistent session storage does not coordinate concurrent work across multiple application instances.
 
 ---
 

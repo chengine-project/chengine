@@ -30,4 +30,6 @@ In a handler, create a session with `Conversations.start`, call `graph.start(ses
 
 ## Agent tool
 
-The experimental `TelegramSendMessageTool` binds to the current request's chat and sends text through the supplied Telegram client. The model supplies text and the chat comes from the context. The project includes a test with a fake model; there is no ready-made LLM adapter or agent loop yet. [Description and limits](https://github.com/chengine-project/chengine/tree/develop/examples/agent-tool).
+The experimental `TelegramSendMessageTool` binds to the current request's chat and sends text through the supplied Telegram client. The model supplies text and the chat comes from the context. The tool itself does not contain an LLM integration or agent loop. [Description and limits](https://github.com/chengine-project/chengine/tree/main/examples/agent-tool).
+
+For an experimental Koog integration with a Telegram tool and OpenRouter, see the [example and instructions](https://github.com/chengine-project/chengine/tree/main/examples/koog-telegram).

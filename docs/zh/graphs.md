@@ -30,4 +30,6 @@ val graph = ConversationGraph("start", mapOf(
 
 ## 代理工具
 
-实验性的 `TelegramSendMessageTool` 绑定当前请求的聊天，并通过传入的 Telegram 客户端发送文本。模型提供文本，聊天取自上下文。项目包含使用假模型的测试；目前还没有现成的 LLM 适配器或代理循环。[说明与限制](https://github.com/chengine-project/chengine/tree/develop/examples/agent-tool)。
+实验性的 `TelegramSendMessageTool` 绑定当前请求的聊天，并通过传入的 Telegram 客户端发送文本。模型提供文本，聊天取自上下文。该工具本身不包含 LLM 集成或代理循环。[说明与限制](https://github.com/chengine-project/chengine/tree/main/examples/agent-tool)。
+
+有关 Koog、Telegram 工具和 OpenRouter 的实验性集成，请参阅[示例和说明](https://github.com/chengine-project/chengine/tree/main/examples/koog-telegram)。
