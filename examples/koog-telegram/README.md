@@ -11,7 +11,7 @@ export OPENROUTER_API_KEY='your-openrouter-key'
 ./gradlew :koog:runKoogTelegramDemo
 ```
 
-Send `/koog` to the bot. The example uses OpenRouter's GPT-4o mini and permits a model call with associated provider costs. The agent may call `send_telegram_message`; otherwise the example sends its final text once. A successful tool send is counted so the final response is not echoed again. Model-selected multiple tool calls are still possible. Do not commit secrets or place them in examples.
+Send `/koog` to the bot. The example uses OpenRouter's GPT-4o mini and permits a model call with associated provider costs. The agent may call `send_telegram_message`; otherwise the example sends its final text once. The example sets `maxMessages = 1` and counts successful sends, preventing further successful tool sends and a duplicate final response. Do not commit secrets or place them in examples.
 
 Test without network access or API keys:
 

@@ -22,6 +22,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.message.Message
 import org.telegram.telegrambots.meta.generics.TelegramClient
 import java.lang.reflect.Proxy
+import java.util.concurrent.Executors
+import java.util.concurrent.CountDownLatch
 import kotlin.reflect.full.valueParameters
 
 class TelegramToolsTest {
@@ -52,6 +54,34 @@ class TelegramToolsTest {
         assertThrows(IllegalArgumentException::class.java) { first.sendTelegramMessage(" ") }
         assertThrows(IllegalStateException::class.java) { TelegramTools(sender("100", sent, fail = true)).sendTelegramMessage("test") }
         assertEquals(2, sent.size)
+    }
+
+    @Test fun `optional message limit prevents repeated successful sends`() {
+        val sent = mutableListOf<SendMessage>()
+        val tools = TelegramTools(sender("123", sent), maxMessages = 1)
+        assertEquals(42, tools.sendTelegramMessage("first"))
+        assertThrows(IllegalStateException::class.java) { tools.sendTelegramMessage("again") }
+        assertEquals(1, tools.sentCount)
+        assertEquals(1, sent.size)
+        assertThrows(IllegalArgumentException::class.java) { TelegramTools(sender("123", sent), maxMessages = 0) }
+    }
+
+    @Test fun `message limit is enforced for concurrent tool calls`() {
+        val sent = mutableListOf<SendMessage>()
+        val tools = TelegramTools(sender("123", sent), maxMessages = 1)
+        val start = CountDownLatch(1)
+        val executor = Executors.newFixedThreadPool(2)
+        try {
+            val results = (1..2).map { number -> executor.submit<Boolean> {
+                start.await()
+                runCatching { tools.sendTelegramMessage("message $number") }.isSuccess
+            } }
+            start.countDown()
+            assertEquals(1, results.count { it.get() })
+            assertEquals(1, sent.size)
+        } finally {
+            executor.shutdownNow()
+        }
     }
 
     @Test fun `mock model requests the Koog tool and sends only to bound chat`() = runBlocking {
